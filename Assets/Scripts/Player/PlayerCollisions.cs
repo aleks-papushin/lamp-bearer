@@ -10,15 +10,6 @@ public class PlayerCollisions : MonoBehaviour
     public bool IsTouchingLeftWall => this.IsTouching(TagNames.LeftWallTag);
     public bool IsTouchingRightWall => this.IsTouching(TagNames.RightWallTag);
 
-    public bool IsTouchingBottomLeftCorner => 
-        this.IsTouching(TagNames.BottomWallTag) && this.IsTouching(TagNames.LeftWallTag);
-    public bool IsTouchingUpperLeftCorner => 
-        this.IsTouching(TagNames.UpperWallTag) && this.IsTouching(TagNames.LeftWallTag);
-    public bool IsTouchingUpperRightCorner => 
-        this.IsTouching(TagNames.UpperWallTag) && this.IsTouching(TagNames.RightWallTag);
-    public bool IsTouchingBottomRightCorner => 
-        this.IsTouching(TagNames.BottomWallTag) && this.IsTouching(TagNames.RightWallTag);
-
     void Start()
     {
         _playerController = GetComponent<PlayerController>();
@@ -34,7 +25,7 @@ public class PlayerCollisions : MonoBehaviour
     {
         if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
         {
-            _playerController._directionAlreadyChangedInJump = false;
+            _playerController.directionAlreadyChangedInJump = false;
         }
     }
 }
