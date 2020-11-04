@@ -2,14 +2,6 @@
 
 public partial class PlayerController : MonoBehaviour
 {
-    // Debug variables:
-    private bool infiniteInAir = false;
-    private void SwitchInfiniteInAir()
-    {
-        infiniteInAir = !infiniteInAir;
-    }
-    //
-
     private float _gravity = 9.8f;
     private GravityDirection _gravityVector;
     private MovementMode _movement;
@@ -20,18 +12,8 @@ public partial class PlayerController : MonoBehaviour
     private int _jumpForce;
 
     private PlayerCollisions _playerCollisions;
-    private SpriteRenderer _playerSprite;
 
     public bool directionAlreadyChangedInJump = false;
-
-    public bool IsTouchingAnyUpperCorner =>
-        this.IsTouchingCorner(CornerEnum.UpperLeft) || this.IsTouchingCorner(CornerEnum.UpperRight);
-    public bool IsTouchingAnyBottomCorner =>
-        this.IsTouchingCorner(CornerEnum.BottomLeft) || this.IsTouchingCorner(CornerEnum.BottomRight);
-    public bool IsTouchingAnyLeftCorner =>
-        this.IsTouchingCorner(CornerEnum.BottomLeft) || this.IsTouchingCorner(CornerEnum.BottomRight);
-    public bool IsTouchingAnyRightCorner =>
-        this.IsTouchingCorner(CornerEnum.BottomRight) || this.IsTouchingCorner(CornerEnum.UpperRight);
 
     public bool IsInputHorisontalNegative => Input.GetAxis("Horizontal") < 0;
     public bool IsInputHorizontalPositive => Input.GetAxis("Horizontal") > 0;
@@ -44,8 +26,6 @@ public partial class PlayerController : MonoBehaviour
 
     void Start()
     {
-        _playerSprite = GetComponent<SpriteRenderer>();
-
         _gravityVector = GravityDirection.Down;
         _movement = MovementMode.Simple;
         _rig = GetComponent<Rigidbody2D>();
@@ -56,16 +36,9 @@ public partial class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        this.HandleMovementUsual();
+        this.HandleMovement();
         this.HandleJump();
         this.HandleInAirDirectionChanging();
-
-        // Debug code
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            this.SwitchInfiniteInAir();
-        }
-        //
     }
 
     private void HandleJump()
@@ -158,55 +131,9 @@ public partial class PlayerController : MonoBehaviour
             _playerCollisions.IsTouchingRightWall;
     }
 
-    private void HandleMovementAlternate()
-    {
-        if (_playerCollisions.IsTouchingBottom)
-        {
-            if (IsInputHorisontalNegative)
-            {
-                _rig.AddForce(new Vector2(-_movementForce, 0));
-            }
-            else if (IsInputHorizontalPositive)
-            {
-                _rig.AddForce(new Vector2(_movementForce, 0));
-            }
-        }
-        if (_playerCollisions.IsTouchingLeftWall)
-        {
-            if (IsInputHorisontalNegative)
-            {
-                _rig.AddForce(new Vector2(0, _movementForce));
-            }
-            else if (IsInputHorizontalPositive)
-            {
-                _rig.AddForce(new Vector2(0, -_movementForce));
-            }
-        }
-        if (_playerCollisions.IsTouchingUpperWall)
-        {
-            if (IsInputHorisontalNegative)
-            {
-                _rig.AddForce(new Vector2(_movementForce, 0));
-            }
-            else if (IsInputHorizontalPositive)
-            {
-                _rig.AddForce(new Vector2(-_movementForce, 0));
-            }
-        }
-        if (_playerCollisions.IsTouchingRightWall)
-        {
-            if (IsInputHorisontalNegative)
-            {
-                _rig.AddForce(new Vector2(0, -_movementForce));
-            }
-            else if (IsInputHorizontalPositive)
-            {
-                _rig.AddForce(new Vector2(0, _movementForce));
-            }
-        }
-    }
 
-    private void HandleMovementUsual()
+
+    private void HandleMovement()
     {
         if (this.IsTouchingHorizontalWall() && IsGravityVectorVertical)
         {
@@ -230,51 +157,6 @@ public partial class PlayerController : MonoBehaviour
                 _rig.AddForce(new Vector2(0, _movementForce));
             }
         }        
-    }
-
-    private void HandleNearCornersMovement()
-    {
-        // handle direction changing on corners
-        if (this.IsTouchingAnyUpperCorner && Input.GetAxis("Vertical") < 0)
-        {
-            _gravityVector = GravityDirection.Down;
-        }
-        else if (this.IsTouchingAnyBottomCorner && Input.GetAxis("Vertical") > 0)
-        {
-            _gravityVector = GravityDirection.Up;
-        }
-        else if (this.IsTouchingAnyRightCorner && Input.GetAxis("Horizontal") < 0)
-        {
-            _gravityVector = GravityDirection.Left;
-        }
-        else if (this.IsTouchingAnyLeftCorner && Input.GetAxis("Horizontal") > 0)
-        {
-            _gravityVector = GravityDirection.Right;
-        }
-
-        this.SwitchGravity();
-    }
-
-    private void HandleJumpingAlternate()
-    {
-        if (Input.GetAxis("Vertical") < 0)
-        {
-            _gravityVector = GravityDirection.Down;
-        }
-        else if (Input.GetAxis("Vertical") > 0)
-        {
-            _gravityVector = GravityDirection.Up;
-        }
-        else if (Input.GetAxis("Horizontal") < 0)
-        {
-            _gravityVector = GravityDirection.Left;
-        }
-        else if (Input.GetAxis("Horizontal") > 0)
-        {
-            _gravityVector = GravityDirection.Right;
-        }
-
-        this.SwitchGravity();
     }
 
     private void SwitchGravity()
@@ -319,23 +201,6 @@ public partial class PlayerController : MonoBehaviour
         }
     }
 
-    private bool IsTouchingCorner(CornerEnum corner)
-    {
-        switch (corner)
-        {
-            case CornerEnum.BottomLeft:
-                return _playerCollisions.IsTouchingBottomLeftCorner;
-            case CornerEnum.UpperLeft:
-                return _playerCollisions.IsTouchingUpperLeftCorner;
-            case CornerEnum.UpperRight:
-                return _playerCollisions.IsTouchingUpperRightCorner;
-            case CornerEnum.BottomRight:
-                return _playerCollisions.IsTouchingBottomRightCorner;
-            default:
-                return false;
-        }
-    }
-
     private bool IsTouchingHorizontalWall()
     {
         return _playerCollisions.IsTouchingBottom || _playerCollisions.IsTouchingUpperWall;
@@ -349,5 +214,5 @@ public partial class PlayerController : MonoBehaviour
     private void StopRig()
     {
         _rig.velocity = Vector2.zero;
-    }
+    }    
 }
