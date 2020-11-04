@@ -244,8 +244,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        Debug.Log($"Current totalMovementForceIs {totalMovementForce}");
-
         void CorrectCurrentAccelerationForce(string axisName)
         {
             if (_currentAccelerationForce > 0)

@@ -8,6 +8,7 @@ TagManager:
   - UpperWall
   - LeftWall
   - RightWall
+  - OilBottle
   layers:
   - Default
   - TransparentFX

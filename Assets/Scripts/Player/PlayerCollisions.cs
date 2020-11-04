@@ -23,6 +23,20 @@ public class PlayerCollisions : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        this.HandleWallCollisions(collision);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag.Contains(TagNames.OilBottle))
+        {
+            // destroy oil bottle
+            Destroy(collision.gameObject);
+        }
+    }
+
+    private void HandleWallCollisions(Collision2D collision)
+    {
         if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
         {
             _playerController.directionAlreadyChangedInJump = false;

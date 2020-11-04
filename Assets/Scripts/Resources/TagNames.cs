@@ -7,5 +7,7 @@
         public readonly static string UpperWallTag = $"Upper{WallTagSuffix}";
         public readonly static string LeftWallTag = $"Left{WallTagSuffix}";
         public readonly static string RightWallTag = $"Right{WallTagSuffix}";
+
+        public const string OilBottle = "OilBottle";
     }
 }
