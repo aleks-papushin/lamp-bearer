@@ -3,16 +3,21 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [HideInInspector]
     public bool directionAlreadyChangedInJump = false;
 
     private float _gravity = 9.8f;
     private GravityDirection _gravityVector;
-    private MovementMode _movement;
     private Rigidbody2D _rig;
     [SerializeField]
-    private int _movementForce;
+    private float _movementForce;
     [SerializeField]
-    private int _jumpForce;
+    private float _initialAccelerationForce;
+    private float _currentAccelerationForce;
+    [SerializeField]
+    private float _accelerationForceReductionModifier;
+    [SerializeField]
+    private float _jumpForce;
 
     private PlayerCollisions _playerCollisions;
     [SerializeField]
@@ -32,7 +37,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _gravityVector = GravityDirection.Down;
-        _movement = MovementMode.Simple;
         _rig = GetComponent<Rigidbody2D>();
         _playerCollisions = GetComponent<PlayerCollisions>();
 
@@ -211,28 +215,49 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
+        var totalMovementForce = _movementForce + _currentAccelerationForce;
+
         if (this.IsTouchingHorizontalWall() && IsGravityVectorVertical)
         {
+            CorrectCurrentAccelerationForce("Horizontal");
+
             if (Input.GetAxis("Horizontal") < 0)
             {
-                _rig.AddForce(new Vector2(-_movementForce, 0));
+                _rig.AddForce(new Vector2(-totalMovementForce, 0));
             }
             else if (Input.GetAxis("Horizontal") > 0)
             {
-                _rig.AddForce(new Vector2(_movementForce, 0));
+                _rig.AddForce(new Vector2(totalMovementForce, 0));
             }
         }
-        if (this.IsTouchingVerticalWall() && IsGravityVectorHorizontal)
+        else if (this.IsTouchingVerticalWall() && IsGravityVectorHorizontal)
         {
+            CorrectCurrentAccelerationForce("Vertical");
+
             if (Input.GetAxis("Vertical") < 0)
             {
-                _rig.AddForce(new Vector2(0, -_movementForce));
+                _rig.AddForce(new Vector2(0, -totalMovementForce));
             }
             else if (Input.GetAxis("Vertical") > 0)
             {
-                _rig.AddForce(new Vector2(0, _movementForce));
+                _rig.AddForce(new Vector2(0, totalMovementForce));
             }
-        }        
+        }
+
+        Debug.Log($"Current totalMovementForceIs {totalMovementForce}");
+
+        void CorrectCurrentAccelerationForce(string axisName)
+        {
+            if (_currentAccelerationForce > 0)
+            {
+                _currentAccelerationForce -= _accelerationForceReductionModifier;
+            }
+
+            if (Input.GetAxis(axisName) == 0)
+            {
+                _currentAccelerationForce = _initialAccelerationForce;
+            }
+        }
     }
 
     private void SwitchGravity()

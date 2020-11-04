@@ -496,6 +496,10 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 0.5094529
       objectReference: {fileID: 0}
+    - target: {fileID: 1894497229938108200, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1894497229938108201, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.043944716
@@ -547,6 +551,30 @@ PrefabInstance:
     - target: {fileID: 1894497229938108202, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
       propertyPath: _nearGroundRotationSpeed
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894497229938108202, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: _startRotatingAt
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894497229938108202, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: _rotationSpeed
+      value: 1200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894497229938108202, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: _movementForce
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894497229938108202, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: _initialAccelerationForce
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894497229938108202, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: _accelerationForceReductionModifier
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894497229938108203, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: m_LinearDrag
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1894497229938108207, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
       propertyPath: m_Name
@@ -628,11 +656,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 1223001975}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5242ed908ba3f0d4686d9e1a593102b5, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0066610873, y: -0.48164153}
+  m_Offset: {x: 0.0066610873, y: -0.48315084}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -643,7 +671,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4226507, y: 0.036716938}
+  m_Size: {x: 0.4226507, y: 0.039735556}
   m_EdgeRadius: 0
 --- !u!1 &1358050011
 GameObject:
