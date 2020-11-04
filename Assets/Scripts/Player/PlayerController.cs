@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public partial class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     private float _gravity = 9.8f;
     private GravityDirection _gravityVector;
