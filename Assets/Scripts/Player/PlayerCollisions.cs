@@ -34,7 +34,7 @@ public class PlayerCollisions : MonoBehaviour
     {
         if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
         {
-            _playerController.directionAlreadyChangedInJump = false;
+            _playerController._directionAlreadyChangedInJump = false;
         }
     }
 }
