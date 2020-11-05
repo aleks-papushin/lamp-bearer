@@ -15,18 +15,17 @@ public class PlayerCollisions : MonoBehaviour
         _playerController = GetComponent<PlayerController>();
     }
 
-    private bool IsTouching(string tagName)
-    {
-        var otherCollider = GameObject.FindGameObjectWithTag(tagName).GetComponent<Collider2D>();
-        return transform.GetChild(0).GetComponent<Collider2D>().IsTouching(otherCollider);
-    }
-
     void OnCollisionEnter2D(Collision2D collision)
     {
-        this.HandleWallCollisions(collision);
+        this.HandleDangerousWall(collision);
+        this.HandleDirectionAlreadyChangedFlag(collision);
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        this.HandleDangerousWall(collision);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag.Contains(TagNames.OilBottle))
         {
@@ -35,11 +34,28 @@ public class PlayerCollisions : MonoBehaviour
         }
     }
 
-    private void HandleWallCollisions(Collision2D collision)
+    private void HandleDirectionAlreadyChangedFlag(Collision2D collision)
     {
         if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
         {
             _playerController.directionAlreadyChangedInJump = false;
         }
+    }
+
+    private void HandleDangerousWall(Collision2D collision)
+    {
+        if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
+        {
+            if (collision.gameObject.GetComponent<Wall>().IsDangerous)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    private bool IsTouching(string tagName)
+    {
+        var otherCollider = GameObject.FindGameObjectWithTag(tagName).GetComponent<Collider2D>();
+        return transform.GetChild(0).GetComponent<Collider2D>().IsTouching(otherCollider);
     }
 }
