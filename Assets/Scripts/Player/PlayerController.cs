@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool directionAlreadyChangedInJump = false;
 
+    private bool _isSideAxisWasHeld = false;
+
     private float _gravity = 9.8f;
     private GravityDirection _gravityVector;
     private Rigidbody2D _rig;
@@ -36,11 +38,10 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        _gravityVector = GravityDirection.Down;
         _rig = GetComponent<Rigidbody2D>();
         _playerCollisions = GetComponent<PlayerCollisions>();
 
-        this.SwitchGravity();
+        this.SwitchGravity(GravityDirection.Down);
     }
 
     void FixedUpdate()
@@ -120,8 +121,7 @@ public class PlayerController : MonoBehaviour
                 return GameObject.FindGameObjectWithTag(TagNames.RightWallTag);
         }
     }
-
-    // TODO refactor this method
+    
     private void HandleJumping()
     {
         // if on the surface, add impulse force in the opposite side
@@ -129,76 +129,102 @@ public class PlayerController : MonoBehaviour
         {
             if (_playerCollisions.IsTouchingBottom)
             {
-                this.StopRig();
-                _gravityVector = GravityDirection.Up;
-                this.SwitchGravity();
-                _rig.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);                
+                this.Jump(GravityDirection.Up, new Vector2(0, _jumpForce));
             }
             else if (_playerCollisions.IsTouchingUpperWall)
             {
-                this.StopRig();
-                _gravityVector = GravityDirection.Down;
-                this.SwitchGravity();
-                _rig.AddForce(new Vector2(0, -_jumpForce), ForceMode2D.Impulse);                
+                this.Jump(GravityDirection.Down, new Vector2(0, -_jumpForce));
             }
             else if (_playerCollisions.IsTouchingLeftWall)
             {
-                this.StopRig();
-                _gravityVector = GravityDirection.Right;
-                this.SwitchGravity();
-                _rig.AddForce(new Vector2(_jumpForce, 0), ForceMode2D.Impulse);
+                this.Jump(GravityDirection.Right, new Vector2(_jumpForce, 0));
             }
             else if (_playerCollisions.IsTouchingRightWall)
             {
-                this.StopRig();
-                _gravityVector = GravityDirection.Left;
-                this.SwitchGravity();
-                _rig.AddForce(new Vector2(-_jumpForce, 0), ForceMode2D.Impulse);
+                this.Jump(GravityDirection.Left, new Vector2(-_jumpForce, 0));
             }
         }        
     }
 
-    // TODO refactor together with HandleJumping
+    private void SetIsSideAxisHeld()
+    {
+        if (IsGravityVectorHorizontal)
+        {
+            _isSideAxisWasHeld = Input.GetAxis("Vertical") != 0;
+        }
+        else
+        {
+            _isSideAxisWasHeld = Input.GetAxis("Horizontal") != 0;
+        }
+    }
+
+    private void Jump(GravityDirection gravity, Vector2 jumpVector)
+    {
+        this.SetIsSideAxisHeld();
+        this.StopRig();
+        this.SwitchGravity(gravity);
+        _rig.AddForce(jumpVector, ForceMode2D.Impulse);
+    }
+
+    private void SwitchGravity(GravityDirection gravity)
+    {
+        _gravityVector = gravity;
+
+        switch (_gravityVector)
+        {
+            case GravityDirection.Down:
+            default:
+                Physics2D.gravity = new Vector2(0, -_gravity);
+                break;
+            case GravityDirection.Up:
+                Physics2D.gravity = new Vector2(0, _gravity);
+                break;
+            case GravityDirection.Left:
+                Physics2D.gravity = new Vector2(-_gravity, 0);
+                break;
+            case GravityDirection.Right:
+                Physics2D.gravity = new Vector2(_gravity, 0);
+                break;
+        }
+    }
+
     private void HandleInAirDirectionChanging()
     {
-        if (!directionAlreadyChangedInJump && !IsGrounded())
+        // if side buttons were held before jump - 
+        // must not change direction until button is up and pressed again
+        if (_isSideAxisWasHeld) 
         {
-            if (Input.GetAxis("Horizontal") != 0 && IsGravityVectorVertical)
+            this.SetIsSideAxisHeld();
+        }
+        else
+        {
+            if (!directionAlreadyChangedInJump && !IsGrounded())
             {
-                directionAlreadyChangedInJump = true;
+                if (Input.GetAxis("Horizontal") != 0 && IsGravityVectorVertical)
+                {
+                    directionAlreadyChangedInJump = true;
 
-                if (IsInputHorisontalNegative)
-                {
-                    this.StopRig();
-                    _gravityVector = GravityDirection.Left;
-                    this.SwitchGravity();
-                    _rig.AddForce(new Vector2(-_jumpForce, 0), ForceMode2D.Impulse);
+                    if (IsInputHorisontalNegative)
+                    {
+                        this.Jump(GravityDirection.Left, new Vector2(-_jumpForce, 0));
+                    }
+                    else if (IsInputHorizontalPositive)
+                    {
+                        this.Jump(GravityDirection.Right, new Vector2(_jumpForce, 0));
+                    }
                 }
-                else if (IsInputHorizontalPositive)
+                else if (Input.GetAxis("Vertical") != 0 && IsGravityVectorHorizontal)
                 {
-                    this.StopRig();
-                    _gravityVector = GravityDirection.Right;
-                    this.SwitchGravity();
-                    _rig.AddForce(new Vector2(_jumpForce, 0), ForceMode2D.Impulse);
-                }
-            }
-            else if (Input.GetAxis("Vertical") != 0 && IsGravityVectorHorizontal)
-            {
-                directionAlreadyChangedInJump = true;
+                    directionAlreadyChangedInJump = true;
 
-                if (IsInputVerticalNegative)
-                {
-                    this.StopRig();
-                    _gravityVector = GravityDirection.Down;
-                    this.SwitchGravity();
-                    _rig.AddForce(new Vector2(0, -_jumpForce), ForceMode2D.Impulse);
-                }
-                else if (IsInputVerticalPositive)
-                {
-                    this.StopRig();
-                    _gravityVector = GravityDirection.Up;
-                    this.SwitchGravity();
-                    _rig.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+                    if (IsInputVerticalNegative)
+                    {
+                        this.Jump(GravityDirection.Down, new Vector2(0, -_jumpForce));
+                    }
+                    else if (IsInputVerticalPositive)
+                    {
+                        this.Jump(GravityDirection.Up, new Vector2(0, _jumpForce));
+                    }
                 }
             }
         }
@@ -255,26 +281,6 @@ public class PlayerController : MonoBehaviour
             {
                 _currentAccelerationForce = _initialAccelerationForce;
             }
-        }
-    }
-
-    private void SwitchGravity()
-    {
-        switch (_gravityVector)
-        {
-            case GravityDirection.Down:
-            default:
-                Physics2D.gravity = new Vector2(0, -_gravity);
-                break;
-            case GravityDirection.Up:
-                Physics2D.gravity = new Vector2(0, _gravity);
-                break;
-            case GravityDirection.Left:
-                Physics2D.gravity = new Vector2(-_gravity, 0);
-                break;
-            case GravityDirection.Right:
-                Physics2D.gravity = new Vector2(_gravity, 0);
-                break;
         }
     }
 

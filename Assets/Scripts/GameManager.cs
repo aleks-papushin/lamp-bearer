@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,13 +10,14 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> Walls { get; set; }
 
-    private float _wallChangingInterval = 1f;
+    [SerializeField]
+    private float _wallChangingInterval;
 
     // Start is called before the first frame update
     void Start()
     {
         Walls = FindObjectsOfType<Wall>().Select(w => w.gameObject).ToList();
-        StartCoroutine(this.HandleWalls());
+        //StartCoroutine(this.HandleWalls());
 
         _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCount);
     }
