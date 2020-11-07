@@ -45,7 +45,7 @@ public class PlayerCollisions : MonoBehaviour
     }
 
     private void OnCollisionStay2D(Collision2D collision)
-    {
+    {        
         this.HandleDangerousWall(collision);
     }
 

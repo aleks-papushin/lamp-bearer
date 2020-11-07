@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     // Debugging variables
     public bool switchOffWalls;
+    public GameObject _player;
     //
 
     // Start is called before the first frame update
@@ -34,7 +35,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+            // Debug
+        if (GameObject.FindGameObjectWithTag("Player") == null)
+        {
+            Instantiate(_player, _player.transform.position, _player.transform.rotation);
+        }
+            // 
     }
 
     private IEnumerator MakeWallsDangerous()
