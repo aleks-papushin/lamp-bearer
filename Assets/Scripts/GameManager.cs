@@ -8,10 +8,15 @@ public class GameManager : MonoBehaviour
     public GameObject _spawner;
     public int oilBottleCount;
 
-    public List<GameObject> Walls { get; set; }
+    public List<GameObject> WallsToBeDangerous => 
+        FindObjectsOfType<Wall>().Where(w => !w.IsPlayerStandingOn).Select(w => w.gameObject).ToList();
 
     [SerializeField]
+    private float _wallWarningInterval;
+    [SerializeField]
     private float _wallChangingInterval;
+    [SerializeField]
+    private float _wallCoolDownInterval;
 
     // Debugging variables
     public bool switchOffWalls;
@@ -21,7 +26,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         switchOffWalls = false;
-        Walls = FindObjectsOfType<Wall>().Select(w => w.gameObject).ToList();
         StartCoroutine(this.MakeWallsDangerous());
 
         _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCount);
@@ -35,18 +39,22 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator MakeWallsDangerous()
     {
+        // every N sec pick random wall and make it danger
+
         while (true)
         {
-            // every N sec pick random wall and make it danger
-            yield return new WaitForSeconds(_wallChangingInterval);
+            var dangerousInterval = _wallChangingInterval + _wallWarningInterval;
+
+            yield return new WaitForSeconds(_wallCoolDownInterval);
 
             if (!switchOffWalls)
             {
-                var wallIdx = new System.Random().Next(Walls.Count);
-                var wall = Walls[wallIdx];
-                wall.GetComponent<Wall>().BecameDangerous();
+                var wallIdx = new System.Random().Next(WallsToBeDangerous.Count);
+                var wall = WallsToBeDangerous[wallIdx];
+                
+                StartCoroutine(wall.GetComponent<Wall>().BecameDangerousCoroutine(_wallWarningInterval));
 
-                yield return new WaitForSeconds(_wallChangingInterval);
+                yield return new WaitForSeconds(dangerousInterval);
 
                 wall.GetComponent<Wall>().BecameSafe();
             }

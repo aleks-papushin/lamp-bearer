@@ -1,17 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-    [SerializeField]
-    private Color _myColor;
-
     public bool IsDangerous { get; private set; }
+    public bool IsPlayerStandingOn { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
-        _myColor = Color.green;
-        this.ChangeColorTo(_myColor);
+        this.ChangeColorTo(Color.green);
         
         IsDangerous = false;        
     }
@@ -24,15 +22,23 @@ public class Wall : MonoBehaviour
 
     public void BecameDangerous()
     {
-        _myColor = Color.red;
-        this.ChangeColorTo(_myColor);
+        this.ChangeColorTo(Color.red);
+        IsDangerous = true;
+    }
+
+    public IEnumerator BecameDangerousCoroutine(float _wallWarningInterval)
+    {
+        this.ChangeColorTo(new Color(255/255f, 128/255f, 0/255f));
+
+        yield return new WaitForSeconds(_wallWarningInterval);
+
+        this.ChangeColorTo(Color.red);
         IsDangerous = true;
     }
 
     public void BecameSafe()
     {
-        _myColor = Color.green;
-        this.ChangeColorTo(_myColor);
+        this.ChangeColorTo(Color.green);
         IsDangerous = false;
     }
 

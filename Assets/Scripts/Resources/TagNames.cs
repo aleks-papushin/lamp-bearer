@@ -2,6 +2,8 @@
 {
     public static class TagNames
     {
+        public const string PlayerTag = "Player";
+
         public const string WallTagSuffix = "Wall";
         public readonly static string BottomWallTag = $"Bottom{WallTagSuffix}";
         public readonly static string UpperWallTag = $"Upper{WallTagSuffix}";

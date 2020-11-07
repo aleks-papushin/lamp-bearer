@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Resources;
+using System;
 using UnityEngine;
 
 public class PlayerCollisions : MonoBehaviour
@@ -17,9 +18,32 @@ public class PlayerCollisions : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        this.HandleDangerousWall(collision);
+        this.HandleWalls(collision);        
         this.HandleDirectionAlreadyChangedFlag(collision);
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
+        {
+            this.HandleBeingOnWall(collision, isOnWall: false);
+        }
+    }
+
+    private void HandleWalls(Collision2D collision)
+    {
+        if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
+        {
+            this.HandleDangerousWall(collision);
+            this.HandleBeingOnWall(collision, isOnWall: true);
+        }
+    }
+
+    private void HandleBeingOnWall(Collision2D collision, bool isOnWall)
+    {
+        collision.transform.GetComponent<Wall>().IsPlayerStandingOn = isOnWall;
+    }
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         this.HandleDangerousWall(collision);
@@ -44,12 +68,9 @@ public class PlayerCollisions : MonoBehaviour
 
     private void HandleDangerousWall(Collision2D collision)
     {
-        if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
+        if (collision.gameObject.GetComponent<Wall>().IsDangerous)
         {
-            if (collision.gameObject.GetComponent<Wall>().IsDangerous)
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
     }
 
