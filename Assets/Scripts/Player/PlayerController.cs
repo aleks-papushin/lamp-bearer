@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour
     private float _gravity = 9.8f;
     private Direction _gravityVector;
 
-    private Direction _playerMovement;
+    [SerializeField]
+    private float _rigVelocityForce;
     [SerializeField]
     private float _movementForce;
     [SerializeField]
@@ -39,6 +40,8 @@ public class PlayerController : MonoBehaviour
     public bool IsGravityVectorVertical => _gravityVector == Direction.Down || _gravityVector == Direction.Up;
     public bool IsGravityVectorHorizontal => _gravityVector == Direction.Left || _gravityVector == Direction.Right;
 
+    public bool IsGrounded => _playerCollisions.IsGrounded;        
+
     void Start()
     {
         _rig = GetComponent<Rigidbody2D>();
@@ -49,7 +52,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        this.HandleMovement();        
+        if (IsGrounded)
+        {
+            this.HandleMovement();
+        }
         this.HandleJumping();
         this.HandleInAirDirectionChanging();
         this.HandlePlayerRotationInAir();
@@ -62,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandlePlayerRotationInAir()
     {
-        if (!IsGrounded())
+        if (!IsGrounded)
         {
             if (this.AmIFarFromGround())
             {          
@@ -153,6 +159,11 @@ public class PlayerController : MonoBehaviour
             }
 
             _isJumpAxisWasIdle = false;
+
+            _playerCollisions.IsGrounded = false;
+
+            Debug.Log($"Last line of 'if' of HandleJumping() " +
+            $"IsGrounded: {IsGrounded}");
         }
         else if (Input.GetAxisRaw("Jump") == 0)
         {
@@ -232,7 +243,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (!directionAlreadyChangedInJump && !IsGrounded())
+            if (!directionAlreadyChangedInJump && !IsGrounded)
             {
                 if (Input.GetAxisRaw("Horizontal") != 0 && IsGravityVectorVertical)
                 {
@@ -264,72 +275,46 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool IsGrounded()
-    {
-        return 
-            _playerCollisions.IsTouchingBottom ||
-            _playerCollisions.IsTouchingUpperWall ||
-            _playerCollisions.IsTouchingLeftWall ||
-            _playerCollisions.IsTouchingRightWall;
-    }
+    //private bool IsGrounded()
+    //{
+    //    return 
+    //        _playerCollisions.IsTouchingBottom ||
+    //        _playerCollisions.IsTouchingUpperWall ||
+    //        _playerCollisions.IsTouchingLeftWall ||
+    //        _playerCollisions.IsTouchingRightWall;
+    //}
 
     private void HandleMovement()
     {
-
         var totalMovementForce = _movementForce + _currentAccelerationForce;
 
         if (this.IsTouchingHorizontalWall() && IsGravityVectorVertical)
-        {
-            CorrectCurrentAccelerationForce("Horizontal");
-           
+        {           
             if (Input.GetAxisRaw("Horizontal") < 0)
-            {
-                HandleMovementDirectionChanging(Direction.Left);
-                _rig.AddForce(new Vector2(-totalMovementForce, 0));
+            {             
+                this.RigidbodySetVelocity(new Vector2(-totalMovementForce, 0));
             }
             else if (Input.GetAxisRaw("Horizontal") > 0)
             {
-                HandleMovementDirectionChanging(Direction.Right);
-                _rig.AddForce(new Vector2(totalMovementForce, 0));
+                this.RigidbodySetVelocity(new Vector2(totalMovementForce, 0));
             }
         }
         else if (this.IsTouchingVerticalWall() && IsGravityVectorHorizontal)
-        {
-            CorrectCurrentAccelerationForce("Vertical");
-            
+        {            
             if (Input.GetAxisRaw("Vertical") < 0)
             {
-                HandleMovementDirectionChanging(Direction.Down);
-                _rig.AddForce(new Vector2(0, -totalMovementForce));
+                this.RigidbodySetVelocity(new Vector2(0, -totalMovementForce));
             }
             else if (Input.GetAxisRaw("Vertical") > 0)
             {
-                HandleMovementDirectionChanging(Direction.Right);
-                _rig.AddForce(new Vector2(0, totalMovementForce));
+                this.RigidbodySetVelocity(new Vector2(0, totalMovementForce));
             }
         }
+    }
 
-        void CorrectCurrentAccelerationForce(string axisName)
-        {
-            if (_currentAccelerationForce > 0)
-            {
-                _currentAccelerationForce -= _accelerationForceReductionModifier;
-            }
-
-            if (Input.GetAxisRaw(axisName) == 0)
-            {
-                _currentAccelerationForce = _initialAccelerationForce;
-            }
-        }
-
-        void HandleMovementDirectionChanging(Direction direction)
-        {
-            //if (_playerMovement != direction)
-            //{
-            //    StopRig();
-            //    _playerMovement = direction;
-            //}
-        }
+    private void RigidbodySetVelocity(Vector2 vector)
+    {
+        _rig.velocity = vector * _rigVelocityForce;
     }
 
     private bool IsTouchingHorizontalWall()

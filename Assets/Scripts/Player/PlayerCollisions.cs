@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Resources;
+using System;
 using UnityEngine;
 
 public class PlayerCollisions : MonoBehaviour
@@ -9,6 +10,8 @@ public class PlayerCollisions : MonoBehaviour
     public bool IsTouchingUpperWall => this.IsTouching(TagNames.UpperWallTag);
     public bool IsTouchingLeftWall => this.IsTouching(TagNames.LeftWallTag);
     public bool IsTouchingRightWall => this.IsTouching(TagNames.RightWallTag);
+
+    public bool IsGrounded { get; internal set; }
 
     void Start()
     {
@@ -25,6 +28,7 @@ public class PlayerCollisions : MonoBehaviour
     {
         if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
         {
+            IsGrounded = false;
             this.HandleBeingOnWall(collision, isOnWall: false);
         }
     }
@@ -34,6 +38,7 @@ public class PlayerCollisions : MonoBehaviour
         if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
         {
             this.HandleDangerousWall(collision);
+            IsGrounded = true;
             this.HandleBeingOnWall(collision, isOnWall: true);
         }
     }
