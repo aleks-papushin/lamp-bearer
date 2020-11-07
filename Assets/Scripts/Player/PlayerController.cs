@@ -6,11 +6,12 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool directionAlreadyChangedInJump = false;
 
-    private bool _isSideAxisWasHeld = false;
-
-    private float _gravity = 9.8f;
-    private GravityDirection _gravityVector;
     private Rigidbody2D _rig;
+        
+    private float _gravity = 9.8f;
+    private Direction _gravityVector;
+
+    private Direction _playerMovement;
     [SerializeField]
     private float _movementForce;
     [SerializeField]
@@ -18,6 +19,8 @@ public class PlayerController : MonoBehaviour
     private float _currentAccelerationForce;
     [SerializeField]
     private float _accelerationForceReductionModifier;
+    private bool _isSideAxisWasHeld = false;
+
     [SerializeField]
     private float _jumpForce;
     private bool _isJumpAxisWasIdle = true;
@@ -28,20 +31,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float _rotationSpeed = 10f;
 
-    public bool IsInputHorisontalNegative => Input.GetAxis("Horizontal") < 0;
-    public bool IsInputHorizontalPositive => Input.GetAxis("Horizontal") > 0;
-    public bool IsInputVerticalNegative => Input.GetAxis("Vertical") < 0;
-    public bool IsInputVerticalPositive => Input.GetAxis("Vertical") > 0;
+    public bool IsInputHorisontalNegative => Input.GetAxisRaw("Horizontal") < 0;
+    public bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
+    public bool IsInputVerticalNegative => Input.GetAxisRaw("Vertical") < 0;
+    public bool IsInputVerticalPositive => Input.GetAxisRaw("Vertical") > 0;
 
-    public bool IsGravityVectorVertical => _gravityVector == GravityDirection.Down || _gravityVector == GravityDirection.Up;
-    public bool IsGravityVectorHorizontal => _gravityVector == GravityDirection.Left || _gravityVector == GravityDirection.Right;
+    public bool IsGravityVectorVertical => _gravityVector == Direction.Down || _gravityVector == Direction.Up;
+    public bool IsGravityVectorHorizontal => _gravityVector == Direction.Left || _gravityVector == Direction.Right;
 
     void Start()
     {
         _rig = GetComponent<Rigidbody2D>();
         _playerCollisions = GetComponent<PlayerCollisions>();
 
-        this.SwitchGravity(GravityDirection.Down);
+        this.SwitchGravity(Direction.Down);
     }
 
     void FixedUpdate()
@@ -51,6 +54,7 @@ public class PlayerController : MonoBehaviour
         this.HandleInAirDirectionChanging();
         this.HandlePlayerRotationInAir();
     }
+
     public void UnfreezeRig()
     {
         _rig.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -71,23 +75,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private GravityDirection OppositeTo(GravityDirection gravityVector)
+    private Direction OppositeTo(Direction gravityVector)
     {
         switch (gravityVector)
         {
-            case GravityDirection.Down:            
-                return GravityDirection.Up;
-            case GravityDirection.Left:
-                return GravityDirection.Right;
-            case GravityDirection.Up:
+            case Direction.Down:            
+                return Direction.Up;
+            case Direction.Left:
+                return Direction.Right;
+            case Direction.Up:
             default:
-                return GravityDirection.Down;
-            case GravityDirection.Right:
-                return GravityDirection.Left;
+                return Direction.Down;
+            case Direction.Right:
+                return Direction.Left;
         }
     }
 
-    private void RotateTowards(GravityDirection gravityVector)
+    private void RotateTowards(Direction gravityVector)
     {
         var floor = GetFloorFor(gravityVector);
         transform.rotation = 
@@ -110,18 +114,18 @@ public class PlayerController : MonoBehaviour
         return isCloseToGround;
     }
 
-    private GameObject GetFloorFor(GravityDirection gravityDirection)
+    private GameObject GetFloorFor(Direction gravityDirection)
     {
         switch (gravityDirection)
         {
-            case GravityDirection.Down:
+            case Direction.Down:
             default:
                 return GameObject.FindGameObjectWithTag(TagNames.BottomWallTag);
-            case GravityDirection.Left:
+            case Direction.Left:
                 return GameObject.FindGameObjectWithTag(TagNames.LeftWallTag);
-            case GravityDirection.Up:
+            case Direction.Up:
                 return GameObject.FindGameObjectWithTag(TagNames.UpperWallTag);
-            case GravityDirection.Right:
+            case Direction.Right:
                 return GameObject.FindGameObjectWithTag(TagNames.RightWallTag);
         }
     }
@@ -129,28 +133,28 @@ public class PlayerController : MonoBehaviour
     private void HandleJumping()
     {
         // if on the surface, add impulse force in the opposite side
-        if (_isJumpAxisWasIdle && Input.GetAxis("Jump") > 0)
+        if (_isJumpAxisWasIdle && Input.GetAxisRaw("Jump") > 0)
         {            
             if (_playerCollisions.IsTouchingBottom)
             {
-                this.Jump(GravityDirection.Up, new Vector2(0, _jumpForce));
+                this.Jump(Direction.Up, new Vector2(0, _jumpForce));
             }
             else if (_playerCollisions.IsTouchingUpperWall)
             {
-                this.Jump(GravityDirection.Down, new Vector2(0, -_jumpForce));
+                this.Jump(Direction.Down, new Vector2(0, -_jumpForce));
             }
             else if (_playerCollisions.IsTouchingLeftWall)
             {
-                this.Jump(GravityDirection.Right, new Vector2(_jumpForce, 0));
+                this.Jump(Direction.Right, new Vector2(_jumpForce, 0));
             }
             else if (_playerCollisions.IsTouchingRightWall)
             {
-                this.Jump(GravityDirection.Left, new Vector2(-_jumpForce, 0));
+                this.Jump(Direction.Left, new Vector2(-_jumpForce, 0));
             }
 
             _isJumpAxisWasIdle = false;
         }
-        else if (Input.GetAxis("Jump") == 0)
+        else if (Input.GetAxisRaw("Jump") == 0)
         {
             _isJumpAxisWasIdle = true;
         }
@@ -162,15 +166,15 @@ public class PlayerController : MonoBehaviour
     {
         if (IsGravityVectorHorizontal)
         {
-            _isSideAxisWasHeld = Input.GetAxis("Vertical") != 0;
+            _isSideAxisWasHeld = Input.GetAxisRaw("Vertical") != 0;
         }
         else
         {
-            _isSideAxisWasHeld = Input.GetAxis("Horizontal") != 0;
+            _isSideAxisWasHeld = Input.GetAxisRaw("Horizontal") != 0;
         }
     }
 
-    private void Jump(GravityDirection gravity, Vector2 jumpVector)
+    private void Jump(Direction gravity, Vector2 jumpVector)
     {        
         this.SetIsSideAxisHeld();
         this.StopRig();        
@@ -181,38 +185,38 @@ public class PlayerController : MonoBehaviour
 
     // This method was added because of slight side movement
     // observed in case if player pressed jump and side movement buttons simultaneously
-    private void FreezePerpendicularAxis(GravityDirection gravity)
+    private void FreezePerpendicularAxis(Direction gravity)
     {
         switch (gravity)
         {
-            case GravityDirection.Down:
-            case GravityDirection.Up:
+            case Direction.Down:
+            case Direction.Up:
                 _rig.constraints = RigidbodyConstraints2D.FreezePositionX;
                 break;
-            case GravityDirection.Left:
-            case GravityDirection.Right:
+            case Direction.Left:
+            case Direction.Right:
                 _rig.constraints = RigidbodyConstraints2D.FreezePositionY;
                 break;
         }
     }
 
-    private void SwitchGravity(GravityDirection gravity)
+    private void SwitchGravity(Direction gravity)
     {
         _gravityVector = gravity;
 
         switch (_gravityVector)
         {
-            case GravityDirection.Down:
+            case Direction.Down:
             default:
                 Physics2D.gravity = new Vector2(0, -_gravity);
                 break;
-            case GravityDirection.Up:
+            case Direction.Up:
                 Physics2D.gravity = new Vector2(0, _gravity);
                 break;
-            case GravityDirection.Left:
+            case Direction.Left:
                 Physics2D.gravity = new Vector2(-_gravity, 0);
                 break;
-            case GravityDirection.Right:
+            case Direction.Right:
                 Physics2D.gravity = new Vector2(_gravity, 0);
                 break;
         }
@@ -230,30 +234,30 @@ public class PlayerController : MonoBehaviour
         {
             if (!directionAlreadyChangedInJump && !IsGrounded())
             {
-                if (Input.GetAxis("Horizontal") != 0 && IsGravityVectorVertical)
+                if (Input.GetAxisRaw("Horizontal") != 0 && IsGravityVectorVertical)
                 {
                     directionAlreadyChangedInJump = true;
 
                     if (IsInputHorisontalNegative)
                     {
-                        this.Jump(GravityDirection.Left, new Vector2(-_jumpForce, 0));
+                        this.Jump(Direction.Left, new Vector2(-_jumpForce, 0));
                     }
                     else if (IsInputHorizontalPositive)
                     {
-                        this.Jump(GravityDirection.Right, new Vector2(_jumpForce, 0));
+                        this.Jump(Direction.Right, new Vector2(_jumpForce, 0));
                     }
                 }
-                else if (Input.GetAxis("Vertical") != 0 && IsGravityVectorHorizontal)
+                else if (Input.GetAxisRaw("Vertical") != 0 && IsGravityVectorHorizontal)
                 {
                     directionAlreadyChangedInJump = true;
 
                     if (IsInputVerticalNegative)
                     {
-                        this.Jump(GravityDirection.Down, new Vector2(0, -_jumpForce));
+                        this.Jump(Direction.Down, new Vector2(0, -_jumpForce));
                     }
                     else if (IsInputVerticalPositive)
                     {
-                        this.Jump(GravityDirection.Up, new Vector2(0, _jumpForce));
+                        this.Jump(Direction.Up, new Vector2(0, _jumpForce));
                     }
                 }
             }
@@ -271,31 +275,36 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
+
         var totalMovementForce = _movementForce + _currentAccelerationForce;
 
         if (this.IsTouchingHorizontalWall() && IsGravityVectorVertical)
         {
             CorrectCurrentAccelerationForce("Horizontal");
-
-            if (Input.GetAxis("Horizontal") < 0)
+           
+            if (Input.GetAxisRaw("Horizontal") < 0)
             {
+                HandleMovementDirectionChanging(Direction.Left);
                 _rig.AddForce(new Vector2(-totalMovementForce, 0));
             }
-            else if (Input.GetAxis("Horizontal") > 0)
+            else if (Input.GetAxisRaw("Horizontal") > 0)
             {
+                HandleMovementDirectionChanging(Direction.Right);
                 _rig.AddForce(new Vector2(totalMovementForce, 0));
             }
         }
         else if (this.IsTouchingVerticalWall() && IsGravityVectorHorizontal)
         {
             CorrectCurrentAccelerationForce("Vertical");
-
-            if (Input.GetAxis("Vertical") < 0)
+            
+            if (Input.GetAxisRaw("Vertical") < 0)
             {
+                HandleMovementDirectionChanging(Direction.Down);
                 _rig.AddForce(new Vector2(0, -totalMovementForce));
             }
-            else if (Input.GetAxis("Vertical") > 0)
+            else if (Input.GetAxisRaw("Vertical") > 0)
             {
+                HandleMovementDirectionChanging(Direction.Right);
                 _rig.AddForce(new Vector2(0, totalMovementForce));
             }
         }
@@ -307,10 +316,19 @@ public class PlayerController : MonoBehaviour
                 _currentAccelerationForce -= _accelerationForceReductionModifier;
             }
 
-            if (Input.GetAxis(axisName) == 0)
+            if (Input.GetAxisRaw(axisName) == 0)
             {
                 _currentAccelerationForce = _initialAccelerationForce;
             }
+        }
+
+        void HandleMovementDirectionChanging(Direction direction)
+        {
+            //if (_playerMovement != direction)
+            //{
+            //    StopRig();
+            //    _playerMovement = direction;
+            //}
         }
     }
 

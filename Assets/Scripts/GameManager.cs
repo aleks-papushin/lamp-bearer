@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        switchOffWalls = false;
         StartCoroutine(this.MakeWallsDangerous());
 
         _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCount);

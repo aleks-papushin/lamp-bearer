@@ -1,4 +1,4 @@
-﻿public enum GravityDirection 
+﻿public enum Direction 
 { 
     Down, 
     Left, 
