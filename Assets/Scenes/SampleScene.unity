@@ -280,6 +280,7 @@ MonoBehaviour:
   _wallChangingInterval: 3
   _wallCoolDownInterval: 1
   switchOffWalls: 0
+  _player: {fileID: 1894497229938108207, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
 --- !u!4 &374989670
 Transform:
   m_ObjectHideFlags: 0
