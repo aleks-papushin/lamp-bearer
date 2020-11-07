@@ -13,11 +13,16 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float _wallChangingInterval;
 
+    // Debugging variables
+    public bool switchOffWalls;
+    //
+
     // Start is called before the first frame update
     void Start()
     {
+        switchOffWalls = false;
         Walls = FindObjectsOfType<Wall>().Select(w => w.gameObject).ToList();
-        //StartCoroutine(this.HandleWalls());
+        StartCoroutine(this.MakeWallsDangerous());
 
         _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCount);
     }
@@ -28,20 +33,23 @@ public class GameManager : MonoBehaviour
         
     }
 
-    private IEnumerator HandleWalls()
+    private IEnumerator MakeWallsDangerous()
     {
         while (true)
         {
             // every N sec pick random wall and make it danger
             yield return new WaitForSeconds(_wallChangingInterval);
 
-            var wallIdx = new System.Random().Next(Walls.Count);
-            var wall = Walls[wallIdx];
-            wall.GetComponent<Wall>().BecameDangerous();
+            if (!switchOffWalls)
+            {
+                var wallIdx = new System.Random().Next(Walls.Count);
+                var wall = Walls[wallIdx];
+                wall.GetComponent<Wall>().BecameDangerous();
 
-            yield return new WaitForSeconds(_wallChangingInterval);
+                yield return new WaitForSeconds(_wallChangingInterval);
 
-            wall.GetComponent<Wall>().BecameSafe();
+                wall.GetComponent<Wall>().BecameSafe();
+            }
         }
     }
 }

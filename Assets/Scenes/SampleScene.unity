@@ -277,6 +277,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawner: {fileID: 2078487368}
   oilBottleCount: 10
+  _wallChangingInterval: 2
+  switchOffWalls: 0
 --- !u!4 &374989670
 Transform:
   m_ObjectHideFlags: 0
