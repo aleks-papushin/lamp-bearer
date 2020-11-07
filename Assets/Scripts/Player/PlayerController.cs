@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private float _accelerationForceReductionModifier;
     [SerializeField]
     private float _jumpForce;
+    private bool _isJumpAxisWasIdle = true;
 
     private PlayerCollisions _playerCollisions;
     [SerializeField]
@@ -35,7 +36,6 @@ public class PlayerController : MonoBehaviour
     public bool IsGravityVectorVertical => _gravityVector == GravityDirection.Down || _gravityVector == GravityDirection.Up;
     public bool IsGravityVectorHorizontal => _gravityVector == GravityDirection.Left || _gravityVector == GravityDirection.Right;
 
-
     void Start()
     {
         _rig = GetComponent<Rigidbody2D>();
@@ -46,10 +46,14 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        this.HandleMovement();
+        this.HandleMovement();        
         this.HandleJumping();
         this.HandleInAirDirectionChanging();
         this.HandlePlayerRotationInAir();
+    }
+    public void UnfreezeRig()
+    {
+        _rig.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     private void HandlePlayerRotationInAir()
@@ -125,8 +129,8 @@ public class PlayerController : MonoBehaviour
     private void HandleJumping()
     {
         // if on the surface, add impulse force in the opposite side
-        if (Input.GetAxis("Jump") > 0)
-        {
+        if (_isJumpAxisWasIdle && Input.GetAxis("Jump") > 0)
+        {            
             if (_playerCollisions.IsTouchingBottom)
             {
                 this.Jump(GravityDirection.Up, new Vector2(0, _jumpForce));
@@ -143,9 +147,17 @@ public class PlayerController : MonoBehaviour
             {
                 this.Jump(GravityDirection.Left, new Vector2(-_jumpForce, 0));
             }
-        }        
+
+            _isJumpAxisWasIdle = false;
+        }
+        else if (Input.GetAxis("Jump") == 0)
+        {
+            _isJumpAxisWasIdle = true;
+        }
     }
 
+    // This method prevents player from turning aside in jump
+    // in case if direction button was held in moment when player jumps
     private void SetIsSideAxisHeld()
     {
         if (IsGravityVectorHorizontal)
@@ -159,11 +171,29 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Jump(GravityDirection gravity, Vector2 jumpVector)
-    {
+    {        
         this.SetIsSideAxisHeld();
-        this.StopRig();
+        this.StopRig();        
+        this.FreezePerpendicularAxis(gravity);
         this.SwitchGravity(gravity);
         _rig.AddForce(jumpVector, ForceMode2D.Impulse);
+    }
+
+    // This method was added because of slight side movement
+    // observed in case if player pressed jump and side movement buttons simultaneously
+    private void FreezePerpendicularAxis(GravityDirection gravity)
+    {
+        switch (gravity)
+        {
+            case GravityDirection.Down:
+            case GravityDirection.Up:
+                _rig.constraints = RigidbodyConstraints2D.FreezePositionX;
+                break;
+            case GravityDirection.Left:
+            case GravityDirection.Right:
+                _rig.constraints = RigidbodyConstraints2D.FreezePositionY;
+                break;
+        }
     }
 
     private void SwitchGravity(GravityDirection gravity)

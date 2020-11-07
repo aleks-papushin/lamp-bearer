@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Resources;
-using System;
 using UnityEngine;
 
 public class PlayerCollisions : MonoBehaviour
@@ -19,7 +18,7 @@ public class PlayerCollisions : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         this.HandleWalls(collision);        
-        this.HandleDirectionAlreadyChangedFlag(collision);
+        this.HandlePlayerGrounding(collision);
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -58,11 +57,12 @@ public class PlayerCollisions : MonoBehaviour
         }
     }
 
-    private void HandleDirectionAlreadyChangedFlag(Collision2D collision)
+    private void HandlePlayerGrounding(Collision2D collision)
     {
         if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
         {
             _playerController.directionAlreadyChangedInJump = false;
+            _playerController.UnfreezeRig();
         }
     }
 
