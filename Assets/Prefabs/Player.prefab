@@ -160,7 +160,7 @@ Rigidbody2D:
   m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5242ed908ba3f0d4686d9e1a593102b5, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 0
   m_CollisionDetection: 1
@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionAlreadyChangedInJump: 0
+  _rigVelocityForce: 0.25
   _movementForce: 25
   _initialAccelerationForce: 45
   _accelerationForceReductionModifier: 5
