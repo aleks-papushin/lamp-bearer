@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float _wallWarningInterval;
     [SerializeField]
-    private float _wallChangingInterval;
+    private float _wallDangerousInterval;
     [SerializeField]
     private float _wallCoolDownInterval;
 
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(this.MakeWallsDangerous());
+        StartCoroutine(this.HandleWallsDangerousness());
     }
 
     // Update is called once per frame
@@ -55,13 +55,13 @@ public class GameManager : MonoBehaviour
         }        
     }
 
-    private IEnumerator MakeWallsDangerous()
+    private IEnumerator HandleWallsDangerousness()
     {
         // every N sec pick random wall and make it danger
 
         while (true)
         {
-            var dangerousInterval = _wallChangingInterval + _wallWarningInterval;
+            var dangerousInterval = _wallDangerousInterval + _wallWarningInterval;
 
             yield return new WaitForSeconds(_wallCoolDownInterval);
 
