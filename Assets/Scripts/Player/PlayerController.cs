@@ -12,14 +12,7 @@ public class PlayerController : MonoBehaviour
     private Direction _gravityVector;
 
     [SerializeField]
-    private float _rigVelocityForce;
-    [SerializeField]
-    private float _movementForce;
-    [SerializeField]
-    private float _initialAccelerationForce;
-    private float _currentAccelerationForce;
-    [SerializeField]
-    private float _accelerationForceReductionModifier;
+    private float _movementSpeed;
     private bool _isSideAxisWasHeld = false;
 
     [SerializeField]
@@ -80,7 +73,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
     private Direction OppositeTo(Direction gravityVector)
     {
         switch (gravityVector)
@@ -272,46 +264,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //private bool IsGrounded()
-    //{
-    //    return 
-    //        _playerCollisions.IsTouchingBottom ||
-    //        _playerCollisions.IsTouchingUpperWall ||
-    //        _playerCollisions.IsTouchingLeftWall ||
-    //        _playerCollisions.IsTouchingRightWall;
-    //}
-
     private void HandleMovement()
     {
-        var totalMovementForce = _movementForce + _currentAccelerationForce;
-
         if (this.IsTouchingHorizontalWall() && IsGravityVectorVertical)
         {           
             if (Input.GetAxisRaw("Horizontal") < 0)
             {             
-                this.RigidbodySetVelocity(new Vector2(-totalMovementForce, 0));
+                this.RigidbodySetVelocity(new Vector2(-1, 0));
             }
             else if (Input.GetAxisRaw("Horizontal") > 0)
             {
-                this.RigidbodySetVelocity(new Vector2(totalMovementForce, 0));
+                this.RigidbodySetVelocity(new Vector2(1, 0));
             }
         }
         else if (this.IsTouchingVerticalWall() && IsGravityVectorHorizontal)
         {            
             if (Input.GetAxisRaw("Vertical") < 0)
             {
-                this.RigidbodySetVelocity(new Vector2(0, -totalMovementForce));
+                this.RigidbodySetVelocity(new Vector2(0, -1));
             }
             else if (Input.GetAxisRaw("Vertical") > 0)
             {
-                this.RigidbodySetVelocity(new Vector2(0, totalMovementForce));
+                this.RigidbodySetVelocity(new Vector2(0, 1));
             }
         }
     }
 
     private void RigidbodySetVelocity(Vector2 vector)
     {
-        _rig.velocity = vector * _rigVelocityForce;
+        _rig.velocity = vector * _movementSpeed;
     }
 
     private bool IsTouchingHorizontalWall()
