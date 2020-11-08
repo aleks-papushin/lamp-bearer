@@ -161,9 +161,6 @@ public class PlayerController : MonoBehaviour
             _isJumpAxisWasIdle = false;
 
             _playerCollisions.IsGrounded = false;
-
-            Debug.Log($"Last line of 'if' of HandleJumping() " +
-            $"IsGrounded: {IsGrounded}");
         }
         else if (Input.GetAxisRaw("Jump") == 0)
         {
