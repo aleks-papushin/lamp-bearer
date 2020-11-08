@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Resources;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,12 +12,16 @@ public class GameManager : MonoBehaviour
     public List<GameObject> WallsToBeDangerous => 
         FindObjectsOfType<Wall>().Where(w => !w.IsPlayerStandingOn).Select(w => w.gameObject).ToList();
 
+    public bool IsThereOilBottles => GameObject.FindGameObjectsWithTag(TagNames.OilBottle).Any();
+
     [SerializeField]
     private float _wallWarningInterval;
     [SerializeField]
     private float _wallChangingInterval;
     [SerializeField]
     private float _wallCoolDownInterval;
+
+
 
     // Debugging variables
     public bool switchOffWalls;
@@ -27,19 +32,27 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(this.MakeWallsDangerous());
-
-        _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCount);
     }
 
     // Update is called once per frame
     void Update()
     {
+        this.HandleOilSpawn();
+
             // Debug
         if (GameObject.FindGameObjectWithTag("Player") == null)
         {
             Instantiate(_player, _player.transform.position, _player.transform.rotation);
         }
             // 
+    }
+
+    private void HandleOilSpawn()
+    {
+        if (!IsThereOilBottles)
+        {
+            _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCount);
+        }        
     }
 
     private IEnumerator MakeWallsDangerous()
