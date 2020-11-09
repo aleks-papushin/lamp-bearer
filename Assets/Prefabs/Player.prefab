@@ -204,10 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionAlreadyChangedInJump: 0
-  _rigVelocityForce: 0.25
-  _movementForce: 25
-  _initialAccelerationForce: 45
-  _accelerationForceReductionModifier: 5
+  _movementSpeed: 8
   _jumpForce: 15
   _startRotatingAt: 3
   _rotationSpeed: 1200

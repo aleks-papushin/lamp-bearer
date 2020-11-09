@@ -39,12 +39,17 @@ public class GameManager : MonoBehaviour
     {
         this.HandleOilSpawn();
 
-            // Debug
+        // Debug 
+        this.RespawnPlayerIfHeDied();
+        // 
+    }
+
+    private void RespawnPlayerIfHeDied()
+    {
         if (GameObject.FindGameObjectWithTag("Player") == null)
         {
             Instantiate(_player, _player.transform.position, _player.transform.rotation);
         }
-            // 
     }
 
     private void HandleOilSpawn()
