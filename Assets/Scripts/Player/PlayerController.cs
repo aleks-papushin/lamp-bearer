@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public bool directionAlreadyChangedInJump = false;
 
     private Rigidbody2D _rig;
+    private SpriteRenderer _sprite;
         
     private float _gravity = 9.8f;
     private Direction _gravityVector;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _rig = GetComponent<Rigidbody2D>();
+        _sprite = GetComponent<SpriteRenderer>();
         _playerCollisions = GetComponent<PlayerCollisions>();
 
         this.SwitchGravity(Direction.Down);
@@ -271,10 +273,12 @@ public class PlayerController : MonoBehaviour
             if (Input.GetAxisRaw("Horizontal") < 0)
             {             
                 this.RigidbodySetVelocity(new Vector2(-1, 0));
+                this.HandleSpriteFacing(Direction.Left);
             }
             else if (Input.GetAxisRaw("Horizontal") > 0)
             {
                 this.RigidbodySetVelocity(new Vector2(1, 0));
+                this.HandleSpriteFacing(Direction.Right);
             }
         }
         else if (this.IsTouchingVerticalWall() && IsGravityVectorHorizontal)
@@ -282,11 +286,61 @@ public class PlayerController : MonoBehaviour
             if (Input.GetAxisRaw("Vertical") < 0)
             {
                 this.RigidbodySetVelocity(new Vector2(0, -1));
+                this.HandleSpriteFacing(Direction.Up);
             }
             else if (Input.GetAxisRaw("Vertical") > 0)
             {
                 this.RigidbodySetVelocity(new Vector2(0, 1));
+                this.HandleSpriteFacing(Direction.Down);
             }
+        }
+    }
+
+    private void HandleSpriteFacing(Direction direction)
+    {
+        switch (direction)
+        {
+            case Direction.Left:
+            default:
+                if (_playerCollisions.IsTouchingBottom)
+                {
+                    _sprite.flipX = false;
+                }
+                else if (_playerCollisions.IsTouchingUpperWall)
+                {
+                    _sprite.flipX = true;
+                }
+                break;
+            case Direction.Right:
+                if (_playerCollisions.IsTouchingBottom)
+                {
+                    _sprite.flipX = true;
+                }
+                else if (_playerCollisions.IsTouchingUpperWall)
+                {
+                    _sprite.flipX = false;
+                }
+                break;
+            case Direction.Down:
+                if (_playerCollisions.IsTouchingLeftWall)
+                {
+                    _sprite.flipX = false;
+                }
+                else if (_playerCollisions.IsTouchingRightWall)
+                {
+                    _sprite.flipX = true;
+                }
+                break;
+            case Direction.Up:
+                if (_playerCollisions.IsTouchingLeftWall)
+                {
+                    _sprite.flipX = true;
+                }
+                else if (_playerCollisions.IsTouchingRightWall)
+                {
+                    _sprite.flipX = false;
+                }
+                break;
         }
     }
 

@@ -4,8 +4,8 @@ public class SpawnOil : MonoBehaviour
 {
     public GameObject _oilBottle;
 
-    private float _xRange = 8;
-    private float _yRange = 4; 
+    private float _xRange = 6;
+    private float _yRange = 2; 
 
     public void Spawn(int count)
     {
