@@ -275,11 +275,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawner: {fileID: 2078487368}
-  oilBottleCount: 1
+  oilBottleCount: 0
   _wallWarningInterval: 1
   _wallDangerousInterval: 2
   _wallCoolDownInterval: 1
-  switchOffWalls: 0
+  switchOffWalls: 1
   _player: {fileID: 1894497229938108207, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
 --- !u!4 &374989670
 Transform:
@@ -509,11 +509,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1894497229938108201, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.043944716
+      value: -1.0845
       objectReference: {fileID: 0}
     - target: {fileID: 1894497229938108201, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.84
+      value: -2.7115
       objectReference: {fileID: 0}
     - target: {fileID: 1894497229938108201, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
       propertyPath: m_LocalPosition.z
