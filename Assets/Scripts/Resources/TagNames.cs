@@ -10,6 +10,12 @@
         public readonly static string LeftWallTag = $"Left{WallTagSuffix}";
         public readonly static string RightWallTag = $"Right{WallTagSuffix}";
 
+        public const string CornerTagSuffix = "Corner";
+        public const string BottomLeftCornerTag = "BottomLeftCorner";
+        public const string BottomRightCornerTag = "BottomRightCorner";
+        public const string UpperLeftCornerTag = "UpperLeftCorner";
+        public const string UpperRightCornerTag = "UpperRightCorner";
+
         public const string OilBottle = "OilBottle";
     }
 }

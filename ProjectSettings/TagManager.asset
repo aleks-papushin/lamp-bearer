@@ -9,6 +9,10 @@ TagManager:
   - LeftWall
   - RightWall
   - OilBottle
+  - BottomRightCorner
+  - BottomLeftCorner
+  - UpperRightCorner
+  - UpperLeftCorner
   layers:
   - Default
   - TransparentFX

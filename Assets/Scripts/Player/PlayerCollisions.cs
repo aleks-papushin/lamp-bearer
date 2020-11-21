@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Resources;
+﻿using Assets.Scripts.Enums;
+using Assets.Scripts.Resources;
 using System;
 using UnityEngine;
 
@@ -55,10 +56,38 @@ public class PlayerCollisions : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag.Contains(TagNames.OilBottle))
+        if (collision.gameObject.tag.Equals(TagNames.OilBottle))
         {
             // destroy oil bottle
             Destroy(collision.gameObject);
+        }
+
+        this.HandleCorners(collision);
+    }
+
+    private void HandleCorners(Collider2D collision)
+    {
+        if (collision.gameObject.tag.Contains(TagNames.CornerTagSuffix))
+        {
+            var tag = collision.gameObject.tag;
+
+            switch (tag)
+            {
+                case TagNames.BottomLeftCornerTag:
+                    _playerController.CurrentCorner = Corner.BottomLeft;
+                    break;
+                case TagNames.BottomRightCornerTag:
+                    _playerController.CurrentCorner = Corner.BottomRight;
+                    break;
+                case TagNames.UpperLeftCornerTag:
+                    _playerController.CurrentCorner = Corner.UpperLeft;
+                    break;
+                case TagNames.UpperRightCornerTag:
+                    _playerController.CurrentCorner = Corner.UpperRight;
+                    break;
+            }
+
+            _playerController.CornerJump();
         }
     }
 
@@ -66,7 +95,7 @@ public class PlayerCollisions : MonoBehaviour
     {
         if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
         {
-            _playerController.directionAlreadyChangedInJump = false;
+            _playerController._isChangedDirectionInJump = false;
             _playerController.UnfreezeRig();
         }
     }

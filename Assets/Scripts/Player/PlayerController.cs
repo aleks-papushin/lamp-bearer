@@ -1,11 +1,9 @@
-﻿using Assets.Scripts.Resources;
+﻿using Assets.Scripts.Enums;
+using Assets.Scripts.Resources;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [HideInInspector]
-    public bool directionAlreadyChangedInJump = false;
-
     private Rigidbody2D _rig;
     private SpriteRenderer _sprite;
         
@@ -18,7 +16,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private float _jumpForce;
+    [SerializeField]
+    private float _cornerJumpModifier;
     private bool _isJumpAxisWasIdle = true;
+    internal bool _isChangedDirectionInJump = false;
 
     private PlayerCollisions _playerCollisions;
     [SerializeField]
@@ -34,7 +35,9 @@ public class PlayerController : MonoBehaviour
     public bool IsGravityVectorVertical => _gravityVector == Direction.Down || _gravityVector == Direction.Up;
     public bool IsGravityVectorHorizontal => _gravityVector == Direction.Left || _gravityVector == Direction.Right;
 
-    public bool IsGrounded => _playerCollisions.IsGrounded;        
+    public bool IsGrounded => _playerCollisions.IsGrounded;
+
+    public Corner CurrentCorner { get; internal set; }
 
     void Start()
     {
@@ -75,6 +78,62 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    public void CornerJump()
+    {
+        switch (CurrentCorner)
+        {
+            case Corner.BottomLeft:
+                if (IsTouchingHorizontalWall())
+                {
+                    PerformCornerJump(new Vector2(-_jumpForce * _cornerJumpModifier, _jumpForce), Direction.Left);
+                }
+                else if (IsTouchingVerticalWall())
+                {
+                    PerformCornerJump(new Vector2(_jumpForce, -_jumpForce * _cornerJumpModifier), Direction.Down);
+                }
+                break;
+            case Corner.BottomRight:
+                if (IsTouchingHorizontalWall())
+                {
+                    PerformCornerJump(new Vector2(_jumpForce * _cornerJumpModifier, _jumpForce), Direction.Right);
+                }
+                else if (IsTouchingVerticalWall())
+                {
+                    PerformCornerJump(new Vector2(-_jumpForce, -_jumpForce * _cornerJumpModifier), Direction.Down);
+                }
+                break;
+            case Corner.UpperLeft:
+                if (IsTouchingHorizontalWall())
+                {
+                    PerformCornerJump(new Vector2(-_jumpForce * _cornerJumpModifier, -_jumpForce), Direction.Left);
+                }
+                else if (IsTouchingVerticalWall())
+                {
+                    PerformCornerJump(new Vector2(_jumpForce, _jumpForce * _cornerJumpModifier), Direction.Up);
+                }
+                break;
+            case Corner.UpperRight:
+                if (IsTouchingHorizontalWall())
+                {
+                    PerformCornerJump(new Vector2(_jumpForce * _cornerJumpModifier, -_jumpForce), Direction.Right);
+                }
+                else if (IsTouchingVerticalWall())
+                {
+                    PerformCornerJump(new Vector2(-_jumpForce, _jumpForce * _cornerJumpModifier), Direction.Up);
+                }
+                break;
+        }
+
+        void PerformCornerJump(Vector2 force, Direction newGravity)
+        {            
+            this.StopRig();
+            _isChangedDirectionInJump = true;
+            _rig.AddForce(force, ForceMode2D.Impulse);
+            this.SwitchGravity(newGravity);
+        }
+    }
+
     private Direction OppositeTo(Direction gravityVector)
     {
         switch (gravityVector)
@@ -234,11 +293,11 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (!directionAlreadyChangedInJump && !IsGrounded)
+            if (!_isChangedDirectionInJump && !IsGrounded)
             {
                 if (Input.GetAxisRaw("Horizontal") != 0 && IsGravityVectorVertical)
                 {
-                    directionAlreadyChangedInJump = true;
+                    _isChangedDirectionInJump = true;
 
                     if (IsInputHorisontalNegative)
                     {
@@ -251,7 +310,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (Input.GetAxisRaw("Vertical") != 0 && IsGravityVectorHorizontal)
                 {
-                    directionAlreadyChangedInJump = true;
+                    _isChangedDirectionInJump = true;
 
                     if (IsInputVerticalNegative)
                     {

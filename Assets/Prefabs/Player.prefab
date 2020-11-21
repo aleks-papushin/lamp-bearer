@@ -69,9 +69,9 @@ GameObject:
   - component: {fileID: 1894497229938108206}
   - component: {fileID: 1894497229938108203}
   - component: {fileID: 1894497229938108200}
+  - component: {fileID: 880587640}
   - component: {fileID: 1894497229938108202}
   - component: {fileID: 1894497229938108213}
-  - component: {fileID: 880587640}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -192,35 +192,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.4895515, y: 4.2810316}
   m_EdgeRadius: 0
---- !u!114 &1894497229938108202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894497229938108207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d25f58899b8bc848a7440a5e898e2b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  directionAlreadyChangedInJump: 0
-  _movementSpeed: 8
-  _jumpForce: 15
-  _startRotatingAt: 4
-  _rotationSpeed: 1000
---- !u!114 &1894497229938108213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894497229938108207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3910ca1c91a3bf84190c212c423f1ea0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!60 &880587640
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -493,3 +464,33 @@ PolygonCollider2D:
       - {x: -0.96, y: 0.61}
       - {x: -0.93, y: 0.56}
       - {x: -0.91999996, y: 0.58}
+--- !u!114 &1894497229938108202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894497229938108207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d25f58899b8bc848a7440a5e898e2b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionAlreadyChangedInJump: 0
+  _movementSpeed: 8
+  _jumpForce: 15
+  _cornerJumpModifier: 0
+  _startRotatingAt: 4
+  _rotationSpeed: 1000
+--- !u!114 &1894497229938108213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894497229938108207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3910ca1c91a3bf84190c212c423f1ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
