@@ -32,8 +32,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float _startRotationDistance;
     [SerializeField]
+    private float _defaultRotationSpeed;
     private float _rotationSpeed;
-    private float _rotSpeedAccelerated;
     [SerializeField]
     private float _rotationSpeedMod;
 
@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
 
     public bool IsGravityVectorVertical => _gravityVector == Direction.Down || _gravityVector == Direction.Up;
     public bool IsGravityVectorHorizontal => _gravityVector == Direction.Left || _gravityVector == Direction.Right;
+
+    public GameObject Ground => this.GetFloorFor(_gravityVector);
 
     public bool IsGrounded => _playerCollisions.IsGrounded;
 
@@ -70,7 +72,7 @@ public class PlayerController : MonoBehaviour
         _sprite = GetComponent<SpriteRenderer>();
         _playerCollisions = GetComponent<PlayerCollisions>();
 
-        _rotSpeedAccelerated = _rotationSpeed;
+        _rotationSpeed = _defaultRotationSpeed;
 
         this.SwitchGravity(Direction.Down);
     }
@@ -183,20 +185,19 @@ public class PlayerController : MonoBehaviour
     {
         if (accelerateRotation)
         {
-            Debug.Log($"Accelerate rotation");
-            Debug.Log($"Rot speed acc before mod: {_rotSpeedAccelerated}");
-            _rotSpeedAccelerated *= _rotationSpeedMod;
-            Debug.Log($"Rot speed acc after mod: {_rotSpeedAccelerated}");
+            // 4 is magic number which is should be bigger than any GetDistanceTo(Ground)
+            var modifier = 4 / GetDistanceTo(Ground); 
+            _rotationSpeed *= modifier;
         }
 
         if (!IsGrounded)
         {
-            Debug.Log($"Rotation speed accelerated: {_rotSpeedAccelerated}");
+            Debug.Log($"Rotation speed accelerated: {_rotationSpeed}");
         }        
 
         var floor = GetFloorFor(gravityVector);
         transform.rotation = 
-            Quaternion.RotateTowards(transform.rotation, floor.transform.rotation, Time.deltaTime * _rotSpeedAccelerated);
+            Quaternion.RotateTowards(transform.rotation, floor.transform.rotation, Time.deltaTime * _rotationSpeed);
     }
 
     private bool IsDistanceToObjectLessThan(float distance, GameObject obj) => this.GetDistanceTo(obj) < distance;
@@ -278,7 +279,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump(Direction gravity, Vector2 jumpVector)
     {
-        _rotSpeedAccelerated = _rotationSpeed;
+        _rotationSpeed = _defaultRotationSpeed;
 
         this.SetIsSideAxisHeld();
         this.StopRig();        
