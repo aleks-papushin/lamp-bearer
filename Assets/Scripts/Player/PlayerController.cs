@@ -17,15 +17,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float _jumpForce;
     [SerializeField]
+    private float _cornerJumpForce;
+    [SerializeField]
     private float _cornerJumpModifier;
     private bool _isJumpAxisWasIdle = true;
     internal bool _isChangedDirectionInJump = false;
 
     private PlayerCollisions _playerCollisions;
     [SerializeField]
-    private float _startRotatingAt = 2f;
+    private float _startRotationDistance;
     [SerializeField]
-    private float _rotationSpeed = 10f;
+    private float _rotationSpeed;
+    private float _rotSpeedAccelerated;
 
     public bool IsInputHorisontalNegative => Input.GetAxisRaw("Horizontal") < 0;
     public bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
@@ -45,6 +48,8 @@ public class PlayerController : MonoBehaviour
         _sprite = GetComponent<SpriteRenderer>();
         _playerCollisions = GetComponent<PlayerCollisions>();
 
+        _rotSpeedAccelerated = _rotationSpeed;
+
         this.SwitchGravity(Direction.Down);
     }
 
@@ -56,7 +61,7 @@ public class PlayerController : MonoBehaviour
         }
         this.HandleJumping();
         this.HandleInAirDirectionChanging();
-        this.HandlePlayerRotationInAir();
+        this.HandlePlayerRotation();
     }
 
     public void UnfreezeRig()
@@ -64,17 +69,17 @@ public class PlayerController : MonoBehaviour
         _rig.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
-    private void HandlePlayerRotationInAir()
+    private void HandlePlayerRotation()
     {
         if (!IsGrounded)
         {
-            if (this.AmIFarFromGround())
+            if (this.IsDistanceFromGroundLessThan(_startRotationDistance))
             {          
-                this.RotateTowards(_gravityVector);
+                this.RotateTowards(_gravityVector, accelerateRotation: false);
             }
             else
             {
-                this.RotateTowards(this.OppositeTo(_gravityVector));
+                this.RotateTowards(this.OppositeTo(_gravityVector), accelerateRotation: true);
             }
         }
     }
@@ -86,41 +91,41 @@ public class PlayerController : MonoBehaviour
             case Corner.BottomLeft:
                 if (IsTouchingHorizontalWall())
                 {
-                    PerformCornerJump(new Vector2(-_jumpForce * _cornerJumpModifier, _jumpForce), Direction.Left);
+                    PerformCornerJump(new Vector2(-_cornerJumpForce * _cornerJumpModifier, _cornerJumpForce), Direction.Left);
                 }
                 else if (IsTouchingVerticalWall())
                 {
-                    PerformCornerJump(new Vector2(_jumpForce, -_jumpForce * _cornerJumpModifier), Direction.Down);
+                    PerformCornerJump(new Vector2(_cornerJumpForce, -_cornerJumpForce * _cornerJumpModifier), Direction.Down);
                 }
                 break;
             case Corner.BottomRight:
                 if (IsTouchingHorizontalWall())
                 {
-                    PerformCornerJump(new Vector2(_jumpForce * _cornerJumpModifier, _jumpForce), Direction.Right);
+                    PerformCornerJump(new Vector2(_cornerJumpForce * _cornerJumpModifier, _cornerJumpForce), Direction.Right);
                 }
                 else if (IsTouchingVerticalWall())
                 {
-                    PerformCornerJump(new Vector2(-_jumpForce, -_jumpForce * _cornerJumpModifier), Direction.Down);
+                    PerformCornerJump(new Vector2(-_cornerJumpForce, -_cornerJumpForce * _cornerJumpModifier), Direction.Down);
                 }
                 break;
             case Corner.UpperLeft:
                 if (IsTouchingHorizontalWall())
                 {
-                    PerformCornerJump(new Vector2(-_jumpForce * _cornerJumpModifier, -_jumpForce), Direction.Left);
+                    PerformCornerJump(new Vector2(-_cornerJumpForce * _cornerJumpModifier, -_cornerJumpForce), Direction.Left);
                 }
                 else if (IsTouchingVerticalWall())
                 {
-                    PerformCornerJump(new Vector2(_jumpForce, _jumpForce * _cornerJumpModifier), Direction.Up);
+                    PerformCornerJump(new Vector2(_cornerJumpForce, _cornerJumpForce * _cornerJumpModifier), Direction.Up);
                 }
                 break;
             case Corner.UpperRight:
                 if (IsTouchingHorizontalWall())
                 {
-                    PerformCornerJump(new Vector2(_jumpForce * _cornerJumpModifier, -_jumpForce), Direction.Right);
+                    PerformCornerJump(new Vector2(_cornerJumpForce * _cornerJumpModifier, -_cornerJumpForce), Direction.Right);
                 }
                 else if (IsTouchingVerticalWall())
                 {
-                    PerformCornerJump(new Vector2(-_jumpForce, _jumpForce * _cornerJumpModifier), Direction.Up);
+                    PerformCornerJump(new Vector2(-_cornerJumpForce, _cornerJumpForce * _cornerJumpModifier), Direction.Up);
                 }
                 break;
         }
@@ -150,14 +155,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void RotateTowards(Direction gravityVector)
+    private void RotateTowards(Direction gravityVector, bool accelerateRotation)
     {
+        if (accelerateRotation)
+        {
+            _rotSpeedAccelerated *= 4f;
+        }
+
         var floor = GetFloorFor(gravityVector);
         transform.rotation = 
-            Quaternion.RotateTowards(transform.rotation, floor.transform.rotation, Time.deltaTime * _rotationSpeed);
+            Quaternion.RotateTowards(transform.rotation, floor.transform.rotation, Time.deltaTime * _rotSpeedAccelerated);
     }
 
-    private bool AmIFarFromGround()
+    private bool IsDistanceFromGroundLessThan(float distance)
     {
         // ground is floor which is _gravityVector pointed to
         var ground = this.GetFloorFor(_gravityVector);
@@ -166,9 +176,9 @@ public class PlayerController : MonoBehaviour
         var closestPoint = ground.GetComponent<Collider2D>()
             .ClosestPoint(transform.position);
 
-        // are we close enough?
+        // are we close?
         var distanceToClosestGroundPoint = Vector2.Distance(transform.position, closestPoint);
-        var isCloseToGround = distanceToClosestGroundPoint < _startRotatingAt;
+        var isCloseToGround = distanceToClosestGroundPoint < distance;
 
         return isCloseToGround;
     }
@@ -236,7 +246,9 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Jump(Direction gravity, Vector2 jumpVector)
-    {        
+    {
+        _rotSpeedAccelerated = _rotationSpeed;
+
         this.SetIsSideAxisHeld();
         this.StopRig();        
         this.FreezePerpendicularAxis(gravity);
@@ -285,6 +297,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInAirDirectionChanging()
     {
+        _rotSpeedAccelerated = _rotationSpeed;
+
         // if side buttons were held before jump - 
         // must not change direction until button is up and pressed again
         if (_isSideAxisWasHeld) 
