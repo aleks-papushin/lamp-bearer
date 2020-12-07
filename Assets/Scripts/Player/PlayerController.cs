@@ -188,12 +188,7 @@ public class PlayerController : MonoBehaviour
             // 4 is magic number which is should be bigger than any GetDistanceTo(Ground)
             var modifier = 4 / GetDistanceTo(Ground); 
             _rotationSpeed *= modifier;
-        }
-
-        if (!IsGrounded)
-        {
-            Debug.Log($"Rotation speed accelerated: {_rotationSpeed}");
-        }        
+        }     
 
         var floor = GetFloorFor(gravityVector);
         transform.rotation = 
