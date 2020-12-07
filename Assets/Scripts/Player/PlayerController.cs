@@ -1,5 +1,8 @@
 ﻿using Assets.Scripts.Enums;
 using Assets.Scripts.Resources;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -22,6 +25,8 @@ public class PlayerController : MonoBehaviour
     private float _cornerJumpModifier;
     private bool _isJumpAxisWasIdle = true;
     internal bool _isChangedDirectionInJump = false;
+    [SerializeField]
+    private float _forbidDirectionChangingDistance;
 
     private PlayerCollisions _playerCollisions;
     [SerializeField]
@@ -29,6 +34,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float _rotationSpeed;
     private float _rotSpeedAccelerated;
+    [SerializeField]
+    private float _rotationSpeedMod;
 
     public bool IsInputHorisontalNegative => Input.GetAxisRaw("Horizontal") < 0;
     public bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
@@ -41,6 +48,21 @@ public class PlayerController : MonoBehaviour
     public bool IsGrounded => _playerCollisions.IsGrounded;
 
     public Corner CurrentCorner { get; internal set; }
+
+    public List<GameObject> Floors
+    { 
+        get
+        {
+            List<GameObject> floors = new List<GameObject>();
+
+            foreach (var dir in (Direction[]) Enum.GetValues(typeof(Direction)))
+            {
+                floors.Add(GetFloorFor(dir));
+            }
+
+            return floors;
+        }
+    }
 
     void Start()
     {
@@ -59,6 +81,7 @@ public class PlayerController : MonoBehaviour
         {
             this.HandleMovement();
         }
+
         this.HandleJumping();
         this.HandleInAirDirectionChanging();
         this.HandlePlayerRotation();
@@ -73,13 +96,14 @@ public class PlayerController : MonoBehaviour
     {
         if (!IsGrounded)
         {
-            if (this.IsDistanceFromGroundLessThan(_startRotationDistance))
+            var ground = this.GetFloorFor(_gravityVector);
+            if (this.IsDistanceToObjectLessThan(_startRotationDistance, ground))
             {          
-                this.RotateTowards(_gravityVector, accelerateRotation: false);
+                this.RotateTowards(_gravityVector, accelerateRotation: true);
             }
             else
             {
-                this.RotateTowards(this.OppositeTo(_gravityVector), accelerateRotation: true);
+                this.RotateTowards(this.OppositeTo(_gravityVector), accelerateRotation: false);
             }
         }
     }
@@ -159,28 +183,35 @@ public class PlayerController : MonoBehaviour
     {
         if (accelerateRotation)
         {
-            _rotSpeedAccelerated *= 4f;
+            Debug.Log($"Accelerate rotation");
+            Debug.Log($"Rot speed acc before mod: {_rotSpeedAccelerated}");
+            _rotSpeedAccelerated *= _rotationSpeedMod;
+            Debug.Log($"Rot speed acc after mod: {_rotSpeedAccelerated}");
         }
+
+        if (!IsGrounded)
+        {
+            Debug.Log($"Rotation speed accelerated: {_rotSpeedAccelerated}");
+        }        
 
         var floor = GetFloorFor(gravityVector);
         transform.rotation = 
             Quaternion.RotateTowards(transform.rotation, floor.transform.rotation, Time.deltaTime * _rotSpeedAccelerated);
     }
 
-    private bool IsDistanceFromGroundLessThan(float distance)
+    private bool IsDistanceToObjectLessThan(float distance, GameObject obj) => this.GetDistanceTo(obj) < distance;
+
+    private float GetDistanceTo(GameObject obj)
     {
-        // ground is floor which is _gravityVector pointed to
-        var ground = this.GetFloorFor(_gravityVector);
-
-        // find nearest point on ground
-        var closestPoint = ground.GetComponent<Collider2D>()
+        var closestPoint = obj.GetComponent<Collider2D>()
             .ClosestPoint(transform.position);
+        var distanceToClosestPoint = Vector2.Distance(transform.position, closestPoint);
+        return distanceToClosestPoint;
+    }
 
-        // are we close?
-        var distanceToClosestGroundPoint = Vector2.Distance(transform.position, closestPoint);
-        var isCloseToGround = distanceToClosestGroundPoint < distance;
-
-        return isCloseToGround;
+    private bool IsDistanceToAnyFloorLessThan(float distance)
+    {
+        return Floors.Any(f => IsDistanceToObjectLessThan(distance, f));
     }
 
     private GameObject GetFloorFor(Direction gravityDirection)
@@ -295,10 +326,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool ForbidInAirTurning()
+    {
+        return
+            _isChangedDirectionInJump ||
+            IsGrounded ||
+            IsDistanceToAnyFloorLessThan(_forbidDirectionChangingDistance);
+    }
+
     private void HandleInAirDirectionChanging()
     {
-        _rotSpeedAccelerated = _rotationSpeed;
-
         // if side buttons were held before jump - 
         // must not change direction until button is up and pressed again
         if (_isSideAxisWasHeld) 
@@ -307,33 +344,32 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (!_isChangedDirectionInJump && !IsGrounded)
+            if (ForbidInAirTurning()) return;
+
+            if (Input.GetAxisRaw("Horizontal") != 0 && IsGravityVectorVertical)
             {
-                if (Input.GetAxisRaw("Horizontal") != 0 && IsGravityVectorVertical)
-                {
-                    _isChangedDirectionInJump = true;
+                _isChangedDirectionInJump = true;
 
-                    if (IsInputHorisontalNegative)
-                    {
-                        this.Jump(Direction.Left, new Vector2(-_jumpForce, 0));
-                    }
-                    else if (IsInputHorizontalPositive)
-                    {
-                        this.Jump(Direction.Right, new Vector2(_jumpForce, 0));
-                    }
+                if (IsInputHorisontalNegative)
+                {
+                    this.Jump(Direction.Left, new Vector2(-_jumpForce, 0));
                 }
-                else if (Input.GetAxisRaw("Vertical") != 0 && IsGravityVectorHorizontal)
+                else if (IsInputHorizontalPositive)
                 {
-                    _isChangedDirectionInJump = true;
+                    this.Jump(Direction.Right, new Vector2(_jumpForce, 0));
+                }
+            }
+            else if (Input.GetAxisRaw("Vertical") != 0 && IsGravityVectorHorizontal)
+            {
+                _isChangedDirectionInJump = true;
 
-                    if (IsInputVerticalNegative)
-                    {
-                        this.Jump(Direction.Down, new Vector2(0, -_jumpForce));
-                    }
-                    else if (IsInputVerticalPositive)
-                    {
-                        this.Jump(Direction.Up, new Vector2(0, _jumpForce));
-                    }
+                if (IsInputVerticalNegative)
+                {
+                    this.Jump(Direction.Down, new Vector2(0, -_jumpForce));
+                }
+                else if (IsInputVerticalPositive)
+                {
+                    this.Jump(Direction.Up, new Vector2(0, _jumpForce));
                 }
             }
         }
