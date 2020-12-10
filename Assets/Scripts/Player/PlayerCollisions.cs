@@ -1,116 +1,118 @@
 ﻿using Assets.Scripts.Enums;
 using Assets.Scripts.Resources;
-using System;
 using UnityEngine;
 
-public class PlayerCollisions : MonoBehaviour
+namespace Assets.Scripts.Player
 {
-    private PlayerController _playerController;
-
-    public bool IsTouchingBottom => this.IsTouching(TagNames.BottomWallTag);
-    public bool IsTouchingUpperWall => this.IsTouching(TagNames.UpperWallTag);
-    public bool IsTouchingLeftWall => this.IsTouching(TagNames.LeftWallTag);
-    public bool IsTouchingRightWall => this.IsTouching(TagNames.RightWallTag);
-
-    public bool IsGrounded { get; internal set; }
-
-    void Start()
+    public class PlayerCollisions : MonoBehaviour
     {
-        _playerController = GetComponent<PlayerController>();
-    }
+        private PlayerController _playerController;
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        this.HandleWalls(collision);        
-        this.HandlePlayerGrounding(collision);
-    }
+        public bool IsTouchingBottom => this.IsTouching(TagNames.BottomWallTag);
+        public bool IsTouchingUpperWall => this.IsTouching(TagNames.UpperWallTag);
+        public bool IsTouchingLeftWall => this.IsTouching(TagNames.LeftWallTag);
+        public bool IsTouchingRightWall => this.IsTouching(TagNames.RightWallTag);
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
+        public bool IsGrounded { get; internal set; }
+
+        void Start()
         {
-            IsGrounded = false;
-            this.HandleBeingOnWall(collision, isOnWall: false);
-        }
-    }
-
-    private void HandleWalls(Collision2D collision)
-    {
-        if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
-        {
-            this.HandleDangerousWall(collision);
-            IsGrounded = true;
-            this.HandleBeingOnWall(collision, isOnWall: true);
-        }
-    }
-
-    private void HandleBeingOnWall(Collision2D collision, bool isOnWall)
-    {
-        collision.transform.GetComponent<Wall>().IsPlayerStandingOn = isOnWall;
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {        
-        this.HandleDangerousWall(collision);
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag.Equals(TagNames.OilBottle))
-        {
-            // destroy oil bottle
-            Destroy(collision.gameObject);
+            _playerController = GetComponent<PlayerController>();
         }
 
-        this.HandleCorners(collision);
-    }
-
-    private void HandleCorners(Collider2D collision)
-    {
-        if (collision.gameObject.tag.Contains(TagNames.CornerTagSuffix))
+        void OnCollisionEnter2D(Collision2D collision)
         {
-            var tag = collision.gameObject.tag;
+            this.HandleWalls(collision);        
+            this.HandlePlayerGrounding(collision);
+        }
 
-            switch (tag)
+        private void OnCollisionExit2D(Collision2D collision)
+        {
+            if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
             {
-                case TagNames.BottomLeftCornerTag:
-                    _playerController.CurrentCorner = Corner.BottomLeft;
-                    break;
-                case TagNames.BottomRightCornerTag:
-                    _playerController.CurrentCorner = Corner.BottomRight;
-                    break;
-                case TagNames.UpperLeftCornerTag:
-                    _playerController.CurrentCorner = Corner.UpperLeft;
-                    break;
-                case TagNames.UpperRightCornerTag:
-                    _playerController.CurrentCorner = Corner.UpperRight;
-                    break;
+                IsGrounded = false;
+                this.HandleBeingOnWall(collision, isOnWall: false);
+            }
+        }
+
+        private void HandleWalls(Collision2D collision)
+        {
+            if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
+            {
+                this.HandleDangerousWall(collision);
+                IsGrounded = true;
+                this.HandleBeingOnWall(collision, isOnWall: true);
+            }
+        }
+
+        private void HandleBeingOnWall(Collision2D collision, bool isOnWall)
+        {
+            collision.transform.GetComponent<Wall>().IsPlayerStandingOn = isOnWall;
+        }
+
+        private void OnCollisionStay2D(Collision2D collision)
+        {        
+            this.HandleDangerousWall(collision);
+        }
+
+        void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag.Equals(TagNames.OilBottle))
+            {
+                // destroy oil bottle
+                Destroy(collision.gameObject);
             }
 
-            _playerController.CornerJump();
+            this.HandleCorners(collision);
         }
-    }
 
-    private void HandlePlayerGrounding(Collision2D collision)
-    {
-        if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
+        private void HandleCorners(Collider2D collision)
         {
-            _playerController._isChangedDirectionInJump = false;
-            _playerController.UnfreezeRig();
-        }
-    }
+            if (collision.gameObject.tag.Contains(TagNames.CornerTagSuffix))
+            {
+                var tag = collision.gameObject.tag;
 
-    private void HandleDangerousWall(Collision2D collision)
-    {
-        if (collision.gameObject.GetComponent<Wall>().IsDangerous)
+                switch (tag)
+                {
+                    case TagNames.BottomLeftCornerTag:
+                        _playerController.CurrentCorner = Corner.BottomLeft;
+                        break;
+                    case TagNames.BottomRightCornerTag:
+                        _playerController.CurrentCorner = Corner.BottomRight;
+                        break;
+                    case TagNames.UpperLeftCornerTag:
+                        _playerController.CurrentCorner = Corner.UpperLeft;
+                        break;
+                    case TagNames.UpperRightCornerTag:
+                        _playerController.CurrentCorner = Corner.UpperRight;
+                        break;
+                }
+
+                _playerController.CornerJump();
+            }
+        }
+
+        private void HandlePlayerGrounding(Collision2D collision)
         {
-            Destroy(gameObject);
+            if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
+            {
+                _playerController._isChangedDirectionInJump = false;
+                _playerController.UnfreezeRig();
+            }
         }
-    }
 
-    private bool IsTouching(string tagName)
-    {
-        var otherCollider = GameObject.FindGameObjectWithTag(tagName).GetComponent<Collider2D>();
-        return transform.GetChild(0).GetComponent<Collider2D>().IsTouching(otherCollider);
+        private void HandleDangerousWall(Collision2D collision)
+        {
+            if (collision.gameObject.GetComponent<Wall>().IsDangerous)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private bool IsTouching(string tagName)
+        {
+            var otherCollider = GameObject.FindGameObjectWithTag(tagName).GetComponent<Collider2D>();
+            return transform.GetChild(0).GetComponent<Collider2D>().IsTouching(otherCollider);
+        }
     }
 }
