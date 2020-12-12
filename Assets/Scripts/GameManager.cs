@@ -12,7 +12,8 @@ namespace Assets.Scripts
         public int oilBottleCount;
 
         private GameTimer _gameTimer;
-        private GameWave _gameWave;        
+        private GameWave _gameWave;
+        private UserInterface _userInterface;
 
         public List<GameObject> WallsToBeDangerous => 
             FindObjectsOfType<WallDanger>().Where(ws => !ws.IsPlayerStandsOnMe).Select(ws => ws.gameObject).ToList();
@@ -33,6 +34,7 @@ namespace Assets.Scripts
         {
             _gameTimer = GetComponent<GameTimer>();
             _gameWave = GetComponent<GameWave>();
+            _userInterface = FindObjectOfType<UserInterface>();
 
             StartCoroutine(this.HandleWallsDangerousness());
         }
@@ -47,6 +49,11 @@ namespace Assets.Scripts
             // Debug 
             this.RespawnPlayerIfHeDied();
             // 
+        }
+
+        public void UpdateScore(int increment)
+        {
+            _userInterface.UpdateScore(increment);
         }
 
         private void HandleWaveTraits()
@@ -70,6 +77,7 @@ namespace Assets.Scripts
                 Instantiate(_player, _player.transform.position, _player.transform.rotation);
             }
         }
+
 
         private void HandleOilSpawn()
         {

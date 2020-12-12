@@ -6,6 +6,7 @@ namespace Assets.Scripts.Player
 {
     public class PlayerCollisions : MonoBehaviour
     {
+        private GameManager _gameManager;
         private PlayerController _playerController;
 
         public bool IsTouchingBottom => this.IsTouching(TagNames.BottomWallTag);
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Player
 
         void Start()
         {
+            _gameManager = FindObjectOfType<GameManager>();
             _playerController = GetComponent<PlayerController>();
         }
 
@@ -57,9 +59,9 @@ namespace Assets.Scripts.Player
 
         void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.tag.Equals(TagNames.OilBottle))
+            if (collision.gameObject.CompareTag(TagNames.OilBottle))
             {
-                // destroy oil bottle
+                _gameManager.UpdateScore(10);
                 Destroy(collision.gameObject);
             }
 
