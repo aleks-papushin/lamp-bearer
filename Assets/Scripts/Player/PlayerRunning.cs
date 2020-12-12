@@ -2,19 +2,15 @@
 
 namespace Assets.Scripts.Player
 {
-    public class PlayerMovement
+    public class PlayerRunning : PlayerAction
     {
-        private Rigidbody2D _rig;
-        private PlayerCollisions _collisions;
         private SpriteRenderer _sprite;
 
-        public PlayerMovement(
-            Rigidbody2D rigidbody, 
-            PlayerCollisions playerCollisions, 
-            SpriteRenderer playerSprite)
+        public PlayerRunning(Rigidbody2D rigidbody, PlayerCollisions collisions, SpriteRenderer playerSprite) :
+            base(rigidbody, collisions)
         {
             _rig = rigidbody;
-            _collisions = playerCollisions;
+            _collisions = collisions;
             _sprite = playerSprite;
         }
 

@@ -9,7 +9,7 @@ namespace Assets.Scripts.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        private PlayerMovement _playerMovement;
+        private PlayerRunning _playerMovement;
         [SerializeField]
         private float _movementSpeed;
 
@@ -80,7 +80,7 @@ namespace Assets.Scripts.Player
             _rotationSpeed = _defaultRotationSpeed;
             this.SwitchGravity(Direction.Down);
 
-            _playerMovement = new PlayerMovement(_rig, _playerCollisions, GetComponent<SpriteRenderer>());
+            _playerMovement = new PlayerRunning(_rig, _playerCollisions, GetComponent<SpriteRenderer>());
         }
 
         void FixedUpdate()
