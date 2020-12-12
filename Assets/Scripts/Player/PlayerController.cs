@@ -13,12 +13,10 @@ namespace Assets.Scripts.Player
         [SerializeField]
         private float _movementSpeed;
 
-        private Rigidbody2D _rig;
-        
+        private Rigidbody2D _rig;        
         
         private float _gravity = 9.8f;
         private Direction _gravityVector;
-
         
         private bool _isSideAxisWasHeld = false;
 
