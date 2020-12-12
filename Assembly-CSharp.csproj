@@ -62,11 +62,14 @@
     <Compile Include="Assets\Scripts\Enums\Direction.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerRunning.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\Wall.cs" />
+    <Compile Include="Assets\Scripts\GameParameters.cs" />
     <Compile Include="Assets\Scripts\Resources\TagNames.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerCollisions.cs" />
     <Compile Include="Assets\Scripts\SpawnOil.cs" />
+    <Compile Include="Assets\Scripts\GameTimer.cs" />
+    <Compile Include="Assets\Scripts\GameWave.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\WallDanger.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

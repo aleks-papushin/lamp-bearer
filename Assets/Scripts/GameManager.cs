@@ -4,83 +4,104 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace Assets.Scripts
 {
-    public GameObject _spawner;
-    public int oilBottleCount;
-
-    public List<GameObject> WallsToBeDangerous => 
-        FindObjectsOfType<Wall>().Where(w => !w.IsPlayerStandingOn).Select(w => w.gameObject).ToList();
-
-    public bool IsThereOilBottles => GameObject.FindGameObjectsWithTag(TagNames.OilBottle).Any();
-
-    [SerializeField]
-    private float _wallWarningInterval;
-    [SerializeField]
-    private float _wallDangerousInterval;
-    [SerializeField]
-    private float _wallCoolDownInterval;
-
-
-
-    // Debugging variables
-    public bool switchOffWalls;
-    public GameObject _player;
-    //
-
-    // Start is called before the first frame update
-    void Start()
+    public class GameManager : MonoBehaviour
     {
-        StartCoroutine(this.HandleWallsDangerousness());
-    }
+        public GameObject _spawner;
+        public int oilBottleCount;
 
-    // Update is called once per frame
-    void Update()
-    {
-        this.HandleOilSpawn();
+        private GameTimer _gameTimer;
+        private GameWave _gameWave;        
 
-        // Debug 
-        this.RespawnPlayerIfHeDied();
-        // 
-    }
+        public List<GameObject> WallsToBeDangerous => 
+            FindObjectsOfType<WallDanger>().Where(ws => !ws.IsPlayerStandsOnMe).Select(ws => ws.gameObject).ToList();
 
-    private void RespawnPlayerIfHeDied()
-    {
-        if (GameObject.FindGameObjectWithTag("Player") == null)
+        public bool IsThereOilBottles => GameObject.FindGameObjectsWithTag(TagNames.OilBottle).Any();
+
+        [SerializeField] private float _wallWarningInterval;
+        [SerializeField] private float _wallDangerousInterval;
+        [SerializeField] private float _wallCoolDownInterval;
+
+        // Debugging variables
+        public bool _switchOffWalls;
+        public GameObject _player;        
+        //
+
+        // Start is called before the first frame update
+        void Start()
         {
-            Instantiate(_player, _player.transform.position, _player.transform.rotation);
+            _gameTimer = GetComponent<GameTimer>();
+            _gameWave = GetComponent<GameWave>();
+
+            StartCoroutine(this.HandleWallsDangerousness());
         }
-    }
 
-    private void HandleOilSpawn()
-    {
-        if (!IsThereOilBottles)
+        // Update is called once per frame
+        void Update()
         {
-            _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCount);
-        }        
-    }
+            this.HandleOilSpawn();
 
-    private IEnumerator HandleWallsDangerousness()
-    {
-        // every N sec pick random wall and make it danger
+            this.HandleWaveTraits();
 
-        while (true)
-        {
-            var dangerousInterval = _wallDangerousInterval + _wallWarningInterval;
+            // Debug 
+            this.RespawnPlayerIfHeDied();
+            // 
+        }
 
-            yield return new WaitForSeconds(_wallCoolDownInterval);
-
-            if (!switchOffWalls)
+        private void HandleWaveTraits()
+        {            
+            if (_gameTimer.IsTimeToIncrementWave)
             {
-                var wallIdx = new System.Random().Next(WallsToBeDangerous.Count);
-                var wall = WallsToBeDangerous[wallIdx];
+                GameWaveDto wave = _gameWave.TryGetWaveTraits();
+
+                if (wave == null) return;
+
+                _wallWarningInterval = wave.wallWarningInterval;
+                _wallDangerousInterval = wave.wallDangerousInterval;
+                _wallCoolDownInterval = wave.wallCoolDownInterval;
+            }
+        }
+
+        private void RespawnPlayerIfHeDied()
+        {
+            if (GameObject.FindGameObjectWithTag("Player") == null)
+            {
+                Instantiate(_player, _player.transform.position, _player.transform.rotation);
+            }
+        }
+
+        private void HandleOilSpawn()
+        {
+            if (!IsThereOilBottles)
+            {
+                _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCount);
+            }        
+        }
+
+        private IEnumerator HandleWallsDangerousness()
+        {
+            // every N sec pick random wall and make it danger
+
+            while (true)
+            {
+                var dangerousInterval = _wallDangerousInterval + _wallWarningInterval;
+
+                yield return new WaitForSeconds(_wallCoolDownInterval);
+
+                if (!_switchOffWalls)
+                {
+                    var wallIdx = new System.Random().Next(WallsToBeDangerous.Count);
+                    var wall = WallsToBeDangerous[wallIdx];
                 
-                StartCoroutine(wall.GetComponent<Wall>().BecameDangerousCoroutine(_wallWarningInterval));
+                    StartCoroutine(wall.GetComponent<WallDanger>().BecameDangerousCoroutine(_wallWarningInterval));
 
-                yield return new WaitForSeconds(dangerousInterval);
+                    yield return new WaitForSeconds(dangerousInterval);
 
-                wall.GetComponent<Wall>().BecameSafe();
+                    wall.GetComponent<WallDanger>().BecameSafe();
+                }
             }
         }
     }
 }
+
