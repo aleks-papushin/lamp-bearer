@@ -468,7 +468,7 @@ MonoBehaviour:
   _wallWarningInterval: 1
   _wallDangerousInterval: 2
   _wallCoolDownInterval: 1
-  _switchOffWalls: 0
+  _switchOffWalls: 1
   _player: {fileID: 1894497229938108207, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
 --- !u!4 &374989670
 Transform:
@@ -969,7 +969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &654851431
 Light:
   m_ObjectHideFlags: 0
