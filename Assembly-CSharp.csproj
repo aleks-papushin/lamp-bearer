@@ -57,6 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Enums\Corner.cs" />
+    <Compile Include="Assets\Scripts\UserInterface.cs" />
+    <Compile Include="Assets\Scripts\WallDanger.cs" />
     <Compile Include="Assets\Scripts\Enums\MovementMode.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\Enums\Direction.cs" />
@@ -69,8 +71,7 @@
     <Compile Include="Assets\Scripts\GameTimer.cs" />
     <Compile Include="Assets\Scripts\GameWave.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\WallDanger.cs" />
-    <Compile Include="Assets\Scripts\UserInterface.cs" />
+    <Compile Include="Assets\Scripts\WallLighting.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
