@@ -106,7 +106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxLightIntensity: 1
-  _intensityIncreasingModifier: 0
 --- !u!1 &9029047532478187106
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,9 +204,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.11156265, y: -0.17695351}
+  m_Offset: {x: 0.14407931, y: -0.42664787}
   serializedVersion: 2
-  m_Radius: 0.7419889
+  m_Radius: 2.04398
 --- !u!95 &1443990076804894379
 Animator:
   serializedVersion: 3
