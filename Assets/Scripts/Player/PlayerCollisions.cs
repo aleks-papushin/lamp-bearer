@@ -8,6 +8,7 @@ namespace Assets.Scripts.Player
     {
         private GameManager _gameManager;
         private PlayerController _playerController;
+        private Animator _animator;
 
         public bool IsTouchingBottom => this.IsTouching(TagNames.BottomWallTag);
         public bool IsTouchingUpperWall => this.IsTouching(TagNames.UpperWallTag);
@@ -20,6 +21,11 @@ namespace Assets.Scripts.Player
         {
             _gameManager = FindObjectOfType<GameManager>();
             _playerController = GetComponent<PlayerController>();
+        }
+
+        public void SetAnimator(Animator animator)
+        {
+            _animator = animator;
         }
 
         void OnCollisionEnter2D(Collision2D collision)
@@ -43,6 +49,7 @@ namespace Assets.Scripts.Player
             {
                 this.HandleDangerousWall(collision);
                 IsGrounded = true;
+                _animator.SetBool("IsJumping", false);
                 this.HandleBeingOnWall(collision, isOnWall: true);
             }
         }

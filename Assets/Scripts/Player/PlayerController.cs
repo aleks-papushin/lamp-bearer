@@ -10,8 +10,9 @@ namespace Assets.Scripts.Player
     public class PlayerController : MonoBehaviour
     {
         private PlayerRunning _playerMovement;
-        [SerializeField]
-        private float _movementSpeed;
+        [SerializeField] private float _movementSpeed;
+
+        [SerializeField] private Animator _animator;
 
         private Rigidbody2D _rig;        
         
@@ -20,25 +21,18 @@ namespace Assets.Scripts.Player
         
         private bool _isSideAxisWasHeld = false;
 
-        [SerializeField]
-        private float _jumpForce;
-        [SerializeField]
-        private float _cornerJumpForce;
-        [SerializeField]
-        private float _cornerJumpModifier;
+        [SerializeField] private float _jumpForce;
+        [SerializeField] private float _cornerJumpForce;
+        [SerializeField] private float _cornerJumpModifier;
         private bool _isJumpAxisWasIdle = true;
         internal bool _isChangedDirectionInJump = false;
-        [SerializeField]
-        private float _forbidDirectionChangingDistance;
+        [SerializeField] private float _forbidDirectionChangingDistance;
 
         private PlayerCollisions _playerCollisions;
-        [SerializeField]
-        private float _startRotationDistance;
-        [SerializeField]
-        private float _defaultRotationSpeed;
+        [SerializeField] private float _startRotationDistance;
+        [SerializeField] private float _defaultRotationSpeed;
         private float _rotationSpeed;
-        [SerializeField]
-        private float _rotationSpeedMod;
+        [SerializeField] private float _rotationSpeedMod;
 
         public bool IsInputHorisontalNegative => Input.GetAxisRaw("Horizontal") < 0;
         public bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
@@ -75,10 +69,11 @@ namespace Assets.Scripts.Player
         {
             _rig = GetComponent<Rigidbody2D>();
             _playerCollisions = GetComponent<PlayerCollisions>();
+            _playerCollisions.SetAnimator(_animator);
             _rotationSpeed = _defaultRotationSpeed;
             this.SwitchGravity(Direction.Down);
 
-            _playerMovement = new PlayerRunning(_rig, _playerCollisions, GetComponent<SpriteRenderer>());
+            _playerMovement = new PlayerRunning(_rig, _playerCollisions, GetComponent<SpriteRenderer>(), _animator);
         }
 
         void FixedUpdate()
@@ -254,12 +249,11 @@ namespace Assets.Scripts.Player
                 }
 
                 _isJumpAxisWasIdle = false;
-
-                _playerCollisions.IsGrounded = false;
+                _playerCollisions.IsGrounded = false;                
             }
             else if (Input.GetAxisRaw("Jump") == 0)
             {
-                _isJumpAxisWasIdle = true;
+                _isJumpAxisWasIdle = true;                
             }
         }
 
@@ -286,6 +280,7 @@ namespace Assets.Scripts.Player
             this.FreezePerpendicularAxis(gravity);
             this.SwitchGravity(gravity);
             _rig.AddForce(jumpVector, ForceMode2D.Impulse);
+            _animator.SetBool("IsJumping", true);
         }
 
         // This method was added because of slight side movement

@@ -5,13 +5,18 @@ namespace Assets.Scripts.Player
     public class PlayerRunning : PlayerAction
     {
         private SpriteRenderer _sprite;
+        private Animator _animator;
 
-        public PlayerRunning(Rigidbody2D rigidbody, PlayerCollisions collisions, SpriteRenderer playerSprite) :
-            base(rigidbody, collisions)
+        public PlayerRunning(
+            Rigidbody2D rigidbody, 
+            PlayerCollisions collisions, 
+            SpriteRenderer playerSprite, 
+            Animator animator) : base(rigidbody, collisions)
         {
             _rig = rigidbody;
             _collisions = collisions;
             _sprite = playerSprite;
+            _animator = animator;
         }
 
         public void HandleMovement(
@@ -19,18 +24,25 @@ namespace Assets.Scripts.Player
             bool isGravityVectorVertical, 
             bool isTouchingHorizontalWall, 
             bool isTouchingVerticalWall)
-        {
+        {          
+            // TODO refactor conditions - extract method
             if (isTouchingHorizontalWall && isGravityVectorVertical)
             {
                 if (Input.GetAxisRaw("Horizontal") < 0)
                 {
                     this.RigidbodySetVelocity(new Vector2(-1, 0), speed);
                     this.HandleSpriteFacing(Direction.Left);
+                    _animator.SetFloat("Speed", speed);
                 }
                 else if (Input.GetAxisRaw("Horizontal") > 0)
                 {
                     this.RigidbodySetVelocity(new Vector2(1, 0), speed);
                     this.HandleSpriteFacing(Direction.Right);
+                    _animator.SetFloat("Speed", speed);
+                }
+                else
+                {
+                    _animator.SetFloat("Speed", 0);
                 }
             }
             else if (isTouchingVerticalWall && !isGravityVectorVertical)
@@ -39,11 +51,17 @@ namespace Assets.Scripts.Player
                 {
                     this.RigidbodySetVelocity(new Vector2(0, -1), speed);
                     this.HandleSpriteFacing(Direction.Up);
+                    _animator.SetFloat("Speed", speed);
                 }
                 else if (Input.GetAxisRaw("Vertical") > 0)
                 {
                     this.RigidbodySetVelocity(new Vector2(0, 1), speed);
                     this.HandleSpriteFacing(Direction.Down);
+                    _animator.SetFloat("Speed", speed);
+                }
+                else
+                {
+                    _animator.SetFloat("Speed", 0);
                 }
             }
         }
