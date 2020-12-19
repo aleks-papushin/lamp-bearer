@@ -5,10 +5,10 @@
         public const string PlayerTag = "Player";
 
         public const string WallTagSuffix = "Wall";
-        public readonly static string BottomWallTag = $"Bottom{WallTagSuffix}";
-        public readonly static string UpperWallTag = $"Upper{WallTagSuffix}";
-        public readonly static string LeftWallTag = $"Left{WallTagSuffix}";
-        public readonly static string RightWallTag = $"Right{WallTagSuffix}";
+        public const string BottomWallTag = "BottomWall";
+        public const string UpperWallTag = "UpperWall";
+        public const string LeftWallTag = "LeftWall";
+        public const string RightWallTag = "RightWall";
 
         public const string CornerTagSuffix = "Corner";
         public const string BottomLeftCornerTag = "BottomLeftCorner";
