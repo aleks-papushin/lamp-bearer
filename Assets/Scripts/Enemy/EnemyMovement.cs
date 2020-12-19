@@ -14,7 +14,6 @@ namespace Assets.Scripts.Enemy
         void Start()
         {
             _rig = GetComponent<Rigidbody2D>();
-            //_rig.gravityScale = 0;
         }
 
         // Update is called once per frame

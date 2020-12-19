@@ -1,7 +1,8 @@
 ﻿using Assets.Scripts;
+using Assets.Scripts.Interfaces;
 using UnityEngine;
 
-public class PlayerSounds : SoundSource
+public class PlayerSounds : SoundSource, ICornerJumpSoundSource
 {
     [SerializeField] private AudioClip _jump;
     [SerializeField] private AudioClip[] _jumpToSide;
