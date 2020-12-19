@@ -34,6 +34,8 @@ namespace Assets.Scripts.Player
         private float _rotationSpeed;
         [SerializeField] private float _rotationSpeedMod;
 
+        [SerializeField] private PlayerSounds _playerSounds;
+
         public bool IsInputHorisontalNegative => Input.GetAxisRaw("Horizontal") < 0;
         public bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
         public bool IsInputVerticalNegative => Input.GetAxisRaw("Vertical") < 0;
@@ -162,6 +164,7 @@ namespace Assets.Scripts.Player
                 _isChangedDirectionInJump = true;
                 _rig.AddForce(force, ForceMode2D.Impulse);
                 this.SwitchGravity(newGravity);
+                _playerSounds.CornerJump();
             }
         }
 
@@ -281,6 +284,7 @@ namespace Assets.Scripts.Player
             this.SwitchGravity(gravity);
             _rig.AddForce(jumpVector, ForceMode2D.Impulse);
             _animator.SetBool("IsJumping", true);
+            _playerSounds.Jump();
         }
 
         // This method was added because of slight side movement

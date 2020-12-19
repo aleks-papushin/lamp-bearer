@@ -4,8 +4,8 @@ namespace Assets.Scripts.Player
 {
     public class PlayerRunning : PlayerAction
     {
-        private SpriteRenderer _sprite;
-        private Animator _animator;
+        private readonly SpriteRenderer _sprite;
+        private readonly Animator _animator;
 
         public PlayerRunning(
             Rigidbody2D rigidbody, 

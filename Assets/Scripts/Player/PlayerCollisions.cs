@@ -6,6 +6,7 @@ namespace Assets.Scripts.Player
 {
     public class PlayerCollisions : MonoBehaviour
     {
+        [SerializeField] private PlayerSounds _playerSounds;
         private GameManager _gameManager;
         private PlayerController _playerController;
         private Animator _animator;
@@ -69,6 +70,7 @@ namespace Assets.Scripts.Player
             if (collision.gameObject.CompareTag(TagNames.OilBottle))
             {
                 _gameManager.UpdateScore(10);
+                _playerSounds.OilTaken();
                 Destroy(collision.gameObject);
             }
 
@@ -107,6 +109,7 @@ namespace Assets.Scripts.Player
             {
                 _playerController._isChangedDirectionInJump = false;
                 _playerController.UnfreezeRig();
+                _playerSounds.Landing();
             }
         }
 
