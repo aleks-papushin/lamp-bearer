@@ -31,6 +31,7 @@ namespace Assets.Scripts.Player
 
         [SerializeField] private PlayerSounds _playerSounds;
         [SerializeField] private PlayerGravityHandler _gravity;
+        [SerializeField] private HandlingSpriteFacing _spriteFacing;
 
         public bool IsInputHorisontalNegative => Input.GetAxisRaw("Horizontal") < 0;
         public bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
@@ -68,7 +69,7 @@ namespace Assets.Scripts.Player
             _rotationSpeed = _defaultRotationSpeed;
             _gravity.SwitchGravity(Direction.Down);
 
-            _playerMovement = new PlayerRunning(_rig, _playerCollisions, GetComponent<SpriteRenderer>(), _animator);
+            _playerMovement = new PlayerRunning(_rig, _playerCollisions, _spriteFacing, _animator);
         }
 
         void FixedUpdate()

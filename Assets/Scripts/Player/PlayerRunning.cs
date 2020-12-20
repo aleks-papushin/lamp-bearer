@@ -4,18 +4,18 @@ namespace Assets.Scripts.Player
 {
     public class PlayerRunning : PlayerAction
     {
-        private readonly SpriteRenderer _sprite;
         private readonly Animator _animator;
+        private readonly HandlingSpriteFacing _spriteFacing;
 
         public PlayerRunning(
             Rigidbody2D rigidbody, 
             PlayerCollisions collisions, 
-            SpriteRenderer playerSprite, 
+            HandlingSpriteFacing spriteFacing, 
             Animator animator) : base(rigidbody, collisions)
         {
             _rig = rigidbody;
             _collisions = collisions;
-            _sprite = playerSprite;
+            _spriteFacing = spriteFacing;
             _animator = animator;
         }
 
@@ -31,13 +31,13 @@ namespace Assets.Scripts.Player
                 if (Input.GetAxisRaw("Horizontal") < 0)
                 {
                     this.RigidbodySetVelocity(new Vector2(-1, 0), speed);
-                    this.HandleSpriteFacing(Direction.Left);
+                    _spriteFacing.Handle(Direction.Left);
                     _animator.SetFloat("Speed", speed);
                 }
                 else if (Input.GetAxisRaw("Horizontal") > 0)
                 {
                     this.RigidbodySetVelocity(new Vector2(1, 0), speed);
-                    this.HandleSpriteFacing(Direction.Right);
+                    _spriteFacing.Handle(Direction.Right);
                     _animator.SetFloat("Speed", speed);
                 }
                 else
@@ -50,13 +50,13 @@ namespace Assets.Scripts.Player
                 if (Input.GetAxisRaw("Vertical") < 0)
                 {
                     this.RigidbodySetVelocity(new Vector2(0, -1), speed);
-                    this.HandleSpriteFacing(Direction.Up);
+                    _spriteFacing.Handle(Direction.Up);
                     _animator.SetFloat("Speed", speed);
                 }
                 else if (Input.GetAxisRaw("Vertical") > 0)
                 {
                     this.RigidbodySetVelocity(new Vector2(0, 1), speed);
-                    this.HandleSpriteFacing(Direction.Down);
+                    _spriteFacing.Handle(Direction.Down);
                     _animator.SetFloat("Speed", speed);
                 }
                 else
@@ -69,54 +69,6 @@ namespace Assets.Scripts.Player
         private void RigidbodySetVelocity(Vector2 vector, float speed)
         {
             _rig.velocity = vector * speed;
-        }
-
-        private void HandleSpriteFacing(Direction direction)
-        {
-            switch (direction)
-            {
-                case Direction.Left:
-                default:
-                    if (_collisions.IsTouchingBottom)
-                    {
-                        _sprite.flipX = false;
-                    }
-                    else if (_collisions.IsTouchingUpperWall)
-                    {
-                        _sprite.flipX = true;
-                    }
-                    break;
-                case Direction.Right:
-                    if (_collisions.IsTouchingBottom)
-                    {
-                        _sprite.flipX = true;
-                    }
-                    else if (_collisions.IsTouchingUpperWall)
-                    {
-                        _sprite.flipX = false;
-                    }
-                    break;
-                case Direction.Down:
-                    if (_collisions.IsTouchingLeftWall)
-                    {
-                        _sprite.flipX = false;
-                    }
-                    else if (_collisions.IsTouchingRightWall)
-                    {
-                        _sprite.flipX = true;
-                    }
-                    break;
-                case Direction.Up:
-                    if (_collisions.IsTouchingLeftWall)
-                    {
-                        _sprite.flipX = true;
-                    }
-                    else if (_collisions.IsTouchingRightWall)
-                    {
-                        _sprite.flipX = false;
-                    }
-                    break;
-            }
         }
     }
 }

@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 58495398863989835}
   - component: {fileID: 8673403141515234751}
   - component: {fileID: 1068632376935203733}
+  - component: {fileID: 2035763371066255251}
   - component: {fileID: 1447504297}
   - component: {fileID: 7316892633350565881}
   m_Layer: 0
@@ -447,6 +448,7 @@ MonoBehaviour:
   _rotationSpeedMod: 1.04
   _playerSounds: {fileID: 1495898472663841162}
   _gravity: {fileID: 1068632376935203733}
+  _spriteFacing: {fileID: 0}
 --- !u!114 &1894497229938108213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,8 +523,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cornerJumpForce: 8
   _cornerJumpModifier: 0.1
-  _wallCollisions: {fileID: 8673403141515234751}
-  _rig: {fileID: 1894497229938108203}
 --- !u!114 &8673403141515234751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +547,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2b78b0aaf0b884fb23381464616c35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2035763371066255251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894497229938108207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5799d3f73fd0f1f45b35993a1bf366b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sprite: {fileID: 1894497229938108206}
 --- !u!95 &1447504297
 Animator:
   serializedVersion: 3
