@@ -5,7 +5,7 @@ namespace Assets.Scripts.Player
 {
     public class PlayerGravityHandler : MonoBehaviour, IGravitySwitcher
     {
-        private float _gravity = 9.8f;
+        private readonly float _gravity = 9.8f;
 
         public Direction GravityVector { get; set; }
 

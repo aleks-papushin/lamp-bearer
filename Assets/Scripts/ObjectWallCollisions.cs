@@ -10,6 +10,9 @@ namespace Assets.Scripts
         public bool IsTouchUpperWall { get; set; }
         public bool IsTouchLeftWall { get; set; }
         public bool IsTouchRightWall { get; set; }
+        public bool IsTouchHorizontalWall => IsTouchBottomWall || IsTouchUpperWall;
+        public bool IsTouchVerticalWall => IsTouchLeftWall || IsTouchRightWall;
+        public bool IsGrounded => IsTouchHorizontalWall || IsTouchVerticalWall;
 
         void OnCollisionEnter2D(Collision2D otherCollider)
         {

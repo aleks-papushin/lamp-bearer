@@ -6,5 +6,8 @@
         bool IsTouchUpperWall { get; set; }
         bool IsTouchLeftWall { get; set; }
         bool IsTouchRightWall { get; set; }
+        bool IsTouchHorizontalWall { get; }
+        bool IsTouchVerticalWall { get; }
+        bool IsGrounded { get; }
     }
 }

@@ -17,7 +17,10 @@ public class OilLighting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.HandleLighting();
+        if (_player != null)
+        {
+            this.HandleLighting();
+        }        
     }
 
     private void HandleLighting()

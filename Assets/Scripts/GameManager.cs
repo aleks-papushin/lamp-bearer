@@ -47,7 +47,7 @@ namespace Assets.Scripts
             this.HandleWaveTraits();
 
             // Debug 
-            this.RespawnPlayerIfHeDied();
+            //this.RespawnPlayerIfHeDied();
             // 
         }
 
