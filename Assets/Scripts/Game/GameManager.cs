@@ -26,7 +26,8 @@ namespace Assets.Scripts
 
         // Debugging variables
         public bool _switchOffWalls;
-        public GameObject _player;        
+        public GameObject _player;
+        public bool _respawnPlayer;
         //
 
         // Start is called before the first frame update
@@ -47,7 +48,7 @@ namespace Assets.Scripts
             this.HandleWaveTraits();
 
             // Debug 
-            //this.RespawnPlayerIfHeDied();
+            this.RespawnPlayer();
             // 
         }
 
@@ -70,11 +71,19 @@ namespace Assets.Scripts
             }
         }
 
-        private void RespawnPlayerIfHeDied()
+        private void RespawnPlayer()
         {
-            if (GameObject.FindGameObjectWithTag("Player") == null)
+            var player = GameObject.FindGameObjectWithTag("Player");
+
+            if (_respawnPlayer)
+            {
+                Destroy(player); 
+            }
+
+            if (player == null)
             {
                 Instantiate(_player, _player.transform.position, _player.transform.rotation);
+                _respawnPlayer = false;
             }
         }
 

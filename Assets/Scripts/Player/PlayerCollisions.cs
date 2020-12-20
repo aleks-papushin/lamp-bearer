@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Interfaces;
 using Assets.Scripts.Resources;
-using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -41,6 +40,7 @@ namespace Assets.Scripts.Player
         {
             if (collision.gameObject.tag.Contains(Tags.Enemy))
             {
+                Destroy(gameObject);
             }
         }
 
