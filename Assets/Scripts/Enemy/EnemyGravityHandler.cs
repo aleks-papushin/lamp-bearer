@@ -1,15 +1,10 @@
-﻿using Assets.Scripts.Interfaces;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
-    public class EnemyGravityHandler : MonoBehaviour, IGravitySwitcher
+    public class EnemyGravityHandler : GravityHandler
     {
-        [SerializeField] private float _gravity;
-
         public Rigidbody2D _rig;
-
-        public Direction GravityVector { get; set; }
 
         void Awake()
         {
@@ -25,28 +20,25 @@ namespace Assets.Scripts.Enemy
 
         private void ApplyGravity()
         {
-            //if (IsCanApplyGravity)
-            //{
-                switch (GravityVector)
-                {
-                    case Direction.Down:
-                    default:
-                        _rig.AddForce(new Vector2(0, -_gravity), ForceMode2D.Force);
-                        break;
-                    case Direction.Up:
-                        _rig.AddForce(new Vector2(0, _gravity), ForceMode2D.Force);
-                        break;
-                    case Direction.Left:
-                        _rig.AddForce(new Vector2(-_gravity, 0), ForceMode2D.Force);
-                        break;
-                    case Direction.Right:
-                        _rig.AddForce(new Vector2(_gravity, 0), ForceMode2D.Force);
-                        break;
-                }
-            //}
+            switch (GravityVector)
+            {
+                case Direction.Down:
+                default:
+                    _rig.AddForce(new Vector2(0, -_gravity), ForceMode2D.Force);
+                    break;
+                case Direction.Up:
+                    _rig.AddForce(new Vector2(0, _gravity), ForceMode2D.Force);
+                    break;
+                case Direction.Left:
+                    _rig.AddForce(new Vector2(-_gravity, 0), ForceMode2D.Force);
+                    break;
+                case Direction.Right:
+                    _rig.AddForce(new Vector2(_gravity, 0), ForceMode2D.Force);
+                    break;
+            }
         }
 
-        public void SwitchGravity(Direction direction)
+        public override void SwitchGravity(Direction direction)
         {
             GravityVector = direction;
         }

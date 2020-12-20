@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 8673403141515234751}
   - component: {fileID: 1068632376935203733}
   - component: {fileID: 2789588611599096974}
+  - component: {fileID: 7037271132069420273}
   - component: {fileID: 1447504297}
   - component: {fileID: 7316892633350565881}
   m_Layer: 0
@@ -447,8 +448,9 @@ MonoBehaviour:
   _defaultRotationSpeed: 1000
   _rotationSpeedMod: 1.04
   _playerSounds: {fileID: 1495898472663841162}
-  _gravity: {fileID: 1068632376935203733}
-  _spriteFacing: {fileID: 0}
+  _gravityHandler: {fileID: 1068632376935203733}
+  _spriteFacing: {fileID: 2789588611599096974}
+  _spriteRotation: {fileID: 7037271132069420273}
 --- !u!114 &1894497229938108213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2b78b0aaf0b884fb23381464616c35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gravity: 9.8
 --- !u!114 &2789588611599096974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +563,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 1894497229938108206}
+--- !u!114 &7037271132069420273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894497229938108207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5844b3c69afc59f4db19a21795cfaba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startRotationDistance: 5
+  _defaultRotationSpeed: 1000
+  _rotationSpeedMod: 1.04
 --- !u!95 &1447504297
 Animator:
   serializedVersion: 3

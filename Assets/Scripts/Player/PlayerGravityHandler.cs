@@ -1,18 +1,13 @@
-﻿using Assets.Scripts.Interfaces;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
-    public class PlayerGravityHandler : MonoBehaviour, IGravitySwitcher
+    public class PlayerGravityHandler : GravityHandler
     {
-        private readonly float _gravity = 9.8f;
-
-        public Direction GravityVector { get; set; }
-
         public bool IsGravityVectorVertical => GravityVector == Direction.Down || GravityVector == Direction.Up;
         public bool IsGravityVectorHorizontal => GravityVector == Direction.Left || GravityVector == Direction.Right;
 
-        public void SwitchGravity(Direction direction)
+        public override void SwitchGravity(Direction direction)
         {
             GravityVector = direction;
 
