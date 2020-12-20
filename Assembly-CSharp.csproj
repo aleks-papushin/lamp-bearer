@@ -74,7 +74,6 @@
     <Compile Include="Assets\Scripts\Utils\DirectionUtils.cs" />
     <Compile Include="Assets\Scripts\JumpOverCorner.cs" />
     <Compile Include="Assets\Scripts\WallLighting.cs" />
-    <Compile Include="Assets\Scripts\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Scripts\HandleSpriteRotation.cs" />
     <Compile Include="Assets\Scripts\Resources\Tags.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerRunning.cs" />
@@ -90,7 +89,6 @@
     <Compile Include="Assets\Scripts\Game\GameWave.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IGroundedStateHandler.cs" />
-    <Compile Include="Assets\Scripts\Enemy\EnemyCollisions.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyGravityHandler.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyOneWallStrategy.cs" />
   </ItemGroup>
