@@ -57,19 +57,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Interfaces\IGravitySwitcher.cs" />
+    <Compile Include="Assets\Scripts\HandleSpriteFacing.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerGravityHandler.cs" />
+    <Compile Include="Assets\Scripts\GravityHandler.cs" />
     <Compile Include="Assets\Scripts\Enums\Corner.cs" />
     <Compile Include="Assets\Scripts\ObjectWallCollisions.cs" />
     <Compile Include="Assets\Scripts\UserInterface.cs" />
     <Compile Include="Assets\Scripts\WallDanger.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ISoundSource.cs" />
+    <Compile Include="Assets\Scripts\Utils\TransformExtensions.cs" />
     <Compile Include="Assets\Scripts\Oil\OilLighting.cs" />
     <Compile Include="Assets\Scripts\Enums\MovementMode.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\Enums\Direction.cs" />
     <Compile Include="Assets\Scripts\SoundSource.cs" />
+    <Compile Include="Assets\Scripts\Utils\DirectionUtils.cs" />
     <Compile Include="Assets\Scripts\JumpOverCorner.cs" />
     <Compile Include="Assets\Scripts\WallLighting.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\HandleSpriteRotation.cs" />
+    <Compile Include="Assets\Scripts\Resources\Tags.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerRunning.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMovement.cs" />
@@ -82,16 +89,10 @@
     <Compile Include="Assets\Scripts\Interfaces\ICornerJumpSoundSource.cs" />
     <Compile Include="Assets\Scripts\Game\GameWave.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Enemy\EnemyGravityHandler.cs" />
-    <Compile Include="Assets\Scripts\HandleSpriteFacing.cs" />
-    <Compile Include="Assets\Scripts\HandleSpriteRotation.cs" />
-    <Compile Include="Assets\Scripts\Enemy\EnemyController.cs" />
-    <Compile Include="Assets\Scripts\Utils\DirectionUtils.cs" />
-    <Compile Include="Assets\Scripts\GravityHandler.cs" />
-    <Compile Include="Assets\Scripts\Utils\TransformExtensions.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IGroundedStateHandler.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyCollisions.cs" />
-    <Compile Include="Assets\Scripts\Resources\Tags.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyGravityHandler.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyOneWallStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -13,6 +13,7 @@ TagManager:
   - BottomLeftCorner
   - UpperRightCorner
   - UpperLeftCorner
+  - Enemy
   layers:
   - Default
   - TransparentFX
