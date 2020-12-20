@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class HandlingSpriteFacing : MonoBehaviour
+    public class HandleSpriteFacing : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer _sprite;
 

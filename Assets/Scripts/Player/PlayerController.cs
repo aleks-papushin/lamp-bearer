@@ -31,7 +31,7 @@ namespace Assets.Scripts.Player
 
         [SerializeField] private PlayerSounds _playerSounds;
         [SerializeField] private PlayerGravityHandler _gravity;
-        [SerializeField] private HandlingSpriteFacing _spriteFacing;
+        [SerializeField] private HandleSpriteFacing _spriteFacing;
 
         public bool IsInputHorisontalNegative => Input.GetAxisRaw("Horizontal") < 0;
         public bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;

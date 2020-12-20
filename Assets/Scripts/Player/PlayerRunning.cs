@@ -5,12 +5,12 @@ namespace Assets.Scripts.Player
     public class PlayerRunning : PlayerAction
     {
         private readonly Animator _animator;
-        private readonly HandlingSpriteFacing _spriteFacing;
+        private readonly HandleSpriteFacing _spriteFacing;
 
         public PlayerRunning(
             Rigidbody2D rigidbody, 
             PlayerCollisions collisions, 
-            HandlingSpriteFacing spriteFacing, 
+            HandleSpriteFacing spriteFacing, 
             Animator animator) : base(rigidbody, collisions)
         {
             _rig = rigidbody;
