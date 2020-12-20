@@ -56,33 +56,33 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Interfaces\IGravitySwitcher.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerGravityHandler.cs" />
     <Compile Include="Assets\Scripts\Enums\Corner.cs" />
+    <Compile Include="Assets\Scripts\ObjectWallCollisions.cs" />
     <Compile Include="Assets\Scripts\UserInterface.cs" />
     <Compile Include="Assets\Scripts\WallDanger.cs" />
-    <Compile Include="Assets\Scripts\OilLighting.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\ISoundSource.cs" />
+    <Compile Include="Assets\Scripts\Oil\OilLighting.cs" />
     <Compile Include="Assets\Scripts\Enums\MovementMode.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\Enums\Direction.cs" />
+    <Compile Include="Assets\Scripts\SoundSource.cs" />
+    <Compile Include="Assets\Scripts\JumpOverCorner.cs" />
     <Compile Include="Assets\Scripts\WallLighting.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerRunning.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\GameParameters.cs" />
-    <Compile Include="Assets\Scripts\Resources\TagNames.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerCollisions.cs" />
-    <Compile Include="Assets\Scripts\SpawnOil.cs" />
-    <Compile Include="Assets\Scripts\GameTimer.cs" />
-    <Compile Include="Assets\Scripts\GameWave.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerSounds.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\ISoundSource.cs" />
-    <Compile Include="Assets\Scripts\SoundSource.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMovement.cs" />
-    <Compile Include="Assets\Scripts\ObjectWallCollisions.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IWallCollisions.cs" />
-    <Compile Include="Assets\Scripts\JumpOverCorner.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\IGravitySwitcher.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerGravityHandler.cs" />
+    <Compile Include="Assets\Scripts\Game\GameParameters.cs" />
+    <Compile Include="Assets\Scripts\Resources\TagNames.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerSounds.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerCollisions.cs" />
+    <Compile Include="Assets\Scripts\Oil\SpawnOil.cs" />
+    <Compile Include="Assets\Scripts\Game\GameTimer.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICornerJumpSoundSource.cs" />
+    <Compile Include="Assets\Scripts\Game\GameWave.cs" />
+    <Compile Include="Assets\Scripts\Game\GameManager.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyGravityHandler.cs" />
   </ItemGroup>
   <ItemGroup>
