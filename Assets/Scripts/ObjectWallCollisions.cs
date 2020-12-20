@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class ObjectWallCollisions : MonoBehaviour, IWallCollisions
+    public class ObjectWallCollisions : MonoBehaviour, IWallCollisions, IGroundedStateHandler
     {
         public bool IsTouchBottomWall { get; set; }
         public bool IsTouchUpperWall { get; set; }

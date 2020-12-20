@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Utils;
+﻿using Assets.Scripts.Interfaces;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -7,23 +8,29 @@ namespace Assets.Scripts
     {
         [SerializeField] private float _startRotationDistance;
         [SerializeField] private float _defaultRotationSpeed;
-        [SerializeField] private float _rotationSpeedMod;
-        [SerializeField] private float _rotationSpeed;
-        private readonly float _resetRotationSpeedDistance = 1.5f;
+        private float _rotationSpeed;
 
         private GravityHandler _gravityHandler;
+        private IGroundedStateHandler _groundedStateHandler;
 
         public GameObject Ground => DirectionUtils.GetFloorFor(_gravityHandler.GravityVector);
 
-        // Start is called before the first frame update
         void Awake()
         {
             _rotationSpeed = _defaultRotationSpeed;
+            _groundedStateHandler = GetComponent<IGroundedStateHandler>();
             _gravityHandler = GetComponent<GravityHandler>();
+        }
+
+        private void FixedUpdate()
+        {
+            Handle();
         }
 
         public void Handle()
         {
+            if (_groundedStateHandler.IsGrounded) return;
+
             GameObject ground = DirectionUtils.GetFloorFor(_gravityHandler.GravityVector);
             var distanceToGround = transform.GetDistanceTo(ground);
             if (distanceToGround < _startRotationDistance)

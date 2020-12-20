@@ -1,9 +1,10 @@
-﻿using Assets.Scripts.Resources;
+﻿using Assets.Scripts.Interfaces;
+using Assets.Scripts.Resources;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
-    public class PlayerCollisions : MonoBehaviour
+    public class PlayerCollisions : MonoBehaviour, IGroundedStateHandler
     {
         [SerializeField] private PlayerSounds _playerSounds;
         private GameManager _gameManager;
@@ -15,7 +16,7 @@ namespace Assets.Scripts.Player
         public bool IsTouchingLeftWall => this.IsTouching(TagNames.LeftWallTag);
         public bool IsTouchingRightWall => this.IsTouching(TagNames.RightWallTag);
 
-        public bool IsGrounded { get; internal set; }
+        public bool IsGrounded { get; set; }
 
         void Start()
         {

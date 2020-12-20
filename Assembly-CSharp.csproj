@@ -90,6 +90,8 @@
     <Compile Include="Assets\Scripts\Utils\DirectionUtils.cs" />
     <Compile Include="Assets\Scripts\GravityHandler.cs" />
     <Compile Include="Assets\Scripts\Utils\TransformExtensions.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IGroundedStateHandler.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyCollisions.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

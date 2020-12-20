@@ -55,8 +55,6 @@ namespace Assets.Scripts.Player
 
             this.HandleJumping();
             this.HandleInAirDirectionChanging();
-
-            if (!IsGrounded) _spriteRotation.Handle();
         }
 
         public void UnfreezeRig()
