@@ -14,16 +14,11 @@ namespace Assets.Scripts.Player
 
         [SerializeField] private Animator _animator;
 
-        private Rigidbody2D _rig;        
-        
-        //private float _gravity = 9.8f;
-        //private Direction _gravityVector;
+        private Rigidbody2D _rig;    
         
         private bool _isSideAxisWasHeld = false;
 
         [SerializeField] private float _jumpForce;
-        //[SerializeField] private float _cornerJumpForce;
-        //[SerializeField] private float _cornerJumpModifier;
         private bool _isJumpAxisWasIdle = true;
         internal bool _isChangedDirectionInJump = false;
         [SerializeField] private float _forbidDirectionChangingDistance;
@@ -41,9 +36,6 @@ namespace Assets.Scripts.Player
         public bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
         public bool IsInputVerticalNegative => Input.GetAxisRaw("Vertical") < 0;
         public bool IsInputVerticalPositive => Input.GetAxisRaw("Vertical") > 0;
-
-        //public bool IsGravityVectorVertical => _gravityVector == Direction.Down || _gravityVector == Direction.Up;
-        //public bool IsGravityVectorHorizontal => _gravityVector == Direction.Left || _gravityVector == Direction.Right;
         public bool IsTouchingHorizontalWall => _playerCollisions.IsTouchingBottom || _playerCollisions.IsTouchingUpperWall;
         public bool IsTouchingVerticalWall => _playerCollisions.IsTouchingLeftWall || _playerCollisions.IsTouchingRightWall;
 
@@ -112,62 +104,6 @@ namespace Assets.Scripts.Player
                 }
             }
         }
-
-        //public void CornerJump()
-        //{
-        //    switch (CurrentCorner)
-        //    {
-        //        case Corner.BottomLeft:
-        //            if (IsTouchingHorizontalWall)
-        //            {
-        //                PerformCornerJump(new Vector2(-_cornerJumpForce * _cornerJumpModifier, _cornerJumpForce), Direction.Left);
-        //            }
-        //            else if (IsTouchingVerticalWall)
-        //            {
-        //                PerformCornerJump(new Vector2(_cornerJumpForce, -_cornerJumpForce * _cornerJumpModifier), Direction.Down);
-        //            }
-        //            break;
-        //        case Corner.BottomRight:
-        //            if (IsTouchingHorizontalWall)
-        //            {
-        //                PerformCornerJump(new Vector2(_cornerJumpForce * _cornerJumpModifier, _cornerJumpForce), Direction.Right);
-        //            }
-        //            else if (IsTouchingVerticalWall)
-        //            {
-        //                PerformCornerJump(new Vector2(-_cornerJumpForce, -_cornerJumpForce * _cornerJumpModifier), Direction.Down);
-        //            }
-        //            break;
-        //        case Corner.UpperLeft:
-        //            if (IsTouchingHorizontalWall)
-        //            {
-        //                PerformCornerJump(new Vector2(-_cornerJumpForce * _cornerJumpModifier, -_cornerJumpForce), Direction.Left);
-        //            }
-        //            else if (IsTouchingVerticalWall)
-        //            {
-        //                PerformCornerJump(new Vector2(_cornerJumpForce, _cornerJumpForce * _cornerJumpModifier), Direction.Up);
-        //            }
-        //            break;
-        //        case Corner.UpperRight:
-        //            if (IsTouchingHorizontalWall)
-        //            {
-        //                PerformCornerJump(new Vector2(_cornerJumpForce * _cornerJumpModifier, -_cornerJumpForce), Direction.Right);
-        //            }
-        //            else if (IsTouchingVerticalWall)
-        //            {
-        //                PerformCornerJump(new Vector2(-_cornerJumpForce, _cornerJumpForce * _cornerJumpModifier), Direction.Up);
-        //            }
-        //            break;
-        //    }
-
-        //    void PerformCornerJump(Vector2 force, Direction newGravity)
-        //    {            
-        //        this.StopRig();
-        //        _isChangedDirectionInJump = true;
-        //        _rig.AddForce(force, ForceMode2D.Impulse);
-        //        _gravity.SwitchGravity(newGravity);
-        //        _playerSounds.CornerJump();
-        //    }
-        //}
 
         private Direction OppositeTo(Direction gravityVector)
         {
@@ -304,28 +240,6 @@ namespace Assets.Scripts.Player
                     break;
             }
         }
-
-        //private void SwitchGravity(Direction gravity)
-        //{
-        //    _gravityVector = gravity;
-
-        //    switch (_gravityVector)
-        //    {
-        //        case Direction.Down:
-        //        default:
-        //            Physics2D.gravity = new Vector2(0, -_gravity);
-        //            break;
-        //        case Direction.Up:
-        //            Physics2D.gravity = new Vector2(0, _gravity);
-        //            break;
-        //        case Direction.Left:
-        //            Physics2D.gravity = new Vector2(-_gravity, 0);
-        //            break;
-        //        case Direction.Right:
-        //            Physics2D.gravity = new Vector2(_gravity, 0);
-        //            break;
-        //    }
-        //}
 
         private bool ForbidInAirTurning()
         {
