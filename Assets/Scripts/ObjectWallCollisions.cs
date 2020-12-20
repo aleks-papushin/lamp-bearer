@@ -18,16 +18,16 @@ namespace Assets.Scripts
         {
             switch (otherCollider.gameObject.tag)
             {
-                case TagNames.LeftWallTag:
+                case Tags.LeftWall:
                     IsTouchLeftWall = true;
                     break;
-                case TagNames.RightWallTag:
+                case Tags.RightWall:
                     IsTouchRightWall = true;
                     break;
-                case TagNames.BottomWallTag:
+                case Tags.BottomWall:
                     IsTouchBottomWall = true;
                     break;
-                case TagNames.UpperWallTag:
+                case Tags.UpperWall:
                     IsTouchUpperWall = true;
                     break;
             }
@@ -37,16 +37,16 @@ namespace Assets.Scripts
         {
             switch (otherCollider.gameObject.tag)
             {
-                case TagNames.LeftWallTag:
+                case Tags.LeftWall:
                     IsTouchLeftWall = false;
                     break;
-                case TagNames.RightWallTag:
+                case Tags.RightWall:
                     IsTouchRightWall = false;
                     break;
-                case TagNames.BottomWallTag:
+                case Tags.BottomWall:
                     IsTouchBottomWall = false;
                     break;
-                case TagNames.UpperWallTag:
+                case Tags.UpperWall:
                     IsTouchUpperWall = false;
                     break;
             }

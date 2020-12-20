@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Interfaces;
 using Assets.Scripts.Resources;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -11,10 +12,10 @@ namespace Assets.Scripts.Player
         private PlayerController _playerController;
         private Animator _animator;
 
-        public bool IsTouchingBottom => this.IsTouching(TagNames.BottomWallTag);
-        public bool IsTouchingUpperWall => this.IsTouching(TagNames.UpperWallTag);
-        public bool IsTouchingLeftWall => this.IsTouching(TagNames.LeftWallTag);
-        public bool IsTouchingRightWall => this.IsTouching(TagNames.RightWallTag);
+        public bool IsTouchingBottom => this.IsTouching(Tags.BottomWall);
+        public bool IsTouchingUpperWall => this.IsTouching(Tags.UpperWall);
+        public bool IsTouchingLeftWall => this.IsTouching(Tags.LeftWall);
+        public bool IsTouchingRightWall => this.IsTouching(Tags.RightWall);
 
         public bool IsGrounded { get; set; }
 
@@ -33,11 +34,19 @@ namespace Assets.Scripts.Player
         {
             this.HandleWalls(collision);        
             this.HandlePlayerGrounding(collision);
+            this.HandleEnemy(collision);
+        }
+
+        private void HandleEnemy(Collision2D collision)
+        {
+            if (collision.gameObject.tag.Contains(Tags.Enemy))
+            {
+            }
         }
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
+            if (collision.gameObject.tag.Contains(Tags.WallSuffix))
             {
                 IsGrounded = false;
                 this.HandleBeingOnWall(collision, isOnWall: false);
@@ -46,7 +55,7 @@ namespace Assets.Scripts.Player
 
         private void HandleWalls(Collision2D collision)
         {
-            if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
+            if (collision.gameObject.tag.Contains(Tags.WallSuffix))
             {
                 this.HandleDangerousWall(collision);
                 IsGrounded = true;
@@ -67,7 +76,7 @@ namespace Assets.Scripts.Player
 
         void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.CompareTag(TagNames.OilBottle))
+            if (collision.gameObject.CompareTag(Tags.OilBottle))
             {
                 _gameManager.UpdateScore(10);
                 _playerSounds.OilTaken();
@@ -77,7 +86,7 @@ namespace Assets.Scripts.Player
 
         private void HandlePlayerGrounding(Collision2D collision)
         {
-            if (collision.gameObject.tag.Contains(TagNames.WallTagSuffix))
+            if (collision.gameObject.tag.Contains(Tags.WallSuffix))
             {
                 _playerController._isChangedDirectionInJump = false;
                 _playerController.UnfreezeRig();

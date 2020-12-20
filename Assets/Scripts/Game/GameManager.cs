@@ -18,7 +18,7 @@ namespace Assets.Scripts
         public List<GameObject> WallsToBeDangerous => 
             FindObjectsOfType<WallDanger>().Where(ws => !ws.IsPlayerStandsOnMe).Select(ws => ws.gameObject).ToList();
 
-        public bool IsThereOilBottles => GameObject.FindGameObjectsWithTag(TagNames.OilBottle).Any();
+        public bool IsThereOilBottles => GameObject.FindGameObjectsWithTag(Tags.OilBottle).Any();
 
         [SerializeField] private float _wallWarningInterval;
         [SerializeField] private float _wallDangerousInterval;

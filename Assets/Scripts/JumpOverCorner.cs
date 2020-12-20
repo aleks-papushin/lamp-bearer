@@ -28,7 +28,7 @@ namespace Assets.Scripts
 
         void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.tag.Contains(TagNames.CornerTagSuffix))
+            if (collision.gameObject.tag.Contains(Tags.CornerSuffix))
             {
                 IsCornerReached = true;
                 var tag = collision.gameObject.tag;
@@ -36,17 +36,17 @@ namespace Assets.Scripts
                 Corner currentCorner;
                 switch (tag)
                 {
-                    case TagNames.BottomLeftCornerTag:
+                    case Tags.BottomLeftCorner:
                     default:
                         currentCorner = Corner.BottomLeft;
                         break;
-                    case TagNames.BottomRightCornerTag:
+                    case Tags.BottomRightCorner:
                         currentCorner = Corner.BottomRight;
                         break;
-                    case TagNames.UpperLeftCornerTag:
+                    case Tags.UpperLeftCorner:
                         currentCorner = Corner.UpperLeft;
                         break;
-                    case TagNames.UpperRightCornerTag:
+                    case Tags.UpperRightCorner:
                         currentCorner = Corner.UpperRight;
                         break;
                 }
@@ -57,7 +57,7 @@ namespace Assets.Scripts
 
         void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.tag.Contains(TagNames.CornerTagSuffix))
+            if (collision.gameObject.tag.Contains(Tags.CornerSuffix))
             {
                 IsCornerReached = false;
             }

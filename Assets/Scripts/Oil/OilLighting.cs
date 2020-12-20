@@ -10,7 +10,7 @@ public class OilLighting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.FindGameObjectWithTag(TagNames.PlayerTag);
+        _player = GameObject.FindGameObjectWithTag(Tags.PlayerTag);
         _light = GetComponent<Light>();
     }
 

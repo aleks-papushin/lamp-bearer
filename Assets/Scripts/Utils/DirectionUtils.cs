@@ -11,13 +11,13 @@ namespace Assets.Scripts.Utils
             {
                 case Direction.Down:
                 default:
-                    return GameObject.FindGameObjectWithTag(TagNames.BottomWallTag);
+                    return GameObject.FindGameObjectWithTag(Tags.BottomWall);
                 case Direction.Left:
-                    return GameObject.FindGameObjectWithTag(TagNames.LeftWallTag);
+                    return GameObject.FindGameObjectWithTag(Tags.LeftWall);
                 case Direction.Up:
-                    return GameObject.FindGameObjectWithTag(TagNames.UpperWallTag);
+                    return GameObject.FindGameObjectWithTag(Tags.UpperWall);
                 case Direction.Right:
-                    return GameObject.FindGameObjectWithTag(TagNames.RightWallTag);
+                    return GameObject.FindGameObjectWithTag(Tags.RightWall);
             }
         }
 
