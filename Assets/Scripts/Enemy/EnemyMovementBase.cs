@@ -2,29 +2,21 @@
 
 namespace Assets.Scripts.Enemy
 {
-    public class EnemyMovement : MonoBehaviour
+    public abstract class EnemyMovementBase : MonoBehaviour
     {
         [SerializeField] private float _speed;
         [SerializeField] private ObjectWallCollisions _wallCollisions;
-        [SerializeField] private JumpOverCorner _cornerJump;
 
         private Rigidbody2D _rig;
 
-        // Start is called before the first frame update
         void Awake()
         {
             _rig = GetComponent<Rigidbody2D>();
         }
 
-        // Update is called once per frame
-        void Update()
+        protected void Move()
         {
-            Move();
-        }
-
-        private void Move()
-        {
-            if (!_wallCollisions.IsGrounded || _cornerJump.IsCornerReached) return;
+            if (!_wallCollisions.IsGrounded) return;
 
             if (_wallCollisions.IsTouchBottomWall)
             {
