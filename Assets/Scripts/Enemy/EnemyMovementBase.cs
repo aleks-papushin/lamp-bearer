@@ -7,6 +7,8 @@ namespace Assets.Scripts.Enemy
         [SerializeField] private float _speed;
         [SerializeField] private ObjectWallCollisions _wallCollisions;
 
+        public bool IsDirectionPositive { get; set; } = true;
+
         private Rigidbody2D _rig;
 
         void Awake()
@@ -18,27 +20,24 @@ namespace Assets.Scripts.Enemy
         {
             if (!_wallCollisions.IsGrounded) return;
 
+            var directionMod = IsDirectionPositive ? 1 : -1;
+
             if (_wallCollisions.IsTouchBottomWall)
             {
-                this.RigidbodySetVelocity(new Vector2(-1, 0), _speed);
+                _rig.velocity = new Vector2(directionMod, 0) * _speed;
             }
             else if (_wallCollisions.IsTouchLeftWall)
             {
-                this.RigidbodySetVelocity(new Vector2(0, 1), _speed);
+                _rig.velocity = new Vector2(0, directionMod) * _speed;
             }
             else if (_wallCollisions.IsTouchUpperWall)
             {
-                this.RigidbodySetVelocity(new Vector2(1, 0), _speed);
+                _rig.velocity = new Vector2(-directionMod, 0) * _speed;
             }
             else if (_wallCollisions.IsTouchRightWall)
             {
-                this.RigidbodySetVelocity(new Vector2(0, -1), _speed);
+                _rig.velocity = new Vector2(0, -directionMod) * _speed;
             }
-        }
-
-        private void RigidbodySetVelocity(Vector2 vector, float speed)
-        {
-            _rig.velocity = vector * speed;
         }
     }
 }

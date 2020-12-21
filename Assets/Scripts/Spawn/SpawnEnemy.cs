@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpawnEnemy : MonoBehaviour
 {
     [SerializeField] private GameObject _enemy;
+    [SerializeField] private bool _isEnemyDirectionPositive;
 
-    public void Spawn()
+    public GameObject Spawn()
     {
+        _enemy.GetComponent<EnemyWalkerMovement>().IsDirectionPositive = _isEnemyDirectionPositive;
 
+        return Instantiate(_enemy, transform.position, transform.rotation);
     }
 }
