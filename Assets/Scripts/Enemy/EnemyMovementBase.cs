@@ -28,7 +28,7 @@ namespace Assets.Scripts.Enemy
             }
             else if (_wallCollisions.IsTouchLeftWall)
             {
-                _rig.velocity = new Vector2(0, directionMod) * _speed;
+                _rig.velocity = new Vector2(0, -directionMod) * _speed;
             }
             else if (_wallCollisions.IsTouchUpperWall)
             {
@@ -36,7 +36,7 @@ namespace Assets.Scripts.Enemy
             }
             else if (_wallCollisions.IsTouchRightWall)
             {
-                _rig.velocity = new Vector2(0, -directionMod) * _speed;
+                _rig.velocity = new Vector2(0, directionMod) * _speed;
             }
         }
     }
