@@ -8,17 +8,10 @@ public class EnemyExistanceHandling : MonoBehaviour
     private List<SpawnEnemy> _enemySpawners;
     private GameObject _enemy = null;
 
-    // Start is called before the first frame update
     void Start()
     {
         _enemySpawners = GetComponentsInChildren<SpawnEnemy>().ToList();
         StartCoroutine(HandleEnemyExistanceRoutine());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private IEnumerator HandleEnemyExistanceRoutine()
@@ -27,7 +20,7 @@ public class EnemyExistanceHandling : MonoBehaviour
         {
             if (IsEnemyAlive())
             {
-                yield return new WaitForSeconds(5);
+                yield return new WaitForSeconds(3);
             }
             else
             {
