@@ -1632,6 +1632,7 @@ GameObject:
   - component: {fileID: 1404758110}
   - component: {fileID: 1404758111}
   - component: {fileID: 1404758112}
+  - component: {fileID: 1404758113}
   m_Layer: 0
   m_Name: EnemySpawnerBL
   m_TagString: Untagged
@@ -1647,7 +1648,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1404758109}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.814, y: -3.221, z: 0}
+  m_LocalPosition: {x: -6.814, y: -3.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1816371054}
@@ -1669,8 +1670,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.25187302, y: -0.21858811}
-  - {x: -0.2524519, y: -0.63804173}
+  - {x: -0.64, y: -0.21858811}
+  - {x: -0.64, y: -0.63804173}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -1687,8 +1688,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba3f895df00c15340945533bf3e5c38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
+  _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 1
+--- !u!114 &1404758113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404758109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d10fdb30de7ed4409138a8de2481fdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1816371053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1745,6 +1758,7 @@ GameObject:
   - component: {fileID: 1900104420}
   - component: {fileID: 1900104421}
   - component: {fileID: 1900104422}
+  - component: {fileID: 1900104423}
   m_Layer: 0
   m_Name: EnemySpawnerBR
   m_TagString: Untagged
@@ -1760,7 +1774,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900104419}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.27, y: -3.221, z: 0}
+  m_LocalPosition: {x: 6.35, y: -3.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1816371054}
@@ -1782,8 +1796,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.25187302, y: -0.21858811}
-  - {x: -0.2524519, y: -0.63804173}
+  - {x: 1.12, y: -0.21858811}
+  - {x: 1.09, y: -0.63804173}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -1800,8 +1814,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba3f895df00c15340945533bf3e5c38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
+  _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 0
+--- !u!114 &1900104423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900104419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d10fdb30de7ed4409138a8de2481fdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1935289314
 GameObject:
   m_ObjectHideFlags: 0

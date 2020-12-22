@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4092488562915061727, guid: 3c68ce8760449064fa50b1c904601bd9, type: 3}
+      propertyPath: _speed
+      value: 9.49
+      objectReference: {fileID: 0}
     - target: {fileID: 8158667829994468748, guid: 3c68ce8760449064fa50b1c904601bd9, type: 3}
       propertyPath: _cornerJump
       value: 

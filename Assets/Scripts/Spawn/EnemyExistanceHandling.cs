@@ -6,18 +6,19 @@ using UnityEngine;
 public class EnemyExistanceHandling : MonoBehaviour
 {
     private List<SpawnEnemy> _enemySpawners;
-    private GameObject _enemy;
+    private GameObject _enemy = null;
 
     // Start is called before the first frame update
     void Start()
     {
         _enemySpawners = GetComponentsInChildren<SpawnEnemy>().ToList();
+        StartCoroutine(HandleEnemyExistanceRoutine());
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(HandleEnemyExistanceRoutine());
+        
     }
 
     private IEnumerator HandleEnemyExistanceRoutine()
@@ -26,13 +27,12 @@ public class EnemyExistanceHandling : MonoBehaviour
         {
             if (IsEnemyAlive())
             {
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(5);
             }
             else
             {
-                // TODO pick random enemy spawner                
-                // spawn new enemy
-                _enemy = _enemySpawners.First().Spawn();
+                var spawner = _enemySpawners[Random.Range(0, 2)];
+                _enemy = spawner.Spawn();
             }
         }
     }
