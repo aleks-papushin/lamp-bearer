@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EnemyExistanceHandling : MonoBehaviour
 {
+    [SerializeField] private float[] _enemyAliveCheckInterval; 
+
     private List<SpawnEnemy> _enemySpawners;
     private GameObject _enemy = null;
 
@@ -20,7 +22,8 @@ public class EnemyExistanceHandling : MonoBehaviour
         {
             if (IsEnemyAlive())
             {
-                yield return new WaitForSeconds(3);
+                float time = Random.Range(_enemyAliveCheckInterval[0], _enemyAliveCheckInterval[1]);
+                yield return new WaitForSeconds(time);
             }
             else
             {

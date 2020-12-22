@@ -711,6 +711,9 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 0
   _initGravity: 3
+  _speedInterval:
+  - 2
+  - 5
 --- !u!68 &493211766
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -1538,6 +1541,9 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 0
   _initGravity: 1
+  _speedInterval:
+  - 2
+  - 5
 --- !u!68 &1119177135
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -1605,6 +1611,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516cd6ae5364eed42805f2a44c5f8fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyAliveCheckInterval:
+  - 2
+  - 7
 --- !u!1 &1192762651
 GameObject:
   m_ObjectHideFlags: 0
@@ -1665,6 +1674,9 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 1
   _initGravity: 3
+  _speedInterval:
+  - 2
+  - 5
 --- !u!68 &1192762655
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -1747,6 +1759,9 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 1
   _initGravity: 1
+  _speedInterval:
+  - 2
+  - 5
 --- !u!68 &1208823306
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -1829,6 +1844,9 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 1
   _initGravity: 2
+  _speedInterval:
+  - 2
+  - 5
 --- !u!68 &1236062360
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -1896,6 +1914,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516cd6ae5364eed42805f2a44c5f8fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyAliveCheckInterval:
+  - 2
+  - 7
 --- !u!1 &1330508106
 GameObject:
   m_ObjectHideFlags: 0
@@ -1956,6 +1977,9 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 0
   _initGravity: 2
+  _speedInterval:
+  - 2
+  - 5
 --- !u!68 &1330508110
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -2273,6 +2297,9 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 1
   _initGravity: 0
+  _speedInterval:
+  - 2
+  - 5
 --- !u!114 &1404758113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2330,6 +2357,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516cd6ae5364eed42805f2a44c5f8fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyAliveCheckInterval:
+  - 2
+  - 7
 --- !u!1 &1816371053
 GameObject:
   m_ObjectHideFlags: 0
@@ -2375,6 +2405,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516cd6ae5364eed42805f2a44c5f8fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyAliveCheckInterval:
+  - 2
+  - 7
 --- !u!1 &1900104419
 GameObject:
   m_ObjectHideFlags: 0
@@ -2445,6 +2478,9 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 0
   _initGravity: 0
+  _speedInterval:
+  - 2
+  - 5
 --- !u!114 &1900104423
 MonoBehaviour:
   m_ObjectHideFlags: 0

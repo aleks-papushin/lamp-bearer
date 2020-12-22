@@ -7,6 +7,12 @@ namespace Assets.Scripts.Enemy
         [SerializeField] private float _speed;
         [SerializeField] private ObjectWallCollisions _wallCollisions;
 
+        public float Speed
+        {
+            get => _speed;
+            set => _speed = value;
+        }
+
         public bool IsDirectionPositive { get; set; } = true;
 
         private Rigidbody2D _rig;
