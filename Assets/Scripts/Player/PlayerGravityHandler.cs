@@ -7,7 +7,7 @@ namespace Assets.Scripts.Player
         public bool IsGravityVectorVertical => GravityVector == Direction.Down || GravityVector == Direction.Up;
         public bool IsGravityVectorHorizontal => GravityVector == Direction.Left || GravityVector == Direction.Right;
 
-        public override void SwitchGravity(Direction direction)
+        public override void SwitchLocalGravity(Direction direction)
         {
             GravityVector = direction;
 

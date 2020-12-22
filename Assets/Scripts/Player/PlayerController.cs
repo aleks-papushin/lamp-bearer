@@ -40,7 +40,7 @@ namespace Assets.Scripts.Player
             _rig = GetComponent<Rigidbody2D>();
             _playerCollisions = GetComponent<PlayerCollisions>();
             _playerCollisions.SetAnimator(_animator);
-            _gravityHandler.SwitchGravity(Direction.Down);
+            _gravityHandler.SwitchLocalGravity(Direction.Down);
 
             _playerMovement = new PlayerRunning(_rig, _playerCollisions, _spriteFacing, _animator);
         }
@@ -112,7 +112,7 @@ namespace Assets.Scripts.Player
             this.SetIsSideAxisHeld();
             this.StopRig();        
             this.FreezePerpendicularAxis(gravity);
-            _gravityHandler.SwitchGravity(gravity);
+            _gravityHandler.SwitchLocalGravity(gravity);
             _rig.AddForce(jumpVector, ForceMode2D.Impulse);
             _animator.SetBool("IsJumping", true);
             _playerSounds.Jump();

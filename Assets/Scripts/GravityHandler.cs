@@ -9,6 +9,6 @@ namespace Assets.Scripts
 
         public Direction GravityVector { get; set; }
 
-        public abstract void SwitchGravity(Direction direction);
+        public abstract void SwitchLocalGravity(Direction direction);
     }
 }

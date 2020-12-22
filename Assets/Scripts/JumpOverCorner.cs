@@ -122,7 +122,7 @@ namespace Assets.Scripts
         {
             _rig.velocity = Vector2.zero;
             _rig.AddForce(force, ForceMode2D.Impulse);
-            _gravitySwitcher.SwitchGravity(newGravity);
+            _gravitySwitcher.SwitchLocalGravity(newGravity);
             _sound?.CornerJump();
         }
     }

@@ -2,6 +2,6 @@
 {
     public interface IGravitySwitcher
     {
-        void SwitchGravity(Direction direction);
+        void SwitchLocalGravity(Direction direction);
     }
 }

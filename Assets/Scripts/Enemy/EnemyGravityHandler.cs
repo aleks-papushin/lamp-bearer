@@ -10,7 +10,7 @@ namespace Assets.Scripts.Enemy
         {
             _rig = GetComponent<Rigidbody2D>();
             _rig.gravityScale = 0;
-            SwitchGravity(Direction.Down);
+            SwitchLocalGravity(Direction.Down);
         }
 
         void FixedUpdate()
@@ -38,7 +38,7 @@ namespace Assets.Scripts.Enemy
             }
         }
 
-        public override void SwitchGravity(Direction direction)
+        public override void SwitchLocalGravity(Direction direction)
         {
             GravityVector = direction;
         }
