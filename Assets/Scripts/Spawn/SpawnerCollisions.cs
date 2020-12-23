@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Resources;
 using UnityEngine;
 
-public class EnemyWalkerCollisions : MonoBehaviour
+public class SpawnerCollisions : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {

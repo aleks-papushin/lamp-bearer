@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts;
-using System;
 using UnityEngine;
 
 public class SpawnEnemy : MonoBehaviour

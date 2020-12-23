@@ -22,6 +22,8 @@ namespace Assets.Scripts.Enemy
             _rig = GetComponent<Rigidbody2D>();
         }
 
+        public void ChangeDirection() => IsDirectionPositive = !IsDirectionPositive;
+
         protected void Move()
         {
             if (!_wallCollisions.IsGrounded) return;
