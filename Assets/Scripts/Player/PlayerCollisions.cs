@@ -9,6 +9,7 @@ namespace Assets.Scripts.Player
         [SerializeField] private PlayerSounds _playerSounds;
         private GameManager _gameManager;
         private PlayerController _playerController;
+        private LightIntensityController _light;
         private Animator _animator;
 
         public bool IsTouchingBottom => this.IsTouching(Tags.BottomWall);
@@ -22,6 +23,7 @@ namespace Assets.Scripts.Player
         {
             _gameManager = FindObjectOfType<GameManager>();
             _playerController = GetComponent<PlayerController>();
+            _light = GetComponent<LightIntensityController>();
         }
 
         public void SetAnimator(Animator animator)
@@ -80,6 +82,7 @@ namespace Assets.Scripts.Player
             {
                 _gameManager.UpdateScore(10);
                 _playerSounds.OilTaken();
+                _light.OilTaken();
                 Destroy(collision.gameObject);
             }
         }
