@@ -12,7 +12,7 @@ namespace Assets.Scripts
         public void UpdateScore(int increment)
         {
             _currentScore += increment;
-            scoreText.text = $"Score: {_currentScore}";
+            scoreText.text = $": {_currentScore}";
         }
     }
 }

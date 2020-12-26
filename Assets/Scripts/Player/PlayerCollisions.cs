@@ -80,7 +80,7 @@ namespace Assets.Scripts.Player
         {
             if (collision.gameObject.CompareTag(Tags.OilBottle))
             {
-                _gameManager.UpdateScore(10);
+                _gameManager.UpdateScore(1);
                 _playerSounds.OilTaken();
                 _light.OilTaken();
                 Destroy(collision.gameObject);
