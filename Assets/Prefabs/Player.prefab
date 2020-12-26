@@ -43,8 +43,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.93
-  m_Range: 10
+  m_Intensity: 2.71
+  m_Range: 15.08
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -160,7 +160,6 @@ GameObject:
   - component: {fileID: 1894497229938108201}
   - component: {fileID: 1894497229938108206}
   - component: {fileID: 1894497229938108203}
-  - component: {fileID: 1894497229938108200}
   - component: {fileID: 6149683349425646416}
   - component: {fileID: 1894497229938108202}
   - component: {fileID: 1894497229938108213}
@@ -268,32 +267,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &1894497229938108200
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894497229938108207}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.041927338, y: 0.028135777}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 10.24, y: 10.24}
-    newSize: {x: 1, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.4895515, y: 4.2810316}
-  m_EdgeRadius: 0
 --- !u!60 &6149683349425646416
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -588,6 +561,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _light: {fileID: 790109322}
+  _initIntensity: 4
+  _constantModifier: 0.02
+  _oilBottleModifier: 1
 --- !u!95 &1447504297
 Animator:
   serializedVersion: 3
