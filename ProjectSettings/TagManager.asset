@@ -14,6 +14,10 @@ TagManager:
   - UpperRightCorner
   - UpperLeftCorner
   - Enemy
+  - BottomAnchor
+  - UpperAnchor
+  - LeftAnchor
+  - RightAnchor
   layers:
   - Default
   - TransparentFX

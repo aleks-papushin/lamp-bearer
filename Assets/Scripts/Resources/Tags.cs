@@ -10,6 +10,11 @@
         public const string UpperWall = "UpperWall";
         public const string LeftWall = "LeftWall";
         public const string RightWall = "RightWall";
+        public const string AnchorSuffix = "Anchor";
+        public const string BottomAnchor = "BottomAnchor";
+        public const string UpperAnchor = "UpperAnchor";
+        public const string LeftAnchor = "LeftAnchor";
+        public const string RightAnchor = "RightAnchor";
 
         public const string CornerSuffix = "Corner";
         public const string BottomLeftCorner = "BottomLeftCorner";

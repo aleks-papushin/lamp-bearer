@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Interfaces;
+using Assets.Scripts.Resources;
 using Assets.Scripts.Utils;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -53,9 +55,12 @@ namespace Assets.Scripts
                 _rotationSpeed *= modifier;
             }
 
-            var floor = DirectionUtils.GetFloorFor(gravityVector);
+            var floorAnchor = DirectionUtils.GetFloorFor(gravityVector)
+                .GetComponentsInChildren<Transform>()
+                .SingleOrDefault(t => t.tag.Contains(Tags.AnchorSuffix));
+
             transform.rotation =
-                Quaternion.RotateTowards(transform.rotation, floor.transform.rotation, Time.deltaTime * _rotationSpeed);
+                Quaternion.RotateTowards(transform.rotation, floorAnchor.transform.rotation, Time.deltaTime * _rotationSpeed);
         }
     }
 }
