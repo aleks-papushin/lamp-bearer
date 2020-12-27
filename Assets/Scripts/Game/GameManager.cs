@@ -43,6 +43,8 @@ namespace Assets.Scripts
             this.SetWallIntervals();
 
             StartCoroutine(this.HandleWallsDangerousness());
+
+            _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCount, 0, 0);
         }
 
         void Update()

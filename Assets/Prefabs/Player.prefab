@@ -583,6 +583,7 @@ MonoBehaviour:
   _initIntensity: 4
   _constantModifier: 0.02
   _oilBottleModifier: 1
+  _maxLightIntensity: 7
 --- !u!95 &1447504297
 Animator:
   serializedVersion: 3

@@ -12,8 +12,21 @@ public class SpawnOil : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             var position = GetRandomPosition();
-            Instantiate(_oilBottle, new Vector3(position.x, position.y, 0), _oilBottle.transform.rotation);
+            this.Spawn(position.x, position.y);
         }
+    }
+
+    public void Spawn(int count, float x, float y)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            this.Spawn(x, y);
+        }
+    }
+
+    private void Spawn(float x, float y)
+    {
+        Instantiate(_oilBottle, new Vector3(x, y, 0), _oilBottle.transform.rotation);
     }
 
     private Vector2 GetRandomPosition()

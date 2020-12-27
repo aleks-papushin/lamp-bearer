@@ -7,6 +7,7 @@ public class LightIntensityController : MonoBehaviour
     [SerializeField] private float _initIntensity;
     [SerializeField] private float _constantModifier;
     [SerializeField] private float _oilBottleModifier;
+    [SerializeField] private float _maxLightIntensity;
 
     private float _decreasingIntervalSec = 0.05f;
 
@@ -28,7 +29,10 @@ public class LightIntensityController : MonoBehaviour
 
     public void OilTaken()
     {
-        Intensity += _oilBottleModifier;
+        if (Intensity < _maxLightIntensity)
+        {
+            Intensity += _oilBottleModifier;
+        }
     }
 
     private IEnumerator DecreaseIntensityRoutine()
