@@ -9,6 +9,7 @@ namespace Assets.Scripts
         public float wallWarningInterval;
         public float wallDangerousInterval;
         public float wallCoolDownInterval;
+        public bool switchOnWalls;
         public int enemyCount;
         public float enemySpeed;
     }

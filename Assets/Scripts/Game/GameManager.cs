@@ -109,10 +109,16 @@ namespace Assets.Scripts
 
             while (true)
             {
+                yield return null;
+
+                while (!WaveManager.CurrentWave.switchOnWalls)
+                {
+                    yield return new WaitForSeconds(1);
+                }
+
                 var dangerousInterval = _wallDangerousInterval + _wallWarningInterval;
 
-                yield return new WaitForSeconds(_wallCoolDownInterval);
-
+                // debugging if
                 if (!_switchOffWalls)
                 {
                     var wallIdx = new System.Random().Next(WallsToBeDangerous.Count);
@@ -124,6 +130,8 @@ namespace Assets.Scripts
 
                     wall.GetComponent<WallDanger>().BecameSafe();
                 }
+
+                yield return new WaitForSeconds(_wallCoolDownInterval);
             }
         }
     }
