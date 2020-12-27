@@ -39,7 +39,8 @@ namespace Assets.Scripts
         void Start()
         {
             _gameTimer = GetComponent<GameTimer>();
-            _userInterface = FindObjectOfType<UserInterface>();            
+            _userInterface = FindObjectOfType<UserInterface>();
+            this.SetWallIntervals();
 
             StartCoroutine(this.HandleWallsDangerousness());
         }
@@ -64,12 +65,15 @@ namespace Assets.Scripts
         {            
             if (_gameTimer.IsTimeToIncrementWave && WaveManager.TryIncrement())
             {
-                GameWaveDto wave = WaveManager.CurrentWave;
-
-                _wallWarningInterval = wave.wallWarningInterval;
-                _wallDangerousInterval = wave.wallDangerousInterval;
-                _wallCoolDownInterval = wave.wallCoolDownInterval;
+                this.SetWallIntervals();                
             }
+        }
+
+        private void SetWallIntervals()
+        {
+            _wallWarningInterval = WaveManager.CurrentWave.wallWarningInterval;
+            _wallDangerousInterval = WaveManager.CurrentWave.wallDangerousInterval;
+            _wallCoolDownInterval = WaveManager.CurrentWave.wallCoolDownInterval;
         }
 
         private void RespawnPlayer()

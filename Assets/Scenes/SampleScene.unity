@@ -515,9 +515,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawner: {fileID: 2078487368}
   oilBottleCount: 1
-  _wallWarningInterval: 1
-  _wallDangerousInterval: 2
-  _wallCoolDownInterval: 1
+  _wallWarningInterval: 0
+  _wallDangerousInterval: 0
+  _wallCoolDownInterval: 0
   _switchOffWalls: 1
   _player: {fileID: 1894497229938108207, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
   _respawnPlayer: 0
