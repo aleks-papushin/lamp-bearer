@@ -30,5 +30,7 @@
         public const string RightSpawner = "RightSpawner";
 
         public const string OilBottle = "OilBottle";
+
+        public const string DirectionalLight = "DirectionalLight";
     }
 }

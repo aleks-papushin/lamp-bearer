@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Resources;
+using System.Collections;
 using UnityEngine;
 
 public class LightIntensityController : MonoBehaviour
@@ -8,8 +9,8 @@ public class LightIntensityController : MonoBehaviour
     [SerializeField] private float _lightFading;
     [SerializeField] private float _oilBottleModifier;
     [SerializeField] private float _maxLightIntensity;
-    [SerializeField] private GameObject _dirLightObj;
     [SerializeField] private float _dirLightMod;
+    private GameObject _dirLightObj;
 
     private readonly float _decreasingIntervalSec = 0.025f;
     private Light _dirLight;
@@ -26,7 +27,8 @@ public class LightIntensityController : MonoBehaviour
 
     private void Start()
     {
-        _dirLight = _dirLightObj.GetComponent<Light>();
+        _dirLightObj = GameObject.FindGameObjectWithTag(Tags.DirectionalLight);
+        _dirLight = this.InitDirLight();
         Intensity = _initIntensity;
         StartCoroutine(DecreaseIntensityRoutine());
     }
@@ -46,5 +48,9 @@ public class LightIntensityController : MonoBehaviour
             yield return new WaitForSeconds(_decreasingIntervalSec);
             Intensity -= _lightFading;
         }
+    }
+    private Light InitDirLight()
+    {
+        return _dirLightObj.GetComponent<Light>();
     }
 }
