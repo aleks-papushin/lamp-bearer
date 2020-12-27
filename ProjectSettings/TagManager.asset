@@ -18,6 +18,10 @@ TagManager:
   - UpperAnchor
   - LeftAnchor
   - RightAnchor
+  - BottomSpawner
+  - UpperSpawner
+  - LeftSpawner
+  - RightSpawner
   layers:
   - Default
   - TransparentFX

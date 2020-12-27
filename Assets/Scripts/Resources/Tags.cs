@@ -2,6 +2,8 @@
 {
     public static class Tags
     {
+        public const string GameManager = "GameController";
+
         public const string PlayerTag = "Player";
         public const string Enemy = "Enemy";
 
@@ -21,6 +23,11 @@
         public const string BottomRightCorner = "BottomRightCorner";
         public const string UpperLeftCorner = "UpperLeftCorner";
         public const string UpperRightCorner = "UpperRightCorner";
+
+        public const string BottomSpawner = "BottomSpawner";
+        public const string UpperSpawner = "UpperSpawner";
+        public const string LeftSpawner = "LeftSpawner";
+        public const string RightSpawner = "RightSpawner";
 
         public const string OilBottle = "OilBottle";
     }

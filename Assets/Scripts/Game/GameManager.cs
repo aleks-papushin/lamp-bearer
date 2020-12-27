@@ -12,8 +12,9 @@ namespace Assets.Scripts
         public int oilBottleCount;
 
         private GameTimer _gameTimer;
-        private GameWave _gameWave;
         private UserInterface _userInterface;
+
+        public GameWaveManager WaveManager { get; set; }
 
         public List<GameObject> WallsToBeDangerous => 
             FindObjectsOfType<WallDanger>().Where(ws => !ws.IsPlayerStandsOnMe).Select(ws => ws.gameObject).ToList();
@@ -30,17 +31,19 @@ namespace Assets.Scripts
         public bool _respawnPlayer;
         //
 
-        // Start is called before the first frame update
+        private void Awake()
+        {
+            WaveManager = new GameWaveManager();
+        }
+
         void Start()
         {
             _gameTimer = GetComponent<GameTimer>();
-            _gameWave = GetComponent<GameWave>();
-            _userInterface = FindObjectOfType<UserInterface>();
+            _userInterface = FindObjectOfType<UserInterface>();            
 
             StartCoroutine(this.HandleWallsDangerousness());
         }
 
-        // Update is called once per frame
         void Update()
         {
             this.HandleOilSpawn();
@@ -59,11 +62,9 @@ namespace Assets.Scripts
 
         private void HandleWaveTraits()
         {            
-            if (_gameTimer.IsTimeToIncrementWave)
+            if (_gameTimer.IsTimeToIncrementWave && WaveManager.TryIncrement())
             {
-                GameWaveDto wave = _gameWave.TryGetWaveTraits();
-
-                if (wave == null) return;
+                GameWaveDto wave = WaveManager.CurrentWave;
 
                 _wallWarningInterval = wave.wallWarningInterval;
                 _wallDangerousInterval = wave.wallDangerousInterval;
