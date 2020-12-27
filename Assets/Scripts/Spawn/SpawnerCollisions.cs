@@ -12,8 +12,7 @@ public class SpawnerCollisions : MonoBehaviour
             if (isDestroyEnemy) Destroy(collision.gameObject);
             else
             {
-                collision.GetComponent<EnemyWalkerMovement>().IsDirectionPositive = 
-                    !collision.GetComponent<EnemyWalkerMovement>().IsDirectionPositive;
+                collision.GetComponent<EnemyWalkerMovement>().ChangeDirection();
             }
         }
     }

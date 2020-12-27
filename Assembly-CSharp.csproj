@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Interfaces\IGravitySwitcher.cs" />
-    <Compile Include="Assets\Scripts\HandleSpriteFacing.cs" />
+    <Compile Include="Assets\Scripts\HandleObjectFacing.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerGravityHandler.cs" />
     <Compile Include="Assets\Scripts\GravityHandler.cs" />
     <Compile Include="Assets\Scripts\Enums\Corner.cs" />
@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\Interfaces\IGroundedStateHandler.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMovementBase.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyGravityHandler.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IMovement.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

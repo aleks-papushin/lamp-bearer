@@ -5,17 +5,17 @@ namespace Assets.Scripts.Player
     public class PlayerRunning : PlayerAction
     {
         private readonly Animator _animator;
-        private readonly HandleSpriteFacing _spriteFacing;
+        private readonly HandleObjectFacing _facing;
 
         public PlayerRunning(
             Rigidbody2D rigidbody, 
             PlayerCollisions collisions, 
-            HandleSpriteFacing spriteFacing, 
+            HandleObjectFacing facing, 
             Animator animator) : base(rigidbody, collisions)
         {
             _rig = rigidbody;
             _collisions = collisions;
-            _spriteFacing = spriteFacing;
+            _facing = facing;
             _animator = animator;
         }
 
@@ -31,13 +31,13 @@ namespace Assets.Scripts.Player
                 if (Input.GetAxisRaw("Horizontal") < 0)
                 {
                     this.RigidbodySetVelocity(new Vector2(-1, 0), speed);
-                    _spriteFacing.Handle(Direction.Left);
+                    _facing.Handle(Direction.Left);
                     _animator.SetFloat("Speed", speed);
                 }
                 else if (Input.GetAxisRaw("Horizontal") > 0)
                 {
                     this.RigidbodySetVelocity(new Vector2(1, 0), speed);
-                    _spriteFacing.Handle(Direction.Right);
+                    _facing.Handle(Direction.Right);
                     _animator.SetFloat("Speed", speed);
                 }
                 else
@@ -50,13 +50,13 @@ namespace Assets.Scripts.Player
                 if (Input.GetAxisRaw("Vertical") < 0)
                 {
                     this.RigidbodySetVelocity(new Vector2(0, -1), speed);
-                    _spriteFacing.Handle(Direction.Up);
+                    _facing.Handle(Direction.Up);
                     _animator.SetFloat("Speed", speed);
                 }
                 else if (Input.GetAxisRaw("Vertical") > 0)
                 {
                     this.RigidbodySetVelocity(new Vector2(0, 1), speed);
-                    _spriteFacing.Handle(Direction.Down);
+                    _facing.Handle(Direction.Down);
                     _animator.SetFloat("Speed", speed);
                 }
                 else

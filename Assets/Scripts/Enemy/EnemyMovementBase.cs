@@ -1,11 +1,18 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Interfaces;
+using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
-    public abstract class EnemyMovementBase : MonoBehaviour
+    public abstract class EnemyMovementBase : MonoBehaviour, IMovement
     {
         [SerializeField] private float _speed;
         [SerializeField] private ObjectWallCollisions _wallCollisions;
+        private HandleObjectFacing _facing;
+
+        private void Start()
+        {
+            _facing = GetComponent<HandleObjectFacing>();
+        }
 
         public float Speed
         {
@@ -24,11 +31,13 @@ namespace Assets.Scripts.Enemy
 
         public void ChangeDirection() => IsDirectionPositive = !IsDirectionPositive;
 
-        protected void Move()
+        public void Move()
         {
             if (!_wallCollisions.IsGrounded) return;
 
             var directionMod = IsDirectionPositive ? 1 : -1;
+
+            _facing.Handle(IsDirectionPositive);
 
             if (_wallCollisions.IsTouchBottomWall)
             {
