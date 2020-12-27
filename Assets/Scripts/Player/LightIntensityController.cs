@@ -5,11 +5,11 @@ public class LightIntensityController : MonoBehaviour
 {
     [SerializeField] private Light _light;
     [SerializeField] private float _initIntensity;
-    [SerializeField] private float _constantModifier;
+    [SerializeField] private float _lightFading;
     [SerializeField] private float _oilBottleModifier;
     [SerializeField] private float _maxLightIntensity;
 
-    private float _decreasingIntervalSec = 0.05f;
+    private readonly float _decreasingIntervalSec = 0.025f;
 
     public float Intensity
     {
@@ -40,7 +40,7 @@ public class LightIntensityController : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(_decreasingIntervalSec);
-            Intensity -= _constantModifier;
+            Intensity -= _lightFading;
         }
     }
 }
