@@ -22,6 +22,7 @@ TagManager:
   - UpperSpawner
   - LeftSpawner
   - RightSpawner
+  - DirectionalLight
   layers:
   - Default
   - TransparentFX
