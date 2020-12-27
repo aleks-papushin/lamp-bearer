@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using Assets.Scripts.Game;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -8,9 +8,7 @@ namespace Assets.Scripts
     public class GameWave : MonoBehaviour
     {
         [SerializeField] private int _currentWave;
-
         private bool _currentWaveIsLast = false;
-
         private List<GameWaveDto> _waveList;
 
         public int Current 
@@ -21,8 +19,7 @@ namespace Assets.Scripts
 
         private void Start()
         {
-            string wavesJsonString = File.ReadAllText("GameData/GameWaves.json");
-            _waveList = GameParameters.GetFromJson(wavesJsonString).gameWaves.ToList();
+            _waveList = new GameWaveCsvReader().ReadGameData();
         }
 
         public GameWaveDto TryGetWaveTraits()

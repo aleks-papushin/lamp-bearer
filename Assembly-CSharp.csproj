@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Enums\Direction.cs" />
     <Compile Include="Assets\Scripts\SoundSource.cs" />
     <Compile Include="Assets\Scripts\Utils\DirectionUtils.cs" />
+    <Compile Include="Assets\Scripts\Player\LightIntensityController.cs" />
     <Compile Include="Assets\Scripts\JumpOverCorner.cs" />
     <Compile Include="Assets\Scripts\WallLighting.cs" />
     <Compile Include="Assets\Scripts\HandleSpriteRotation.cs" />
@@ -96,7 +97,8 @@
     <Compile Include="Assets\Scripts\Interfaces\IGroundedStateHandler.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMovementBase.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyGravityHandler.cs" />
-    <Compile Include="Assets\Scripts\Player\LightIntensityController.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IGameDataReader.cs" />
+    <Compile Include="Assets\Scripts\Game\GameWaveCsvReader.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
