@@ -26,6 +26,6 @@ public class OilLighting : MonoBehaviour
     private void HandleLighting()
     {
         var distance = Vector2.Distance(transform.position, _player.transform.position);
-        _light.intensity = _maxLightIntensity / (distance * (distance * 0.5f) + 1);
+        _light.intensity = _maxLightIntensity / (distance * (distance * 0.1f) + 1);
     }
 }
