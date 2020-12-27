@@ -729,9 +729,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 0
   _initGravity: 3
-  _speedInterval:
-  - 2
-  - 5
   _pairSpawner: {fileID: 1192762651}
 --- !u!68 &493211766
 EdgeCollider2D:
@@ -1312,7 +1309,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.15
+  m_Intensity: 0.42
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1796,9 +1793,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 0
   _initGravity: 1
-  _speedInterval:
-  - 2
-  - 5
   _pairSpawner: {fileID: 1208823302}
 --- !u!68 &1119177135
 EdgeCollider2D:
@@ -2009,9 +2003,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 1
   _initGravity: 3
-  _speedInterval:
-  - 2
-  - 5
   _pairSpawner: {fileID: 493211762}
 --- !u!68 &1192762655
 EdgeCollider2D:
@@ -2147,9 +2138,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 1
   _initGravity: 1
-  _speedInterval:
-  - 2
-  - 5
   _pairSpawner: {fileID: 1119177131}
 --- !u!68 &1208823306
 EdgeCollider2D:
@@ -2285,9 +2273,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 1
   _initGravity: 2
-  _speedInterval:
-  - 2
-  - 5
   _pairSpawner: {fileID: 1330508106}
 --- !u!68 &1236062360
 EdgeCollider2D:
@@ -2423,9 +2408,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 0
   _initGravity: 2
-  _speedInterval:
-  - 2
-  - 5
   _pairSpawner: {fileID: 1236062356}
 --- !u!68 &1330508110
 EdgeCollider2D:
@@ -2836,9 +2818,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 1
   _initGravity: 0
-  _speedInterval:
-  - 2
-  - 5
   _pairSpawner: {fileID: 1900104419}
 --- !u!114 &1404758113
 MonoBehaviour:
@@ -3034,9 +3013,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
   _isEnemyDirectionPositive: 0
   _initGravity: 0
-  _speedInterval:
-  - 2
-  - 5
   _pairSpawner: {fileID: 1404758109}
 --- !u!114 &1900104423
 MonoBehaviour:

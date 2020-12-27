@@ -33,7 +33,8 @@ namespace Assets.Scripts.Game
                 wallWarningInterval = float.Parse(wave[1]),
                 wallDangerousInterval = float.Parse(wave[2]),
                 wallCoolDownInterval = float.Parse(wave[3]),
-                enemyCount = int.Parse(wave[4])
+                enemyCount = int.Parse(wave[4]),
+                enemySpeed = float.Parse(wave[5])
             };
         }
     }

@@ -6,8 +6,10 @@ public class SpawnEnemy : MonoBehaviour
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private bool _isEnemyDirectionPositive;
     [SerializeField] private Direction _initGravity;
-    [SerializeField] private float[] _speedInterval;
     [SerializeField] private GameObject _pairSpawner;
+    private GameManager _gameManager;
+    private readonly float _minSpeedMod = 0.7f;
+    private readonly float _maxSpeedMod = 1.3f;
 
     public GameObject Enemy { get; set; }
     public int EnemyCount
@@ -23,6 +25,7 @@ public class SpawnEnemy : MonoBehaviour
 
     private void Awake()
     {
+        _gameManager = FindObjectOfType<GameManager>();
         Enemy = null;
     }
 
@@ -31,15 +34,16 @@ public class SpawnEnemy : MonoBehaviour
         Enemy = Instantiate(_enemyPrefab, transform.position, transform.rotation);
         SetInitDirection(Enemy);
         SetInitGravity(Enemy);
-        SetInitSpeed(Enemy);
+        SetSpeed(Enemy);
 
         return Enemy;
     }
 
-    private void SetInitSpeed(GameObject enemy)
+    private void SetSpeed(GameObject enemy)
     {
+        var speed = _gameManager.WaveManager.CurrentWave.enemySpeed;
         enemy.GetComponent<EnemyWalkerMovement>().Speed =
-            Random.Range(_speedInterval[0], _speedInterval[1]);
+            Random.Range(speed * _minSpeedMod, speed * _maxSpeedMod);
     }
 
     private void SetInitGravity(GameObject enemy)
