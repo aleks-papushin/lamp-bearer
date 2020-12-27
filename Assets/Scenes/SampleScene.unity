@@ -312,8 +312,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safe: {fileID: 21300000, guid: c58c2ec619a5ddd4284b256f646b63fb, type: 3}
-  warning: {fileID: 21300000, guid: 870964c5dc4a2b0408d453b199c437fc, type: 3}
-  danger: {fileID: 21300000, guid: 31e04e99c12ad714e958d169544701ec, type: 3}
+  warning: {fileID: 21300000, guid: 85304c5c661aa7b46813bddc0e754a77, type: 3}
+  danger: {fileID: 21300000, guid: 07bbc98d1b73c274eb676ded71d5a014, type: 3}
 --- !u!1001 &291005036
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -518,7 +518,7 @@ MonoBehaviour:
   _wallWarningInterval: 0
   _wallDangerousInterval: 0
   _wallCoolDownInterval: 0
-  _switchOffWalls: 1
+  _switchOffWalls: 0
   _player: {fileID: 1894497229938108207, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
   _respawnPlayer: 0
 --- !u!4 &374989670
@@ -587,7 +587,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440503473}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 98, y: 0.3, z: -1.5}
+  m_LocalPosition: {x: 86.1, y: 0.3, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1358050012}
@@ -666,8 +666,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f2fda465ba4e1e47a22fa4366e050d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dangerIntensity: 60
-  _warningIntensity: 30
+  _dangerIntensity: 100
+  _warningIntensity: 50
 --- !u!1 &493211762
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,8 +1011,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safe: {fileID: 21300000, guid: c58c2ec619a5ddd4284b256f646b63fb, type: 3}
-  warning: {fileID: 21300000, guid: 870964c5dc4a2b0408d453b199c437fc, type: 3}
-  danger: {fileID: 21300000, guid: 31e04e99c12ad714e958d169544701ec, type: 3}
+  warning: {fileID: 21300000, guid: 85304c5c661aa7b46813bddc0e754a77, type: 3}
+  danger: {fileID: 21300000, guid: 07bbc98d1b73c274eb676ded71d5a014, type: 3}
 --- !u!1001 &624018708
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1296,7 +1296,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &654851431
 Light:
   m_ObjectHideFlags: 0
@@ -1309,7 +1309,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.42
+  m_Intensity: 1.42
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1398,7 +1398,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713300830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 100.6, y: 0.2, z: -1.5}
+  m_LocalPosition: {x: 86, y: 0.2, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1935289315}
@@ -1477,8 +1477,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f2fda465ba4e1e47a22fa4366e050d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dangerIntensity: 60
-  _warningIntensity: 30
+  _dangerIntensity: 100
+  _warningIntensity: 50
 --- !u!1 &826796968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,7 +1569,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 834328987}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -102.5, z: -1.5}
+  m_LocalPosition: {x: 0, y: -79.3, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 286815831}
@@ -1648,8 +1648,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f2fda465ba4e1e47a22fa4366e050d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dangerIntensity: 60
-  _warningIntensity: 30
+  _dangerIntensity: 100
+  _warningIntensity: 50
 --- !u!1 &988885684
 GameObject:
   m_ObjectHideFlags: 0
@@ -2645,8 +2645,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safe: {fileID: 21300000, guid: be0cd1e1a9f007c4184ae9af678a7fc1, type: 3}
-  warning: {fileID: 21300000, guid: 870964c5dc4a2b0408d453b199c437fc, type: 3}
-  danger: {fileID: 21300000, guid: 31e04e99c12ad714e958d169544701ec, type: 3}
+  warning: {fileID: 21300000, guid: 1c5117f686976ed438db766a6f86a354, type: 3}
+  danger: {fileID: 21300000, guid: 55b7a1444f6f0e44fac78442da799b36, type: 3}
 --- !u!1 &1367673806
 GameObject:
   m_ObjectHideFlags: 0
@@ -3202,8 +3202,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safe: {fileID: 21300000, guid: be0cd1e1a9f007c4184ae9af678a7fc1, type: 3}
-  warning: {fileID: 21300000, guid: 870964c5dc4a2b0408d453b199c437fc, type: 3}
-  danger: {fileID: 21300000, guid: 31e04e99c12ad714e958d169544701ec, type: 3}
+  warning: {fileID: 21300000, guid: 1c5117f686976ed438db766a6f86a354, type: 3}
+  danger: {fileID: 21300000, guid: 55b7a1444f6f0e44fac78442da799b36, type: 3}
 --- !u!1001 &1989666756
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3324,7 +3324,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2007201923}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -100.2, z: -1.5}
+  m_LocalPosition: {x: 0, y: -80.2, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 596726207}
@@ -3403,8 +3403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f2fda465ba4e1e47a22fa4366e050d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dangerIntensity: 60
-  _warningIntensity: 30
+  _dangerIntensity: 100
+  _warningIntensity: 50
 --- !u!1 &2049628074
 GameObject:
   m_ObjectHideFlags: 0
