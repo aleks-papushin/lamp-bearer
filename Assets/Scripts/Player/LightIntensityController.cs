@@ -10,6 +10,8 @@ public class LightIntensityController : MonoBehaviour
     [SerializeField] private float _oilBottleModifier;
     [SerializeField] private float _maxLightIntensity;
     [SerializeField] private float _dirLightMod;
+    [SerializeField] private bool _debugNotUseDirLight; // debug
+
     private GameObject _dirLightObj;
 
     private readonly float _decreasingIntervalSec = 0.025f;
@@ -21,7 +23,8 @@ public class LightIntensityController : MonoBehaviour
         set
         {
             _light.intensity = value;
-            _dirLight.intensity = (_light.intensity * _dirLightMod) + 0.05f; // hardcode to not to set dir lighth to 0
+            if (!_debugNotUseDirLight)
+                _dirLight.intensity = (_light.intensity * _dirLightMod) + 0.05f; // hardcode to not to set dir lighth to 0
         }
     }
 

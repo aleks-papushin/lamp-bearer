@@ -10,6 +10,7 @@ namespace Assets.Scripts
         [SerializeField] private float _cornerJumpForce;
         [SerializeField] private float _cornerJumpModifier;
 
+        private Animator _animator;
         private Rigidbody2D _rig;
 
         private IWallCollisions _wallCollisions;
@@ -24,6 +25,11 @@ namespace Assets.Scripts
             _wallCollisions = GetComponent<IWallCollisions>();
             _gravitySwitcher = GetComponent<IGravitySwitcher>();
             _sound = GetComponent<ICornerJumpSoundSource>();
+        }
+
+        private void Start()
+        {
+            _animator = GetComponent<Animator>();
         }
 
         void OnTriggerEnter2D(Collider2D collision)
@@ -120,6 +126,7 @@ namespace Assets.Scripts
 
         private void PerformCornerJump(Vector2 force, Direction newGravity)
         {
+            _animator.SetBool("IsJumping", true);
             _rig.velocity = Vector2.zero;
             _rig.AddForce(force, ForceMode2D.Impulse);
             _gravitySwitcher.SwitchLocalGravity(newGravity);

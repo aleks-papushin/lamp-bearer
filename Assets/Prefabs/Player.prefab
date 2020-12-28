@@ -584,8 +584,8 @@ MonoBehaviour:
   _lightFading: 0.007
   _oilBottleModifier: 1
   _maxLightIntensity: 7
-  _dirLightObj: {fileID: 0}
   _dirLightMod: 0.05
+  _debugNotUseDirLight: 1
 --- !u!95 &1447504297
 Animator:
   serializedVersion: 3

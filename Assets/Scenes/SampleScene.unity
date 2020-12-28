@@ -518,7 +518,7 @@ MonoBehaviour:
   _wallWarningInterval: 0
   _wallDangerousInterval: 0
   _wallCoolDownInterval: 0
-  _switchOffWalls: 0
+  _switchOffWalls: 1
   _player: {fileID: 1894497229938108207, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
   _respawnPlayer: 0
 --- !u!4 &374989670
@@ -1138,6 +1138,10 @@ PrefabInstance:
       propertyPath: _dirLightObj
       value: 
       objectReference: {fileID: 654851430}
+    - target: {fileID: 1427484700431134808, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: _debugNotUseDirLight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1894497229938108201, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.02
@@ -1204,7 +1208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &654851431
 Light:
   m_ObjectHideFlags: 0
@@ -1217,7 +1221,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.42
+  m_Intensity: 1.51
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
