@@ -114,7 +114,7 @@ namespace Assets.Scripts.Player
             this.FreezePerpendicularAxis(gravity);
             _gravityHandler.SwitchLocalGravity(gravity);
             _rig.AddForce(jumpVector, ForceMode2D.Impulse);
-            _animator.SetBool("IsJumping", true);
+            //_animator.SetBool("IsJumping", true); // temporarily disabled
             _playerSounds.Jump();
         }
 

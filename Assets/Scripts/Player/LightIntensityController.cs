@@ -28,7 +28,7 @@ public class LightIntensityController : MonoBehaviour
     private void Start()
     {
         _dirLightObj = GameObject.FindGameObjectWithTag(Tags.DirectionalLight);
-        _dirLight = this.InitDirLight();
+        _dirLight = _dirLightObj.GetComponent<Light>();
         Intensity = _initIntensity;
         StartCoroutine(DecreaseIntensityRoutine());
     }
@@ -48,9 +48,5 @@ public class LightIntensityController : MonoBehaviour
             yield return new WaitForSeconds(_decreasingIntervalSec);
             Intensity -= _lightFading;
         }
-    }
-    private Light InitDirLight()
-    {
-        return _dirLightObj.GetComponent<Light>();
     }
 }
