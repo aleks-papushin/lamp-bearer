@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Interfaces;
 using Assets.Scripts.Resources;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -18,6 +19,8 @@ namespace Assets.Scripts.Player
         public bool IsTouchingRightWall => this.IsTouching(Tags.RightWall);
 
         public bool IsGrounded { get; set; }
+
+        public static event Action OnOilBottleTaken;
 
         void Start()
         {
@@ -80,11 +83,17 @@ namespace Assets.Scripts.Player
         {
             if (collision.gameObject.CompareTag(Tags.OilBottle))
             {
-                _gameManager.UpdateScore(1);
-                _playerSounds.OilTaken();
-                _light.OilTaken();
-                Destroy(collision.gameObject);
+                OilBottleTaken(collision);
             }
+        }
+
+        private void OilBottleTaken(Collider2D collision)
+        {
+            Destroy(collision.gameObject);
+            _gameManager.UpdateScore(1);
+            _playerSounds.OilTaken();
+            _light.OilTaken();
+            OnOilBottleTaken?.Invoke();
         }
 
         private void HandlePlayerGrounding(Collision2D collision)

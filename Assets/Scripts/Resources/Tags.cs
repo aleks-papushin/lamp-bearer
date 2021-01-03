@@ -4,7 +4,7 @@
     {
         public const string GameManager = "GameController";
 
-        public const string PlayerTag = "Player";
+        public const string Player = "Player";
         public const string Enemy = "Enemy";
 
         public const string WallSuffix = "Wall";

@@ -7,14 +7,12 @@ public class OilLighting : MonoBehaviour
     private Light _light;
     [SerializeField] private float _maxLightIntensity;
 
-    // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.FindGameObjectWithTag(Tags.PlayerTag);
+        _player = GameObject.FindGameObjectWithTag(Tags.Player);
         _light = GetComponent<Light>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (_player != null)

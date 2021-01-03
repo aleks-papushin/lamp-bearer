@@ -49,8 +49,6 @@ namespace Assets.Scripts
 
         void Update()
         {
-            this.HandleOilSpawn();
-
             this.HandleWaveTraits();
 
             // Debug 
@@ -92,15 +90,6 @@ namespace Assets.Scripts
                 Instantiate(_player, _player.transform.position, _player.transform.rotation);
                 _respawnPlayer = false;
             }
-        }
-
-
-        private void HandleOilSpawn()
-        {
-            if (!IsThereOilBottles)
-            {
-                _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCount);
-            }        
         }
 
         private IEnumerator HandleWallsDangerousness()
