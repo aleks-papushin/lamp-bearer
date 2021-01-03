@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Player;
+﻿using Assets.Scripts;
+using Assets.Scripts.Player;
 using Assets.Scripts.Resources;
 using System.Collections;
 using UnityEngine;
@@ -56,9 +57,9 @@ public class SpawnOil : MonoBehaviour
 
     private IEnumerator WaitPlayerGroundedAndSpawnOil()
     {
-        var playerCollisions = _player.GetComponent<PlayerCollisions>();
+        var playerWallCollisions = _player.GetComponent<ObjectWallCollisions>();
 
-        while (!playerCollisions.IsGrounded)
+        while (!playerWallCollisions.IsGrounded)
         {
             yield return new WaitForSeconds(0.5f);
         }

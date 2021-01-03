@@ -20,6 +20,7 @@ namespace Assets.Scripts.Player
         [SerializeField] private float _forbidDirectionChangingDistance;
 
         private PlayerCollisions _playerCollisions;
+        private ObjectWallCollisions _playerWallCollisions;
 
         [SerializeField] private PlayerSounds _playerSounds;
         [SerializeField] private PlayerGravityHandler _gravityHandler;
@@ -30,15 +31,14 @@ namespace Assets.Scripts.Player
         public bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
         public bool IsInputVerticalNegative => Input.GetAxisRaw("Vertical") < 0;
         public bool IsInputVerticalPositive => Input.GetAxisRaw("Vertical") > 0;
-        public bool IsTouchingHorizontalWall => _playerCollisions.IsTouchingBottom || _playerCollisions.IsTouchingUpperWall;
-        public bool IsTouchingVerticalWall => _playerCollisions.IsTouchingLeftWall || _playerCollisions.IsTouchingRightWall;
 
-        public bool IsGrounded => _playerCollisions.IsGrounded;
+        public bool IsGrounded => _playerWallCollisions.IsGrounded;
 
         void Start()
         {
             _rig = GetComponent<Rigidbody2D>();
             _playerCollisions = GetComponent<PlayerCollisions>();
+            _playerWallCollisions = GetComponent<ObjectWallCollisions>();
             _playerCollisions.SetAnimator(_animator);
             _gravityHandler.SwitchLocalGravity(Direction.Down);
 
@@ -50,7 +50,10 @@ namespace Assets.Scripts.Player
             if (IsGrounded)
             {
                 _playerMovement.HandleMovement(
-                    _movementSpeed, _gravityHandler.IsGravityVectorVertical, IsTouchingHorizontalWall, IsTouchingVerticalWall);
+                    _movementSpeed, 
+                    _gravityHandler.IsGravityVectorVertical, 
+                    _playerWallCollisions.IsTouchHorizontalWall, 
+                    _playerWallCollisions.IsTouchVerticalWall);
             }
 
             this.HandleJumping();
@@ -67,25 +70,25 @@ namespace Assets.Scripts.Player
             // if on the surface, add impulse force in the opposite side
             if (_isJumpAxisWasIdle && Input.GetAxisRaw("Jump") > 0)
             {            
-                if (_playerCollisions.IsTouchingBottom)
+                if (_playerWallCollisions.IsTouchBottomWall)
                 {
                     this.Jump(Direction.Up, new Vector2(0, _jumpForce));
                 }
-                else if (_playerCollisions.IsTouchingUpperWall)
+                else if (_playerWallCollisions.IsTouchUpperWall)
                 {
                     this.Jump(Direction.Down, new Vector2(0, -_jumpForce));
                 }
-                else if (_playerCollisions.IsTouchingLeftWall)
+                else if (_playerWallCollisions.IsTouchLeftWall)
                 {
                     this.Jump(Direction.Right, new Vector2(_jumpForce, 0));
                 }
-                else if (_playerCollisions.IsTouchingRightWall)
+                else if (_playerWallCollisions.IsTouchRightWall)
                 {
                     this.Jump(Direction.Left, new Vector2(-_jumpForce, 0));
                 }
 
                 _isJumpAxisWasIdle = false;
-                _playerCollisions.IsGrounded = false;                
+                //_playerWallCollisions.IsGrounded = false;                
             }
             else if (Input.GetAxisRaw("Jump") == 0)
             {

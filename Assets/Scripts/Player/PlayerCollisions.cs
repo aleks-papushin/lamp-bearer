@@ -1,24 +1,16 @@
-﻿using Assets.Scripts.Interfaces;
-using Assets.Scripts.Resources;
+﻿using Assets.Scripts.Resources;
 using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
-    public class PlayerCollisions : MonoBehaviour, IGroundedStateHandler
+    public class PlayerCollisions : MonoBehaviour
     {
         [SerializeField] private PlayerSounds _playerSounds;
         private GameManager _gameManager;
         private PlayerController _playerController;
         private LightIntensityController _light;
         private Animator _animator;
-
-        public bool IsTouchingBottom => this.IsTouching(Tags.BottomWall);
-        public bool IsTouchingUpperWall => this.IsTouching(Tags.UpperWall);
-        public bool IsTouchingLeftWall => this.IsTouching(Tags.LeftWall);
-        public bool IsTouchingRightWall => this.IsTouching(Tags.RightWall);
-
-        public bool IsGrounded { get; set; }
 
         public static event Action OnOilBottleTaken;
 
@@ -53,7 +45,6 @@ namespace Assets.Scripts.Player
         {
             if (collision.gameObject.tag.Contains(Tags.WallSuffix))
             {
-                IsGrounded = false;
                 this.HandleBeingOnWall(collision, isOnWall: false);
             }
         }
@@ -63,7 +54,6 @@ namespace Assets.Scripts.Player
             if (collision.gameObject.tag.Contains(Tags.WallSuffix))
             {
                 this.HandleDangerousWall(collision);
-                IsGrounded = true;
                 _animator.SetBool("IsJumping", false);
                 this.HandleBeingOnWall(collision, isOnWall: true);
             }
@@ -112,12 +102,6 @@ namespace Assets.Scripts.Player
             {
                 Destroy(gameObject);
             }
-        }
-
-        private bool IsTouching(string tagName)
-        {
-            var otherCollider = GameObject.FindGameObjectWithTag(tagName).GetComponent<Collider2D>();
-            return transform.GetChild(0).GetComponent<Collider2D>().IsTouching(otherCollider);
         }
     }
 }
