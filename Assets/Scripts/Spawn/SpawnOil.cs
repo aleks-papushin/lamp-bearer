@@ -61,7 +61,7 @@ public class SpawnOil : MonoBehaviour
 
         while (!playerWallCollisions.IsGrounded)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
         }
 
         Spawn();
