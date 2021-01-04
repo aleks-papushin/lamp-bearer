@@ -3,7 +3,7 @@
 namespace Assets.Scripts
 {
     [Serializable]
-    public class GameWaveDto
+    public struct GameWaveDto
     {
         public int number;
         public float wallWarningInterval;
@@ -12,5 +12,6 @@ namespace Assets.Scripts
         public bool switchOnWalls;
         public int enemyCount;
         public float enemySpeed;
+        public bool isOilAffectLight;
     }
 }

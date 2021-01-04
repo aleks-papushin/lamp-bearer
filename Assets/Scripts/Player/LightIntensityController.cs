@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Resources;
+﻿using Assets.Scripts;
+using Assets.Scripts.Resources;
 using System.Collections;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class LightIntensityController : MonoBehaviour
     [SerializeField] private bool _debugNotUseDirLight; // debug
 
     private GameObject _dirLightObj;
+    private GameManager _gameManager;
 
     private readonly float _decreasingIntervalSec = 0.025f;
     private Light _dirLight;
@@ -28,17 +30,25 @@ public class LightIntensityController : MonoBehaviour
         }
     }
 
+    public bool IsOilAffectLight { get; set; }
+
     private void Start()
     {
         _dirLightObj = GameObject.FindGameObjectWithTag(Tags.DirectionalLight);
         _dirLight = _dirLightObj.GetComponent<Light>();
         Intensity = _initIntensity;
-        StartCoroutine(DecreaseIntensityRoutine());
+        _gameManager = FindObjectOfType<GameManager>();
+        IsOilAffectLight = _gameManager.WaveManager.CurrentWave.isOilAffectLight;
+
+        if (IsOilAffectLight)
+        {
+            StartCoroutine(DecreaseIntensityRoutine());
+        }
     }
 
     public void OilTaken()
     {
-        if (Intensity < _maxLightIntensity)
+        if (Intensity < _maxLightIntensity && IsOilAffectLight)
         {
             Intensity += _oilBottleModifier;
         }

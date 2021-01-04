@@ -35,7 +35,8 @@ namespace Assets.Scripts.Game
                 wallCoolDownInterval = float.Parse(wave[3]),
                 switchOnWalls = int.Parse(wave[4]) != 0,
                 enemyCount = int.Parse(wave[5]),
-                enemySpeed = float.Parse(wave[6])
+                enemySpeed = float.Parse(wave[6]),
+                isOilAffectLight = int.Parse(wave[7]) != 0
             };
         }
     }
