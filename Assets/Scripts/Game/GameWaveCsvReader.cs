@@ -36,7 +36,8 @@ namespace Assets.Scripts.Game
                 switchOnWalls = int.Parse(wave[4]) != 0,
                 enemyCount = int.Parse(wave[5]),
                 enemySpeed = float.Parse(wave[6]),
-                isOilAffectLight = int.Parse(wave[7]) != 0
+                isOilAffectLight = int.Parse(wave[7]) != 0,
+                waveDuration = float.Parse(wave[8])
             };
         }
     }

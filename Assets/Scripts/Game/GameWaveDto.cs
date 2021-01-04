@@ -13,5 +13,6 @@ namespace Assets.Scripts
         public int enemyCount;
         public float enemySpeed;
         public bool isOilAffectLight;
+        public float waveDuration;
     }
 }

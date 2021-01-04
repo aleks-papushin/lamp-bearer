@@ -12,7 +12,6 @@ namespace Assets.Scripts
         public GameObject _spawner;
         public int oilBottleCountForSpawn;
 
-        private GameTimer _gameTimer;
         private UserInterface _userInterface;
 
         public GameWaveManager WaveManager { get; set; }
@@ -39,18 +38,16 @@ namespace Assets.Scripts
 
         void Start()
         {
-            _gameTimer = GetComponent<GameTimer>();
             _userInterface = FindObjectOfType<UserInterface>();
-            this.SetWallIntervals();
+            this.GameTimer_OnWaveIncrementing();
             PlayerCollisions.OnPlayerDied += PlayerCollisions_OnPlayerDied;
             StartCoroutine(this.HandleWallsDangerousness());
             _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCountForSpawn, 0, 0);
+            GameTimer.OnWaveIncrementing += GameTimer_OnWaveIncrementing;
         }
 
         void Update()
         {
-            this.HandleWaveTraits();
-
             // Debug 
             this.RespawnPlayer();
             // 
@@ -61,15 +58,7 @@ namespace Assets.Scripts
             _userInterface.UpdateScore(increment);
         }
 
-        private void HandleWaveTraits()
-        {            
-            if (_gameTimer.IsTimeToIncrementWave && WaveManager.TryIncrement())
-            {
-                this.SetWallIntervals();                
-            }
-        }
-
-        private void SetWallIntervals()
+        private void GameTimer_OnWaveIncrementing()
         {
             _wallWarningInterval = WaveManager.CurrentWave.wallWarningInterval;
             _wallDangerousInterval = WaveManager.CurrentWave.wallDangerousInterval;

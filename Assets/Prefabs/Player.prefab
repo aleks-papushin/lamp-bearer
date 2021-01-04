@@ -522,7 +522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _light: {fileID: 790109322}
-  _initIntensity: 0
+  _initIntensity: 1.88
   _lightFading: 0.007
   _oilBottleModifier: 1
   _maxLightIntensity: 7
