@@ -5,27 +5,35 @@ namespace Assets.Scripts.Player
 {
     public class PlayerController : MonoBehaviour
     {
+        // player
+        private static GameObject _player;
+
+        // movement
         private PlayerRunning _playerMovement;
         [SerializeField] private float _movementSpeed;
 
+        // animation
         [SerializeField] private Animator _animator;
 
-        private Rigidbody2D _rig;
-
-        private bool _isSideAxisWasHeld = false;
-
+        // jumping
         [SerializeField] private float _jumpForce;
         private bool _isJumpAxisWasIdle = true;
         internal bool _isChangedDirectionInJump = false;
         [SerializeField] private float _forbidDirectionChangingDistance;
 
+        // collisions
         private PlayerCollisions _playerCollisions;
         private ObjectWallCollisions _playerWallCollisions;
 
+        // scripts
         [SerializeField] private PlayerSounds _playerSounds;
         [SerializeField] private PlayerGravityHandler _gravityHandler;
         [SerializeField] private HandleObjectFacing _spriteFacing;
         [SerializeField] private HandleSpriteRotation _spriteRotation;
+
+        // other
+        private Rigidbody2D _rig;
+        private bool _isSideAxisWasHeld = false;
 
         public bool IsInputHorisontalNegative => Input.GetAxisRaw("Horizontal") < 0;
         public bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
@@ -33,6 +41,13 @@ namespace Assets.Scripts.Player
         public bool IsInputVerticalPositive => Input.GetAxisRaw("Vertical") > 0;
 
         public bool IsGrounded => _playerWallCollisions.IsGrounded;
+
+        public static GameObject Player { get => _player; set => _player = value; }
+
+        private void Awake()
+        {
+            Player = gameObject;
+        }
 
         void Start()
         {
@@ -64,6 +79,13 @@ namespace Assets.Scripts.Player
         {
             _rig.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
+
+        //public static GameObject FindPlayer()
+        //{
+        //    GameObject player;
+        //    if ((player = GameObject.FindGameObjectWithTag(Tags.Player)) != null) return player;
+        //    else return null;
+        //}
     
         private void HandleJumping()
         {

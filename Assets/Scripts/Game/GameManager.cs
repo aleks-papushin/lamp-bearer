@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Resources;
+﻿using Assets.Scripts.Player;
+using Assets.Scripts.Resources;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Assets.Scripts
     public class GameManager : MonoBehaviour
     {
         public GameObject _spawner;
-        public int oilBottleCount;
+        public int oilBottleCountForSpawn;
 
         private GameTimer _gameTimer;
         private UserInterface _userInterface;
@@ -41,10 +42,9 @@ namespace Assets.Scripts
             _gameTimer = GetComponent<GameTimer>();
             _userInterface = FindObjectOfType<UserInterface>();
             this.SetWallIntervals();
-
+            PlayerCollisions.OnPlayerDied += PlayerCollisions_OnPlayerDied;
             StartCoroutine(this.HandleWallsDangerousness());
-
-            _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCount, 0, 0);
+            _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCountForSpawn, 0, 0);
         }
 
         void Update()
@@ -78,7 +78,7 @@ namespace Assets.Scripts
 
         private void RespawnPlayer()
         {
-            var player = GameObject.FindGameObjectWithTag("Player");
+            var player = PlayerController.Player;
 
             if (_respawnPlayer)
             {
@@ -122,6 +122,11 @@ namespace Assets.Scripts
 
                 yield return new WaitForSeconds(_wallCoolDownInterval);
             }
+        }
+
+        private void PlayerCollisions_OnPlayerDied()
+        {
+            _userInterface.ResetScore();
         }
     }
 }

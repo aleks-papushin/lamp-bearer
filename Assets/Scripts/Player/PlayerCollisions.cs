@@ -13,6 +13,7 @@ namespace Assets.Scripts.Player
         private Animator _animator;
 
         public static event Action OnOilBottleTaken;
+        public static event Action OnPlayerDied;
 
         void Start()
         {
@@ -37,7 +38,7 @@ namespace Assets.Scripts.Player
         {
             if (collision.gameObject.tag.Contains(Tags.Enemy))
             {
-                Destroy(gameObject);
+                this.HandlePlayerDead();
             }
         }
 
@@ -100,8 +101,14 @@ namespace Assets.Scripts.Player
         {
             if (collision.gameObject.GetComponent<WallDanger>().IsDangerous)
             {
-                Destroy(gameObject);
+                this.HandlePlayerDead();
             }
+        }
+
+        private void HandlePlayerDead()
+        {
+            Destroy(gameObject);
+            OnPlayerDied?.Invoke();
         }
     }
 }

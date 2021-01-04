@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts;
 using Assets.Scripts.Player;
-using Assets.Scripts.Resources;
 using System.Collections;
 using UnityEngine;
 
@@ -10,14 +9,12 @@ public class SpawnOil : MonoBehaviour
 
     private readonly float _xRange = 6;
     private readonly float _yRange = 2;
-    private GameObject _player;
     private GameObject _bottle;
 
     public bool IsBottleExist => _bottle != null;
 
     private void Start()
     {
-        _player = GameObject.FindGameObjectWithTag(Tags.Player);
         PlayerCollisions.OnOilBottleTaken += PlayerCollisions_OnOilBottleTaken;
     }
 
@@ -57,7 +54,7 @@ public class SpawnOil : MonoBehaviour
 
     private IEnumerator WaitPlayerGroundedAndSpawnOil()
     {
-        var playerWallCollisions = _player.GetComponent<ObjectWallCollisions>();
+        var playerWallCollisions = PlayerController.Player.GetComponent<ObjectWallCollisions>();
 
         while (!playerWallCollisions.IsGrounded)
         {
