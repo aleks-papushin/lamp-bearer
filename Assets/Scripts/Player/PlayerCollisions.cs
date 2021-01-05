@@ -107,7 +107,11 @@ namespace Assets.Scripts.Player
 
         private void HandlePlayerDead()
         {
-            Destroy(gameObject);
+            Destroy(gameObject);            
+        }
+
+        private void OnDestroy()
+        {
             OnPlayerDied?.Invoke();
         }
     }

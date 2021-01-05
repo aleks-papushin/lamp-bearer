@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Player;
-using Assets.Scripts.Resources;
+﻿using Assets.Scripts.Resources;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +33,6 @@ namespace Assets.Scripts
         {
             _userInterface = FindObjectOfType<UserInterface>();
             this.GameTimer_OnWaveIncrementing();
-            PlayerCollisions.OnPlayerDied += PlayerCollisions_OnPlayerDied;
             StartCoroutine(this.HandleWallsDangerousness());
             _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCountForSpawn, 0, 0);
             GameTimer.OnWaveIncrementing += GameTimer_OnWaveIncrementing;
@@ -78,11 +76,6 @@ namespace Assets.Scripts
 
                 yield return new WaitForSeconds(_wallCoolDownInterval);
             }
-        }
-
-        private void PlayerCollisions_OnPlayerDied()
-        {
-            _userInterface.ResetScore();
         }
     }
 }

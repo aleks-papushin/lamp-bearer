@@ -94,13 +94,14 @@
     <Compile Include="Assets\Scripts\Interfaces\ICornerJumpSoundSource.cs" />
     <Compile Include="Assets\Scripts\Spawn\SpawnEnemy.cs" />
     <Compile Include="Assets\Scripts\Game\GameWaveCsvReader.cs" />
+    <Compile Include="Assets\Scripts\StartButton.cs" />
     <Compile Include="Assets\Scripts\Game\GameWaveManager.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyWalkerMovement.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IGroundedStateHandler.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMovementBase.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyGravityHandler.cs" />
-    <Compile Include="Assets\Scripts\StartButton.cs" />
+    <Compile Include="Assets\Scripts\GameOverUiObject.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

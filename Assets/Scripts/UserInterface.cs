@@ -7,23 +7,23 @@ namespace Assets.Scripts
     {
         public TextMeshProUGUI scoreText;
 
-        private int _currentScore;
+        public int CurrentScore { get; private set; }
 
         public void UpdateScore(int increment)
         {
-            _currentScore += increment;
+            CurrentScore += increment;
             this.UpdateScoreDisplay();
         }
 
         public void ResetScore()
         {
-            _currentScore = 0;
+            CurrentScore = 0;
             this.UpdateScoreDisplay();
         }
 
         private void UpdateScoreDisplay()
         {
-            scoreText.text = $": {_currentScore}";
+            scoreText.text = $": {CurrentScore}";
         }
     }
 }
