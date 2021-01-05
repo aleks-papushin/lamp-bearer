@@ -25,12 +25,6 @@ namespace Assets.Scripts
         [SerializeField] private float _wallDangerousInterval;
         [SerializeField] private float _wallCoolDownInterval;
 
-        // Debugging variables
-        public bool _switchOffWalls;
-        public GameObject _player;
-        public bool _respawnPlayer;
-        //
-
         private void Awake()
         {
             WaveManager = new GameWaveManager();
@@ -46,13 +40,6 @@ namespace Assets.Scripts
             GameTimer.OnWaveIncrementing += GameTimer_OnWaveIncrementing;
         }
 
-        void Update()
-        {
-            // Debug 
-            this.RespawnPlayer();
-            // 
-        }
-
         public void UpdateScore(int increment)
         {
             _userInterface.UpdateScore(increment);
@@ -63,22 +50,6 @@ namespace Assets.Scripts
             _wallWarningInterval = WaveManager.CurrentWave.wallWarningInterval;
             _wallDangerousInterval = WaveManager.CurrentWave.wallDangerousInterval;
             _wallCoolDownInterval = WaveManager.CurrentWave.wallCoolDownInterval;
-        }
-
-        private void RespawnPlayer()
-        {
-            var player = PlayerController.Player;
-
-            if (_respawnPlayer)
-            {
-                Destroy(player); 
-            }
-
-            if (player == null)
-            {
-                Instantiate(_player, _player.transform.position, _player.transform.rotation);
-                _respawnPlayer = false;
-            }
         }
 
         private IEnumerator HandleWallsDangerousness()
@@ -96,18 +67,14 @@ namespace Assets.Scripts
 
                 var dangerousInterval = _wallDangerousInterval + _wallWarningInterval;
 
-                // debugging if
-                if (!_switchOffWalls)
-                {
-                    var wallIdx = new System.Random().Next(WallsToBeDangerous.Count);
-                    var wall = WallsToBeDangerous[wallIdx];
+                var wallIdx = new System.Random().Next(WallsToBeDangerous.Count);
+                var wall = WallsToBeDangerous[wallIdx];
                 
-                    StartCoroutine(wall.GetComponent<WallDanger>().BecameDangerousCoroutine(_wallWarningInterval));
+                StartCoroutine(wall.GetComponent<WallDanger>().BecameDangerousCoroutine(_wallWarningInterval));
 
-                    yield return new WaitForSeconds(dangerousInterval);
+                yield return new WaitForSeconds(dangerousInterval);
 
-                    wall.GetComponent<WallDanger>().BecameSafe();
-                }
+                wall.GetComponent<WallDanger>().BecameSafe();
 
                 yield return new WaitForSeconds(_wallCoolDownInterval);
             }

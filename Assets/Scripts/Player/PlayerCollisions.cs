@@ -78,9 +78,9 @@ namespace Assets.Scripts.Player
             }
         }
 
-        private void OilBottleTaken(Collider2D collision)
+        private void OilBottleTaken(Collider2D oilBottle)
         {
-            Destroy(collision.gameObject);
+            Destroy(oilBottle.gameObject);
             _gameManager.UpdateScore(1);
             _playerSounds.OilTaken();
             _light.OilTaken();

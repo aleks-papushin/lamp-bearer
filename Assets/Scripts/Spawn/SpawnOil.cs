@@ -63,4 +63,9 @@ public class SpawnOil : MonoBehaviour
 
         Spawn();
     }
+
+    private void OnDestroy()
+    {
+        PlayerCollisions.OnOilBottleTaken -= PlayerCollisions_OnOilBottleTaken;
+    }
 }
