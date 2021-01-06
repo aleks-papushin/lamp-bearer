@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Interfaces;
+using Assets.Scripts.Resources;
 using System.Collections.Generic;
 using System.IO;
 
@@ -8,7 +9,7 @@ namespace Assets.Scripts.Game
     {
         public List<GameWaveDto> ReadGameData()
         {
-            using (StreamReader file = new StreamReader("GameData/GameWaves.csv"))
+            using (StreamReader file = new StreamReader(Paths.GameWaveDataFilePath))
             {
                 _ = file.ReadLine(); // feed line with column names
                 string wave;
