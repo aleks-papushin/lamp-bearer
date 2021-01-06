@@ -107,8 +107,8 @@ GameObject:
   - component: {fileID: 1894497229938108202}
   - component: {fileID: 1894497229938108213}
   - component: {fileID: 1495898472663841162}
+  - component: {fileID: 6660765314491143587}
   - component: {fileID: 58495398863989835}
-  - component: {fileID: 8673403141515234751}
   - component: {fileID: 1068632376935203733}
   - component: {fileID: 2789588611599096974}
   - component: {fileID: 7037271132069420273}
@@ -443,6 +443,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f41a6015e6f99ac4894b196b0c80cf10, type: 3}
   - {fileID: 8300000, guid: 12ddb23094812af47b3d42d944c2f556, type: 3}
   _playerAudio: {fileID: 7316892633350565881}
+--- !u!114 &6660765314491143587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894497229938108207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef2a3fda96dac0e46b8673b347a9ca24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &58495398863989835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,18 +469,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cornerJumpForce: 8
   _cornerJumpModifier: 0.3
---- !u!114 &8673403141515234751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894497229938108207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 498007420594f4442861d6e95b7efca1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1068632376935203733
 MonoBehaviour:
   m_ObjectHideFlags: 0

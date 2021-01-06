@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerRunning.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyCornerJumperMovement.cs" />
+    <Compile Include="Assets\Scripts\GameOverUiObject.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IWallCollisions.cs" />
     <Compile Include="Assets\Scripts\Game\GameWaveDto.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerSounds.cs" />
@@ -101,7 +102,7 @@
     <Compile Include="Assets\Scripts\Interfaces\IGroundedStateHandler.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMovementBase.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyGravityHandler.cs" />
-    <Compile Include="Assets\Scripts\GameOverUiObject.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerWallCollisions.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

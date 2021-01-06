@@ -6,7 +6,6 @@ namespace Assets.Scripts.Player
     public class PlayerController : MonoBehaviour
     {
         // player
-        private static GameObject _player;
 
         // movement
         private PlayerRunning _playerMovement;
@@ -23,7 +22,7 @@ namespace Assets.Scripts.Player
 
         // collisions
         private PlayerCollisions _playerCollisions;
-        private ObjectWallCollisions _playerWallCollisions;
+        private PlayerWallCollisions _playerWallCollisions;
 
         // scripts
         [SerializeField] private PlayerSounds _playerSounds;
@@ -40,9 +39,9 @@ namespace Assets.Scripts.Player
         public bool IsInputVerticalNegative => Input.GetAxisRaw("Vertical") < 0;
         public bool IsInputVerticalPositive => Input.GetAxisRaw("Vertical") > 0;
 
-        public bool IsGrounded => _playerWallCollisions.IsGrounded;
+        public bool IsGrounded { get; set; }
 
-        public static GameObject Player { get => _player; set => _player = value; }
+        public static GameObject Player { get; private set; }
 
         private void Awake()
         {
@@ -53,45 +52,43 @@ namespace Assets.Scripts.Player
         {
             _rig = GetComponent<Rigidbody2D>();
             _playerCollisions = GetComponent<PlayerCollisions>();
-            _playerWallCollisions = GetComponent<ObjectWallCollisions>();
+            _playerWallCollisions = GetComponent<PlayerWallCollisions>();
             _playerCollisions.SetAnimator(_animator);
             _gravityHandler.SwitchLocalGravity(Direction.Down);
-
             _playerMovement = new PlayerRunning(_rig, _playerCollisions, _spriteFacing, _animator);
+            PlayerWallCollisions.OnIsGroundedChanged += PlayerWallCollisions_OnIsGroundedChanged;
+        }
+
+        private void Update()
+        {
+
         }
 
         void FixedUpdate()
         {
+            this.HandleJumping();
+            this.HandleInAirDirectionChanging();
+
             if (IsGrounded)
             {
                 _playerMovement.HandleMovement(
-                    _movementSpeed, 
-                    _gravityHandler.IsGravityVectorVertical, 
-                    _playerWallCollisions.IsTouchHorizontalWall, 
+                    _movementSpeed,
+                    _gravityHandler.IsGravityVectorVertical,
+                    _playerWallCollisions.IsTouchHorizontalWall,
                     _playerWallCollisions.IsTouchVerticalWall);
             }
-
-            this.HandleJumping();
-            this.HandleInAirDirectionChanging();
         }
 
         public void UnfreezeRig()
         {
             _rig.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
-
-        //public static GameObject FindPlayer()
-        //{
-        //    GameObject player;
-        //    if ((player = GameObject.FindGameObjectWithTag(Tags.Player)) != null) return player;
-        //    else return null;
-        //}
     
         private void HandleJumping()
         {
             // if on the surface, add impulse force in the opposite side
             if (_isJumpAxisWasIdle && Input.GetAxisRaw("Jump") > 0)
-            {            
+            {
                 if (_playerWallCollisions.IsTouchBottomWall)
                 {
                     this.Jump(Direction.Up, new Vector2(0, _jumpForce));
@@ -110,7 +107,7 @@ namespace Assets.Scripts.Player
                 }
 
                 _isJumpAxisWasIdle = false;
-                //_playerWallCollisions.IsGrounded = false;                
+                
             }
             else if (Input.GetAxisRaw("Jump") == 0)
             {
@@ -135,11 +132,11 @@ namespace Assets.Scripts.Player
         private void Jump(Direction gravity, Vector2 jumpVector)
         {
             this.SetIsSideAxisHeld();
-            this.StopRig();        
+            this.StopRig();
             this.FreezePerpendicularAxis(gravity);
             _gravityHandler.SwitchLocalGravity(gravity);
             _rig.AddForce(jumpVector, ForceMode2D.Impulse);
-            //_animator.SetBool("IsJumping", true); // temporarily disabled
+            _animator.SetBool("IsJumping", true);
             _playerSounds.Jump();
         }
 
@@ -212,6 +209,16 @@ namespace Assets.Scripts.Player
         private void StopRig()
         {
             _rig.velocity = Vector2.zero;
+        }
+
+        private void PlayerWallCollisions_OnIsGroundedChanged(bool isGrounded)
+        {
+            IsGrounded = isGrounded;
+        }
+
+        private void OnDestroy()
+        {
+            PlayerWallCollisions.OnIsGroundedChanged -= PlayerWallCollisions_OnIsGroundedChanged;
         }
     }
 }
