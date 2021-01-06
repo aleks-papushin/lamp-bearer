@@ -79,7 +79,7 @@ namespace Assets.Scripts.Player
         {
             if (IsGrounded)
             {
-                _rig.velocity = vector * speed * (Time.deltaTime * 500);
+                _rig.velocity = vector * speed;
             }
         }
 
