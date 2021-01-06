@@ -12,8 +12,8 @@ namespace Assets.Scripts.Player
         {
             if (otherCollider.gameObject.tag.Contains(Tags.WallSuffix))
             {
-                OnIsGroundedChanged?.Invoke(true);
                 base.HandleCollisionState(otherCollider, isEntered: true);
+                OnIsGroundedChanged?.Invoke(IsGrounded);
             }
         }
 
@@ -21,8 +21,8 @@ namespace Assets.Scripts.Player
         {
             if (otherCollider.gameObject.tag.Contains(Tags.WallSuffix))
             {
-                OnIsGroundedChanged?.Invoke(false);
                 base.HandleCollisionState(otherCollider, isEntered: false);
+                OnIsGroundedChanged?.Invoke(IsGrounded);
             }
         }
     }

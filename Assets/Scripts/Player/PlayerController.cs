@@ -5,12 +5,6 @@ namespace Assets.Scripts.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        // player
-
-        // movement
-        private PlayerRunning _playerMovement;
-        [SerializeField] private float _movementSpeed;
-
         // animation
         [SerializeField] private Animator _animator;
 
@@ -31,6 +25,7 @@ namespace Assets.Scripts.Player
         [SerializeField] private HandleSpriteRotation _spriteRotation;
 
         // other
+        private PlayerRunning _playerRunning;
         private Rigidbody2D _rig;
         private bool _isSideAxisWasHeld = false;
 
@@ -51,32 +46,18 @@ namespace Assets.Scripts.Player
         void Start()
         {
             _rig = GetComponent<Rigidbody2D>();
+            _playerRunning = GetComponent<PlayerRunning>();
             _playerCollisions = GetComponent<PlayerCollisions>();
             _playerWallCollisions = GetComponent<PlayerWallCollisions>();
             _playerCollisions.SetAnimator(_animator);
             _gravityHandler.SwitchLocalGravity(Direction.Down);
-            _playerMovement = new PlayerRunning(_rig, _playerCollisions, _spriteFacing, _animator);
             PlayerWallCollisions.OnIsGroundedChanged += PlayerWallCollisions_OnIsGroundedChanged;
-        }
-
-        private void Update()
-        {
-
         }
 
         void FixedUpdate()
         {
             this.HandleJumping();
             this.HandleInAirDirectionChanging();
-
-            if (IsGrounded)
-            {
-                _playerMovement.HandleMovement(
-                    _movementSpeed,
-                    _gravityHandler.IsGravityVectorVertical,
-                    _playerWallCollisions.IsTouchHorizontalWall,
-                    _playerWallCollisions.IsTouchVerticalWall);
-            }
         }
 
         public void UnfreezeRig()
@@ -132,7 +113,10 @@ namespace Assets.Scripts.Player
         private void Jump(Direction gravity, Vector2 jumpVector)
         {
             this.SetIsSideAxisHeld();
-            this.StopRig();
+
+            // HACK to stop velocity changing immediately
+            _playerRunning.IsGrounded = false;
+
             this.FreezePerpendicularAxis(gravity);
             _gravityHandler.SwitchLocalGravity(gravity);
             _rig.AddForce(jumpVector, ForceMode2D.Impulse);
@@ -204,11 +188,6 @@ namespace Assets.Scripts.Player
                     }
                 }
             }
-        }
-
-        private void StopRig()
-        {
-            _rig.velocity = Vector2.zero;
         }
 
         private void PlayerWallCollisions_OnIsGroundedChanged(bool isGrounded)

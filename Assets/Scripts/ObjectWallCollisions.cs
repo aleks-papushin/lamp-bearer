@@ -13,7 +13,6 @@ namespace Assets.Scripts
         public bool IsTouchHorizontalWall => IsTouchBottomWall || IsTouchUpperWall;
         public bool IsTouchVerticalWall => IsTouchLeftWall || IsTouchRightWall;
         
-        // TODO replace usings of this property to event handler model
         public bool IsGrounded => IsTouchHorizontalWall || IsTouchVerticalWall;
 
         void OnCollisionEnter2D(Collision2D otherCollider)
