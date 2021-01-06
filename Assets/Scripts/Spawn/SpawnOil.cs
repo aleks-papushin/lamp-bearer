@@ -52,13 +52,14 @@ public class SpawnOil : MonoBehaviour
         StartCoroutine(WaitPlayerGroundedAndSpawnOil());
     }
 
+    // TODO change to event handler which will be check if there is no oil when player is grounded
     private IEnumerator WaitPlayerGroundedAndSpawnOil()
     {
         var playerWallCollisions = PlayerController.Player.GetComponent<ObjectWallCollisions>();
 
         while (!playerWallCollisions.IsGrounded)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.01f);
         }
 
         Spawn();
