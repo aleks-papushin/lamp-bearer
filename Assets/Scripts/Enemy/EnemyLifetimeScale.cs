@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyLifetimeScale : MonoBehaviour//, IEnemyInitialScaleHandler
+public class EnemyLifetimeScale : MonoBehaviour
 {
     [SerializeField] private float _initScaleMultiplier;
     [SerializeField] private float _incrementValue;
@@ -24,13 +24,10 @@ public class EnemyLifetimeScale : MonoBehaviour//, IEnemyInitialScaleHandler
         }
     }
 
-
     private void Awake()
     {
-        //Debug.Log($"In Awake before size reducing. Scale: {transform.localScale}, scale.x: {transform.localScale.x}, scale.y: {transform.localScale.y}, scale.x: { transform.localScale.z}");
         _defaultScaleX = Math.Abs(transform.localScale.x);
         transform.localScale *= _initScaleMultiplier;
-        //Debug.Log($"In Awake after size reducing. Scale: {transform.localScale}, scale.x: {transform.localScale.x}, scale.y: {transform.localScale.y}, scale.x: { transform.localScale.z}");        
     }
 
     public IEnumerator DecreaseSizeRoutine()
@@ -46,7 +43,7 @@ public class EnemyLifetimeScale : MonoBehaviour//, IEnemyInitialScaleHandler
         }
     }
 
-    public IEnumerator IcreaseSizeRoutine()
+    public IEnumerator IncreaseSizeRoutine()
     {
         yield return new WaitForSeconds(0.1f);
 

@@ -13,11 +13,11 @@ public class EnemyWalkerLifetimeHandler : MonoBehaviour
             if (!collision.GetComponent<EnemyWalkerCollisions>().IsTriggeredAtLeastOnce)
             {
                 collision.GetComponent<EnemyWalkerCollisions>().IsTriggeredAtLeastOnce = true;
-                StartCoroutine(collision.GetComponent<EnemyLifetimeScale>().IcreaseSizeRoutine());
+                StartCoroutine(collision.GetComponent<EnemyLifetimeScale>().IncreaseSizeRoutine());
             }
             else
             {
-                bool isDestroyEnemy = Random.Range(0, 2) == 1;
+                bool isDestroyEnemy = Random.Range(1, 2) == 1;
 
                 if (isDestroyEnemy)
                 {

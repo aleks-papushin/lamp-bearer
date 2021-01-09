@@ -105,6 +105,7 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyGravityHandler.cs" />
     <Compile Include="Assets\Scripts\Resources\Paths.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyLifetimeScale.cs" />
+    <Compile Include="Assets\Scripts\DestroyOnCollision.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
