@@ -2,10 +2,10 @@
 {
     public interface IWallCollisions
     {
-        bool IsTouchBottomWall { get; set; }
-        bool IsTouchUpperWall { get; set; }
-        bool IsTouchLeftWall { get; set; }
-        bool IsTouchRightWall { get; set; }
+        bool IsTouchBottomWall { get; }
+        bool IsTouchUpperWall { get; }
+        bool IsTouchLeftWall { get; }
+        bool IsTouchRightWall { get; }
         bool IsTouchHorizontalWall { get; }
         bool IsTouchVerticalWall { get; }
     }

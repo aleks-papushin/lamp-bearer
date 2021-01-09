@@ -69,7 +69,7 @@
     <Compile Include="Assets\Scripts\Utils\TransformExtensions.cs" />
     <Compile Include="Assets\Scripts\Oil\OilLighting.cs" />
     <Compile Include="Assets\Scripts\Enums\MovementMode.cs" />
-    <Compile Include="Assets\Scripts\Spawn\SpawnerCollisions.cs" />
+    <Compile Include="Assets\Scripts\Spawn\EnemyWalkerLifetimeHandler.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\Enums\Direction.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IGameDataReader.cs" />
@@ -84,7 +84,6 @@
     <Compile Include="Assets\Scripts\Player\PlayerRunning.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyCornerJumperMovement.cs" />
-    <Compile Include="Assets\Scripts\Resources\Paths.cs" />
     <Compile Include="Assets\Scripts\GameOverUiObject.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IWallCollisions.cs" />
     <Compile Include="Assets\Scripts\Game\GameWaveDto.cs" />
@@ -104,6 +103,8 @@
     <Compile Include="Assets\Scripts\Interfaces\IGroundedStateHandler.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMovementBase.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyGravityHandler.cs" />
+    <Compile Include="Assets\Scripts\Resources\Paths.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyLifetimeScale.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

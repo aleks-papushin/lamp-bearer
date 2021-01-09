@@ -12,6 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a2ef5c788a9924d8be562f25114f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2753848594604165970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252155749681985246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ddc2d9a58aa817469f0e88e243f998c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initScaleMultiplier: 0.2
+  _incrementValue: 0.005
+  _routineTimeInterval: 0.005
 --- !u!1001 &6942831191359472460
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -262,6 +277,10 @@ PrefabInstance:
     - target: {fileID: 8158667829994468748, guid: 3c68ce8760449064fa50b1c904601bd9, type: 3}
       propertyPath: _speed
       value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8158667829994468750, guid: 3c68ce8760449064fa50b1c904601bd9, type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8158667829994468751, guid: 3c68ce8760449064fa50b1c904601bd9, type: 3}
       propertyPath: m_LocalPosition.x

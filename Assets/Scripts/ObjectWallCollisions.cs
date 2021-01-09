@@ -6,10 +6,43 @@ namespace Assets.Scripts
 {
     public class ObjectWallCollisions : MonoBehaviour, IWallCollisions, IGroundedStateHandler
     {
-        public bool IsTouchBottomWall { get; set; }
-        public bool IsTouchUpperWall { get; set; }
-        public bool IsTouchLeftWall { get; set; }
-        public bool IsTouchRightWall { get; set; }
+        private int _bWallCollisionEntered = 0;
+        private int _uWallCollisionEntered = 0;
+        private int _lWallCollisionEntered = 0;
+        private int _rWallCollisionEntered = 0;
+
+        public bool IsTouchBottomWall
+        {
+            get
+            {
+                return _bWallCollisionEntered > 0;
+            }
+        }
+
+        public bool IsTouchUpperWall
+        {
+            get
+            {
+                return _uWallCollisionEntered > 0;
+            }
+        }
+
+        public bool IsTouchLeftWall
+        {
+            get
+            {
+                return _lWallCollisionEntered > 0;
+            }
+        }
+
+        public bool IsTouchRightWall
+        {
+            get
+            {
+                return _rWallCollisionEntered > 0;
+            }
+        }
+
         public bool IsTouchHorizontalWall => IsTouchBottomWall || IsTouchUpperWall;
         public bool IsTouchVerticalWall => IsTouchLeftWall || IsTouchRightWall;
         
@@ -17,31 +50,31 @@ namespace Assets.Scripts
 
         void OnCollisionEnter2D(Collision2D otherCollider)
         {
-            this.HandleCollisionState(otherCollider, true);
+            this.HandleCollisionState(otherCollider, 1);
         }
 
         void OnCollisionExit2D(Collision2D otherCollider)
         {
-            this.HandleCollisionState(otherCollider, false);
+            this.HandleCollisionState(otherCollider, -1);
         }
 
-        protected void HandleCollisionState(Collision2D otherCollider, bool isEntered)
+        protected void HandleCollisionState(Collision2D otherCollider, int collisionIncrement)
         {
             if (otherCollider.gameObject.tag.Contains(Tags.WallSuffix))
             {
                 switch (otherCollider.gameObject.tag)
                 {
                     case Tags.LeftWall:
-                        IsTouchLeftWall = isEntered;
+                        _lWallCollisionEntered += collisionIncrement;
                         break;
                     case Tags.RightWall:
-                        IsTouchRightWall = isEntered;
+                        _rWallCollisionEntered += collisionIncrement;
                         break;
                     case Tags.BottomWall:
-                        IsTouchBottomWall = isEntered;
+                        _bWallCollisionEntered += collisionIncrement;
                         break;
                     case Tags.UpperWall:
-                        IsTouchUpperWall = isEntered;
+                        _uWallCollisionEntered += collisionIncrement;
                         break;
                 }
             }
