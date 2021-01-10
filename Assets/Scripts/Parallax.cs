@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Resources;
+using System.Collections;
 using UnityEngine;
 
 public class Parallax : MonoBehaviour
@@ -8,14 +9,21 @@ public class Parallax : MonoBehaviour
 
     void Start()
     {
-        _source = GameObject.FindGameObjectWithTag(Tags.Player);                
+        _source = GameObject.FindGameObjectWithTag(Tags.Player);
+
+        StartCoroutine(ParallaxRoutine());
     }
 
-    void Update()
+    private IEnumerator ParallaxRoutine()
     {
-        var newPosX = _source.transform.position.x * _degree;
-        var newPosY = _source.transform.position.y * _degree;
+        while (true)
+        {
+            yield return new WaitForSeconds(0.02f);
 
-        transform.position = new Vector3(newPosX, newPosY, transform.position.z);
+            var newPosX = _source.transform.position.x * _degree;
+            var newPosY = _source.transform.position.y * _degree;
+
+            transform.position = new Vector3(newPosX, newPosY, transform.position.z);
+        }
     }
 }
