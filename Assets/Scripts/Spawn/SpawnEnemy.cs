@@ -8,8 +8,8 @@ public class SpawnEnemy : MonoBehaviour
     [SerializeField] private Direction _initGravity;
     [SerializeField] private GameObject _pairSpawner;
     private GameManager _gameManager;
-    private readonly float _minSpeedMod = 0.7f;
-    private readonly float _maxSpeedMod = 1.3f;
+    private readonly float _minSpeedMod = 0.5f;
+    private readonly float _maxSpeedMod = 1.5f;
 
     public GameObject Enemy { get; set; }
     public int EnemyCount

@@ -1,13 +1,6 @@
-﻿using Assets.Scripts.Resources;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyWalkerCollisions : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag(Tags.Enemy))
-        {
-            collision.gameObject.GetComponent<EnemyWalkerMovement>().ChangeDirection();
-        }
-    }
+    public bool IsTriggeredAtLeastOnce { get; set; } = false; // is uisng to handle existance of enemy by spawner triggers
 }

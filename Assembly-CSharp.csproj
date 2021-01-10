@@ -64,12 +64,12 @@
     <Compile Include="Assets\Scripts\ObjectWallCollisions.cs" />
     <Compile Include="Assets\Scripts\UserInterface.cs" />
     <Compile Include="Assets\Scripts\WallDanger.cs" />
-    <Compile Include="Assets\Scripts\Spawn\EnemySpawningHandling.cs" />
+    <Compile Include="Assets\Scripts\Spawn\EnemySpawningManagement.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ISoundSource.cs" />
     <Compile Include="Assets\Scripts\Utils\TransformExtensions.cs" />
     <Compile Include="Assets\Scripts\Oil\OilLighting.cs" />
     <Compile Include="Assets\Scripts\Enums\MovementMode.cs" />
-    <Compile Include="Assets\Scripts\Spawn\SpawnerCollisions.cs" />
+    <Compile Include="Assets\Scripts\Spawn\EnemyScaleHandler.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAction.cs" />
     <Compile Include="Assets\Scripts\Enums\Direction.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IGameDataReader.cs" />
@@ -105,6 +105,9 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyMovementBase.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyGravityHandler.cs" />
     <Compile Include="Assets\Scripts\Parallax.cs" />
+    <Compile Include="Assets\Scripts\PlayMusic.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyZFreezeHandling.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyScaling.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
