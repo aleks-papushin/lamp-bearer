@@ -24,6 +24,7 @@
         public const string UpperLeftCorner = "UpperLeftCorner";
         public const string UpperRightCorner = "UpperRightCorner";
 
+        public const string SpawnerSuffix = "Spawner";
         public const string BottomSpawner = "BottomSpawner";
         public const string UpperSpawner = "UpperSpawner";
         public const string LeftSpawner = "LeftSpawner";

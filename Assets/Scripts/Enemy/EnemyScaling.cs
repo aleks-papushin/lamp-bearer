@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyLifetimeScale : MonoBehaviour
+public class EnemyScaling : MonoBehaviour
 {
     [SerializeField] private float _initScaleMultiplier;
     [SerializeField] private float _incrementValue;
@@ -32,15 +32,15 @@ public class EnemyLifetimeScale : MonoBehaviour
 
     public IEnumerator DecreaseSizeRoutine()
     {
-        yield return null;
-
         var scaleIncrementVector = ScaleIncrementVector;
-        var finalScale = _defaultScaleX * _initScaleMultiplier;
+        var finalScale = _defaultScaleX * _initScaleMultiplier * 0.1;
         while (Math.Abs(transform.localScale.x) > finalScale)
         {
-            transform.localScale -= scaleIncrementVector;
+            transform.localScale -= scaleIncrementVector * 0.3f;
             yield return new WaitForSeconds(_routineTimeInterval);
         }
+
+        Destroy(gameObject);
     }
 
     public IEnumerator IncreaseSizeRoutine()

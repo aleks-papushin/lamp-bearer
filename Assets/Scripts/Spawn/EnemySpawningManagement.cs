@@ -1,11 +1,10 @@
 ﻿using Assets.Scripts;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemySpawningHandling : MonoBehaviour
+public class EnemySpawningManagement : MonoBehaviour
 {
     private GameManager _gameManager;
     private List<SpawnEnemy> _enemySpawners;
@@ -66,6 +65,6 @@ public class EnemySpawningHandling : MonoBehaviour
 
         if (freeSpawners.Count == 0) return null;
 
-        return freeSpawners[UnityEngine.Random.Range(0, freeSpawners.Count)];
+        return freeSpawners[Random.Range(0, freeSpawners.Count)];
     }
 }

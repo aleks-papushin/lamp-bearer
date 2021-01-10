@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyWalkerLifetimeHandler : MonoBehaviour
+public class EnemyScaleHandler : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,7 +13,7 @@ public class EnemyWalkerLifetimeHandler : MonoBehaviour
             if (!collision.GetComponent<EnemyWalkerCollisions>().IsTriggeredAtLeastOnce)
             {
                 collision.GetComponent<EnemyWalkerCollisions>().IsTriggeredAtLeastOnce = true;
-                StartCoroutine(collision.GetComponent<EnemyLifetimeScale>().IncreaseSizeRoutine());
+                StartCoroutine(collision.GetComponent<EnemyScaling>().IncreaseSizeRoutine());
             }
             else
             {
@@ -21,7 +21,7 @@ public class EnemyWalkerLifetimeHandler : MonoBehaviour
 
                 if (isDestroyEnemy)
                 {
-                    StartCoroutine(collision.GetComponent<EnemyLifetimeScale>().DecreaseSizeRoutine());
+                    StartCoroutine(collision.GetComponent<EnemyScaling>().DecreaseSizeRoutine());
                 }
                 else
                 {
@@ -33,12 +33,10 @@ public class EnemyWalkerLifetimeHandler : MonoBehaviour
 
     private IEnumerator TemporaryDisable()
     {
-        yield return null;
-
         var collider = GetComponent<EdgeCollider2D>();
         collider.enabled = false;
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
 
         collider.enabled = true;
     }
