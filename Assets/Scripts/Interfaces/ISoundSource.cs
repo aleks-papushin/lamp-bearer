@@ -5,5 +5,7 @@ namespace Assets.Scripts
     public interface ISoundSource
     {
         void PlayOnce(AudioSource source, AudioClip clip);
+
+        void PlayLoop(AudioSource source, AudioClip clip);
     }
 }
