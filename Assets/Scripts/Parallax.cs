@@ -7,11 +7,18 @@ public class Parallax : MonoBehaviour
     [SerializeField] private float _degree;
     private GameObject _source;
 
+    private void Awake()
+    {
+        transform.position = new Vector3(0, 0, transform.position.z);
+    }
+
     void Start()
     {
         _source = GameObject.FindGameObjectWithTag(Tags.Player);
-
-        StartCoroutine(ParallaxRoutine());
+        if (_source != null)
+        {
+            StartCoroutine(ParallaxRoutine());
+        }
     }
 
     private IEnumerator ParallaxRoutine()
