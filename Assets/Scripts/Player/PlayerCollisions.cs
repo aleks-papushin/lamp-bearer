@@ -62,7 +62,7 @@ namespace Assets.Scripts.Player
 
         private void HandleBeingOnWall(Collision2D collision, bool isOnWall)
         {
-            collision.transform.GetComponent<WallDanger>().IsPlayerStandsOnMe = isOnWall;
+            collision.transform.GetComponent<WallPlayerCollisions>().IsPlayerStandsOnMe = isOnWall;
         }
 
         private void OnCollisionStay2D(Collision2D collision)
@@ -99,7 +99,8 @@ namespace Assets.Scripts.Player
 
         private void HandleDangerousWall(Collision2D collision)
         {
-            if (collision.gameObject.GetComponent<WallDanger>().IsDangerous)
+            var variableWall = collision.gameObject.GetComponent<WallDanger>();
+            if (variableWall != null && variableWall.IsDangerous)
             {
                 this.HandlePlayerDead();
             }

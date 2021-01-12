@@ -4,7 +4,6 @@ using UnityEngine;
 public class WallDanger : MonoBehaviour
 {
     public bool IsDangerous { get; private set; }
-    public bool IsPlayerStandsOnMe { get; set; }
 
     public Sprite safe;
     public Sprite warning;

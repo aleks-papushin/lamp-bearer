@@ -15,8 +15,10 @@ namespace Assets.Scripts
 
         public GameWaveManager WaveManager { get; set; }
 
-        public List<GameObject> WallsToBeDangerous => 
-            FindObjectsOfType<WallDanger>().Where(ws => !ws.IsPlayerStandsOnMe).Select(ws => ws.gameObject).ToList();
+        public List<GameObject> WallsToBeDangerous => FindObjectsOfType<WallDanger>()
+            .Where(w => !w.GetComponent<WallPlayerCollisions>().IsPlayerStandsOnMe)
+            .Select(w => w.gameObject)
+            .ToList();
 
         public bool IsThereOilBottles => GameObject.FindGameObjectsWithTag(Tags.OilBottle).Any();
 

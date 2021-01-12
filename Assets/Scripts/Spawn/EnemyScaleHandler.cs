@@ -36,7 +36,7 @@ public class EnemyScaleHandler : MonoBehaviour
         var collider = GetComponent<EdgeCollider2D>();
         collider.enabled = false;
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
 
         collider.enabled = true;
     }
