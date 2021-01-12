@@ -294,6 +294,10 @@ PrefabInstance:
       propertyPath: m_LinearDrag
       value: 1.96
       objectReference: {fileID: 0}
+    - target: {fileID: 8158667829994468750, guid: 3c68ce8760449064fa50b1c904601bd9, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: d1fc9253d9f063a468bcbb8f437bbacb, type: 2}
     - target: {fileID: 8158667829994468751, guid: 3c68ce8760449064fa50b1c904601bd9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.660035

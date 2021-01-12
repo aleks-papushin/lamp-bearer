@@ -39,11 +39,17 @@ public class SpawnEnemy : MonoBehaviour
         return Enemy;
     }
 
-    private void SetSpeed(GameObject enemy)
+    private void SetSpeedWithRandomness(GameObject enemy)
     {
         var speed = _gameManager.WaveManager.CurrentWave.enemySpeed;
         enemy.GetComponent<EnemyWalkerMovement>().Speed =
             Random.Range(speed * _minSpeedMod, speed * _maxSpeedMod);
+    }
+
+    private void SetSpeed(GameObject enemy)
+    {
+        var speed = _gameManager.WaveManager.CurrentWave.enemySpeed;
+        enemy.GetComponent<EnemyWalkerMovement>().Speed = speed;
     }
 
     private void SetInitGravity(GameObject enemy)
