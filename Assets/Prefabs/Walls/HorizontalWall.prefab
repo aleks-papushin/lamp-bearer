@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 1003006799126669695}
   - component: {fileID: 7833204895088434833}
   - component: {fileID: 4256132794250231788}
-  - component: {fileID: 1003006799126669693}
+  - component: {fileID: 1901503950}
+  - component: {fileID: 7388424766153083356}
   m_Layer: 0
   m_Name: HorizontalWall
   m_TagString: BottomWall
@@ -101,7 +102,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.18165112, y: -18.955662}
+  m_Offset: {x: 0.23987103, y: -18.955662}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -112,7 +113,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 63.226067, y: 5.2886734}
+  m_Size: {x: 62.726036, y: 5.2886734}
   m_EdgeRadius: 0
 --- !u!68 &7833204895088434833
 EdgeCollider2D:
@@ -128,10 +129,10 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.01
   m_Points:
   - {x: -36.66208, y: -21.477057}
-  - {x: -31.531404, y: -16.36471}
+  - {x: -31.242537, y: -16.370148}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -150,15 +151,27 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.01
   m_Points:
-  - {x: 31.868176, y: -16.362196}
+  - {x: 31.67356, y: -16.3771}
   - {x: 37.06297, y: -21.60056}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!114 &1003006799126669693
+--- !u!114 &1901503950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003006799126669569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e647037f65047484da5312186282667c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7388424766153083356
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
