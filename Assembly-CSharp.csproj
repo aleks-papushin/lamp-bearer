@@ -62,7 +62,7 @@
     <Compile Include="Assets\Scripts\GravityHandler.cs" />
     <Compile Include="Assets\Scripts\Enums\Corner.cs" />
     <Compile Include="Assets\Scripts\ObjectWallCollisions.cs" />
-    <Compile Include="Assets\Scripts\UserInterface.cs" />
+    <Compile Include="Assets\Scripts\UI\UserInterface.cs" />
     <Compile Include="Assets\Scripts\WallDanger.cs" />
     <Compile Include="Assets\Scripts\Spawn\EnemySpawningManagement.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ISoundSource.cs" />
@@ -87,7 +87,7 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyCornerJumperMovement.cs" />
     <Compile Include="Assets\Scripts\Resources\Paths.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyZFreezeHandling.cs" />
-    <Compile Include="Assets\Scripts\GameOverUiObject.cs" />
+    <Compile Include="Assets\Scripts\UI\GameOverUiObject.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IWallCollisions.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyScaling.cs" />
     <Compile Include="Assets\Scripts\Game\GameWaveDto.cs" />
@@ -100,7 +100,7 @@
     <Compile Include="Assets\Scripts\Interfaces\ICornerJumpSoundSource.cs" />
     <Compile Include="Assets\Scripts\Spawn\SpawnEnemy.cs" />
     <Compile Include="Assets\Scripts\Game\GameWaveCsvReader.cs" />
-    <Compile Include="Assets\Scripts\StartButton.cs" />
+    <Compile Include="Assets\Scripts\UI\StartButton.cs" />
     <Compile Include="Assets\Scripts\Game\GameWaveManager.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyWalkerMovement.cs" />
     <Compile Include="Assets\Scripts\Game\GameManager.cs" />

@@ -15,6 +15,14 @@ public class StartButton : MonoBehaviour
         _startButton.onClick.AddListener(StartGame);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            StartGame();
+        }
+    }
+
     private void StartGame()
     {
         SceneManager.LoadScene(1);

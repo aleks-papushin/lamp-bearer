@@ -11,11 +11,6 @@ public class GameOverUiObject : MonoBehaviour
     private TextMeshProUGUI _textMesh;
     private Button _restartButton;
 
-    private void Awake()
-    {
-        
-    }
-
     void Start()
     {
         _ui = FindObjectOfType<UserInterface>();
@@ -24,6 +19,14 @@ public class GameOverUiObject : MonoBehaviour
         _restartButton.onClick.AddListener(RestartGame);
         PlayerCollisions.OnPlayerDied += PlayerCollisions_OnPlayerDied;
         gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            RestartGame();
+        }
     }
 
     private void PlayerCollisions_OnPlayerDied()
