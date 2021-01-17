@@ -25,12 +25,19 @@ public class Parallax : MonoBehaviour
     {
         while (true)
         {
+            if (_source != null)
+            {
+                var newPosX = _source.transform.position.x * _degree;
+                var newPosY = _source.transform.position.y * _degree;
+
+                transform.position = new Vector3(newPosX, newPosY, transform.position.z);
+            }
+            else
+            {
+                _source = GameObject.FindGameObjectWithTag(Tags.Player);
+            }
+
             yield return new WaitForSeconds(0.02f);
-
-            var newPosX = _source.transform.position.x * _degree;
-            var newPosY = _source.transform.position.y * _degree;
-
-            transform.position = new Vector3(newPosX, newPosY, transform.position.z);
         }
     }
 }
