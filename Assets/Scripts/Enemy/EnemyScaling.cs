@@ -45,7 +45,7 @@ public class EnemyScaling : MonoBehaviour
 
     public IEnumerator IncreaseSizeRoutine()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
 
         var scaleIncrementVector = ScaleIncrementVector;
         while (Math.Abs(transform.localScale.x) < _defaultScaleX)
