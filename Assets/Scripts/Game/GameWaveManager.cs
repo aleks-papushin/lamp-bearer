@@ -17,7 +17,7 @@ namespace Assets.Scripts
 
         public GameWaveManager()
         {
-            _waveList = new GameWaveCsvReader().ReadGameData(GameDifficulty.Hard);
+            _waveList = new GameWaveCsvReader().ReadGameData(GameDifficulty.Easy);
             CurrentNumber = _waveList.Min(w => w.number);
             _maxWaveNumber = _waveList.Max(w => w.number);
 
