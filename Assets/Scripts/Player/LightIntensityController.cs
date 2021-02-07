@@ -6,8 +6,9 @@ using UnityEngine;
 public class LightIntensityController : MonoBehaviour
 {
     [SerializeField] private Light _light;
-    [SerializeField] private float _initIntensity;
-    [SerializeField] private float _lightFading;
+    [SerializeField] private float _easyModInitIntensity;
+    [SerializeField] private float _hardModInitIntensity;
+    [SerializeField] private float _lightDecrement;
     [SerializeField] private float _oilBottleModifier;
     [SerializeField] private float _maxLightIntensity;
     [SerializeField] private float _dirLightMod;
@@ -17,6 +18,8 @@ public class LightIntensityController : MonoBehaviour
     private GameManager _gameManager;
 
     private readonly float _decreasingIntervalSec = 0.025f;
+    private readonly float _dirLightHardModeMin = 0;
+    private readonly float _dirLightEasyModeIntensity = 0.8f;
     private Light _dirLight;
 
     public float Intensity
@@ -26,7 +29,7 @@ public class LightIntensityController : MonoBehaviour
         {
             _light.intensity = value;
             if (!_debugNotUseDirLight)
-                _dirLight.intensity = (_light.intensity * _dirLightMod) + 0.05f; // hardcode to not to set dir lighth to 0
+                _dirLight.intensity = (_light.intensity * _dirLightMod) + _dirLightHardModeMin;
         }
     }
 
@@ -36,13 +39,18 @@ public class LightIntensityController : MonoBehaviour
     {
         _dirLightObj = GameObject.FindGameObjectWithTag(Tags.DirectionalLight);
         _dirLight = _dirLightObj.GetComponent<Light>();
-        Intensity = _initIntensity;
         _gameManager = FindObjectOfType<GameManager>();
         IsOilAffectLight = _gameManager.WaveManager.CurrentWave.isOilAffectLight;
 
         if (IsOilAffectLight)
         {
+            Intensity = _hardModInitIntensity;
             StartCoroutine(DecreaseIntensityRoutine());
+        }
+        else
+        {
+            Intensity = _easyModInitIntensity;
+            //_dirLight.intensity = _dirLightEasyModeIntensity;
         }
     }
 
@@ -59,7 +67,7 @@ public class LightIntensityController : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(_decreasingIntervalSec);
-            Intensity -= _lightFading;
+            Intensity -= _lightDecrement;
         }
     }
 }

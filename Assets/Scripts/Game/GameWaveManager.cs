@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Game;
+﻿using Assets.Scripts.Enums;
+using Assets.Scripts.Game;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,7 +17,7 @@ namespace Assets.Scripts
 
         public GameWaveManager()
         {
-            _waveList = new GameWaveCsvReader().ReadGameData();
+            _waveList = new GameWaveCsvReader().ReadGameData(GameDifficulty.Hard);
             CurrentNumber = _waveList.Min(w => w.number);
             _maxWaveNumber = _waveList.Max(w => w.number);
 

@@ -100,6 +100,7 @@
     <Compile Include="Assets\Scripts\Interfaces\ICornerJumpSoundSource.cs" />
     <Compile Include="Assets\Scripts\Spawn\SpawnEnemy.cs" />
     <Compile Include="Assets\Scripts\Game\GameWaveCsvReader.cs" />
+    <Compile Include="Assets\Scripts\ObjectDestroyer.cs" />
     <Compile Include="Assets\Scripts\UI\StartButton.cs" />
     <Compile Include="Assets\Scripts\Game\GameWaveManager.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyWalkerMovement.cs" />
@@ -109,7 +110,7 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyGravityHandler.cs" />
     <Compile Include="Assets\Scripts\Parallax.cs" />
     <Compile Include="Assets\Scripts\WallPlayerCollisions.cs" />
-    <Compile Include="Assets\Scripts\ObjectDestroyer.cs" />
+    <Compile Include="Assets\Scripts\Enums\GameDifficulty.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

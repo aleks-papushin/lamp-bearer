@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Interfaces;
+﻿using Assets.Scripts.Enums;
+using Assets.Scripts.Interfaces;
 using Assets.Scripts.Resources;
 using System.Collections.Generic;
 using System.IO;
@@ -7,9 +8,13 @@ namespace Assets.Scripts.Game
 {
     public class GameWaveCsvReader : IGameDataReader
     {
-        public List<GameWaveDto> ReadGameData()
+        public List<GameWaveDto> ReadGameData(GameDifficulty difficulty)
         {
-            using (StreamReader file = new StreamReader(Paths.GameWaveDataFilePath))
+            var waveFilePath = difficulty == GameDifficulty.Easy
+                ? Paths.WaveEasyModeFilePath
+                : Paths.WaveHardModeFilePath;
+
+            using (StreamReader file = new StreamReader(waveFilePath))
             {
                 _ = file.ReadLine(); // feed line with column names
                 string wave;
