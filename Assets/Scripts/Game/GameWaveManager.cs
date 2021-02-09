@@ -10,6 +10,7 @@ namespace Assets.Scripts
         private readonly List<GameWaveDto> _waveList;
         private readonly int _maxWaveNumber;
 
+        public static GameDifficulty GameDifficulty { get; set; }
         public int CurrentNumber { get; set; }
         public bool IsCurrentWaveLast => CurrentNumber >= _maxWaveNumber;
 
@@ -17,7 +18,7 @@ namespace Assets.Scripts
 
         public GameWaveManager()
         {
-            _waveList = new GameWaveCsvReader().ReadGameData(GameDifficulty.Easy);
+            _waveList = new GameWaveCsvReader().ReadGameData(GameDifficulty);
             CurrentNumber = _waveList.Min(w => w.number);
             _maxWaveNumber = _waveList.Max(w => w.number);
 
