@@ -23,6 +23,7 @@ TagManager:
   - LeftSpawner
   - RightSpawner
   - DirectionalLight
+  - DifficultyDropDown
   layers:
   - Default
   - TransparentFX

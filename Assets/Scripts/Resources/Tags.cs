@@ -33,5 +33,7 @@
         public const string OilBottle = "OilBottle";
 
         public const string DirectionalLight = "DirectionalLight";
+
+        public const string DifficultyDropDown = "DifficultyDropDown";
     }
 }
