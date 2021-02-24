@@ -57,13 +57,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Interfaces\IGravitySwitcher.cs" />
+    <Compile Include="Assets\Scripts\UI\WatchDropDownValue.cs" />
     <Compile Include="Assets\Scripts\HandleObjectFacing.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerGravityHandler.cs" />
     <Compile Include="Assets\Scripts\GravityHandler.cs" />
     <Compile Include="Assets\Scripts\Enums\Corner.cs" />
     <Compile Include="Assets\Scripts\ObjectWallCollisions.cs" />
     <Compile Include="Assets\Scripts\UI\UserInterface.cs" />
-    <Compile Include="Assets\Scripts\WallDanger.cs" />
+    <Compile Include="Assets\Scripts\Wall\WallDanger.cs" />
     <Compile Include="Assets\Scripts\Spawn\EnemySpawningManagement.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ISoundSource.cs" />
     <Compile Include="Assets\Scripts\Utils\TransformExtensions.cs" />
@@ -78,7 +79,7 @@
     <Compile Include="Assets\Scripts\Player\LightIntensityController.cs" />
     <Compile Include="Assets\Scripts\JumpOverCorner.cs" />
     <Compile Include="Assets\Scripts\PlayMusic.cs" />
-    <Compile Include="Assets\Scripts\WallLighting.cs" />
+    <Compile Include="Assets\Scripts\Wall\WallLighting.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IMovement.cs" />
     <Compile Include="Assets\Scripts\HandleSpriteRotation.cs" />
     <Compile Include="Assets\Scripts\Resources\Tags.cs" />
@@ -111,8 +112,8 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyMovementBase.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyGravityHandler.cs" />
     <Compile Include="Assets\Scripts\Parallax.cs" />
-    <Compile Include="Assets\Scripts\WallPlayerCollisions.cs" />
-    <Compile Include="Assets\Scripts\UI\WatchDropDownValue.cs" />
+    <Compile Include="Assets\Scripts\Wall\WallPlayerCollisions.cs" />
+    <Compile Include="Assets\Scripts\Wall\WallAnimation.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

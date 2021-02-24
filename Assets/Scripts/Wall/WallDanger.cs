@@ -11,6 +11,7 @@ public class WallDanger : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
     private WallLighting _lighting;
+    private WallAnimation _animation;
 
     void Start()
     {
@@ -18,25 +19,29 @@ public class WallDanger : MonoBehaviour
         _spriteRenderer.sprite = safe;
 
         _lighting = GetComponentInChildren<WallLighting>(true);
-        
+        _animation = GetComponent<WallAnimation>();
+
         IsDangerous = false;        
     }
 
     public IEnumerator BecameDangerousCoroutine(float _wallWarningInterval)
     {
-        _spriteRenderer.sprite = warning;
+        //_spriteRenderer.sprite = warning;
+        _animation.MakeWarning();
         _lighting.SetWarning();
 
         yield return new WaitForSeconds(_wallWarningInterval);
 
-        _spriteRenderer.sprite = danger;
+        //_spriteRenderer.sprite = danger;
+        _animation.BecameDanger();
         _lighting.SetDanger();
         IsDangerous = true;
     }
 
     public void BecameSafe()
     {
-        _spriteRenderer.sprite = safe;
+        //_spriteRenderer.sprite = safe;
+        _animation.BecameSafe();
         _lighting.Disable();
         IsDangerous = false;
     }

@@ -2954,6 +2954,14 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6910171465351896141, guid: 60a79617b48d33646a15d511e6e7749e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910171465351896143, guid: 60a79617b48d33646a15d511e6e7749e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6910171465725477230, guid: 60a79617b48d33646a15d511e6e7749e, type: 3}
       propertyPath: m_TagString
       value: RightAnchor
@@ -3380,6 +3388,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor
       objectReference: {fileID: 0}
+    - target: {fileID: 1003006800532668474, guid: cb9996fb022331b4589d0c433b00316d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003006800532668476, guid: cb9996fb022331b4589d0c433b00316d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb9996fb022331b4589d0c433b00316d, type: 3}
 --- !u!1001 &1861642751293888116
@@ -3583,6 +3599,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: UpperAnchor
       objectReference: {fileID: 0}
+    - target: {fileID: 1003006800532668474, guid: cb9996fb022331b4589d0c433b00316d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003006800532668476, guid: cb9996fb022331b4589d0c433b00316d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4256132794250231788, guid: cb9996fb022331b4589d0c433b00316d, type: 3}
       propertyPath: m_EdgeRadius
       value: 0.01
@@ -3665,6 +3689,14 @@ PrefabInstance:
     - target: {fileID: 6910171465351896141, guid: 60a79617b48d33646a15d511e6e7749e, type: 3}
       propertyPath: m_Intensity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910171465351896141, guid: 60a79617b48d33646a15d511e6e7749e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910171465351896143, guid: 60a79617b48d33646a15d511e6e7749e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6910171466334249506, guid: 60a79617b48d33646a15d511e6e7749e, type: 3}
       propertyPath: m_LocalPosition.x

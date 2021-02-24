@@ -151,6 +151,8 @@ GameObject:
   - component: {fileID: 6135581229563583713}
   - component: {fileID: 7907712212562739853}
   - component: {fileID: 6910171466334249505}
+  - component: {fileID: 3181373169937738959}
+  - component: {fileID: 921166729082167479}
   m_Layer: 0
   m_Name: VerticalWall
   m_TagString: LeftWall
@@ -310,3 +312,34 @@ MonoBehaviour:
   safe: {fileID: 21300000, guid: be0cd1e1a9f007c4184ae9af678a7fc1, type: 3}
   warning: {fileID: 21300000, guid: 1c5117f686976ed438db766a6f86a354, type: 3}
   danger: {fileID: 21300000, guid: 55b7a1444f6f0e44fac78442da799b36, type: 3}
+--- !u!114 &3181373169937738959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6910171466334249509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b948cb1376218ce4483581b6bfed6a08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &921166729082167479
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6910171466334249509}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c7b7f26dc27318d4da728bc34f1152bc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
