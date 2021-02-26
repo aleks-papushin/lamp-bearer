@@ -9,6 +9,7 @@ public class EnemyScaling : MonoBehaviour
     [SerializeField] private float _routineTimeInterval;
     private float _defaultScaleX;
     private Vector3 _scaleIncrementVector;
+    private EnemyWalkerMovement _movement;
 
     public Vector3 ScaleIncrementVector
     {
@@ -28,15 +29,16 @@ public class EnemyScaling : MonoBehaviour
     {
         _defaultScaleX = Math.Abs(transform.localScale.x);
         transform.localScale *= _initScaleMultiplier;
+        _movement = GetComponent<EnemyWalkerMovement>();
     }
 
     public IEnumerator DecreaseSizeRoutine()
     {
-        var scaleIncrementVector = ScaleIncrementVector;
-        var finalScale = _defaultScaleX * _initScaleMultiplier * 0.1;
+        var scaleIncrementVector = ScaleIncrementVector * (_movement.Speed * 0.15f);
+        var finalScale = _initScaleMultiplier * 0.1;
         while (Math.Abs(transform.localScale.x) > finalScale)
         {
-            transform.localScale -= scaleIncrementVector * 0.3f;
+            transform.localScale -= scaleIncrementVector;
             yield return new WaitForSeconds(_routineTimeInterval);
         }
 

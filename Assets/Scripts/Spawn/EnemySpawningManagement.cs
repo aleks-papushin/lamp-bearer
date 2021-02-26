@@ -47,8 +47,8 @@ public class EnemySpawningManagement : MonoBehaviour
 
             if (ActualEnemyCount < _waveEnemyCount)
             {
-                yield return new WaitForSeconds(1);
                 SpawnEnemy spawner = this.PickFreeSpawner();
+                yield return new WaitForSeconds(1);
                 spawner.Spawn();
             }
         }
