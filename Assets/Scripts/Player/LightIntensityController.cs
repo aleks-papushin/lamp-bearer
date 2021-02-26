@@ -6,20 +6,18 @@ using UnityEngine;
 public class LightIntensityController : MonoBehaviour
 {
     [SerializeField] private Light _light;
-    [SerializeField] private float _easyModInitIntensity;
+    [SerializeField] private float _easyModIntensity;
     [SerializeField] private float _hardModInitIntensity;
     [SerializeField] private float _lightDecrement;
     [SerializeField] private float _oilBottleModifier;
     [SerializeField] private float _maxLightIntensity;
     [SerializeField] private float _dirLightMod;
-    [SerializeField] private bool _debugNotUseDirLight; // debug
 
     private GameObject _dirLightObj;
     private GameManager _gameManager;
 
     private readonly float _decreasingIntervalSec = 0.025f;
     private readonly float _dirLightHardModeMin = 0;
-    private readonly float _dirLightEasyModeIntensity = 0.8f;
     private Light _dirLight;
 
     public float Intensity
@@ -28,8 +26,7 @@ public class LightIntensityController : MonoBehaviour
         set
         {
             _light.intensity = value;
-            if (!_debugNotUseDirLight)
-                _dirLight.intensity = (_light.intensity * _dirLightMod) + _dirLightHardModeMin;
+            _dirLight.intensity = (_light.intensity * _dirLightMod) + _dirLightHardModeMin;
         }
     }
 
@@ -49,8 +46,7 @@ public class LightIntensityController : MonoBehaviour
         }
         else
         {
-            Intensity = _easyModInitIntensity;
-            //_dirLight.intensity = _dirLightEasyModeIntensity;
+            Intensity = _easyModIntensity;
         }
     }
 
@@ -67,7 +63,7 @@ public class LightIntensityController : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(_decreasingIntervalSec);
-            Intensity -= _lightDecrement;
+            Intensity -= _lightDecrement + (_lightDecrement * Intensity);
         }
     }
 }

@@ -1436,34 +1436,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 790109322, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
-      propertyPath: m_Intensity
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1427484700431134808, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
-      propertyPath: _debugNotUseDirLight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1427484700431134808, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
-      propertyPath: _dirLightMod
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1427484700431134808, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
-      propertyPath: _maxLightIntensity
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1427484700431134808, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
-      propertyPath: _lightDecrement
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 1427484700431134808, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
-      propertyPath: _initIntensity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1427484700431134808, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
-      propertyPath: _easyModInitIntensity
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 1894497229938108201, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.02
@@ -1511,14 +1483,6 @@ PrefabInstance:
     - target: {fileID: 1894497229938108207, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1894497229938108207, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8311341827810949518, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
-      propertyPath: _speed
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}

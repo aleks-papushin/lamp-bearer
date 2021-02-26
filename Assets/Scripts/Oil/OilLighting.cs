@@ -18,7 +18,7 @@ public class OilLighting : MonoBehaviour
         if (_player != null)
         {
             this.HandleLighting();
-        }        
+        }
     }
 
     private void HandleLighting()

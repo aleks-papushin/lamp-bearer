@@ -43,7 +43,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.88
+  m_Intensity: 2.5
   m_Range: 15
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -186,7 +186,7 @@ SpriteRenderer:
   m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &1894497229938108203
@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0006f4581c5d9d3418b76edf1483bbd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 8
+  _speed: 5
 --- !u!114 &1894497229938108213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,12 +543,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _light: {fileID: 790109322}
-  _initIntensity: 1.88
-  _lightFading: 0.007
+  _easyModIntensity: 3
+  _hardModInitIntensity: 0
+  _lightDecrement: 0.005
   _oilBottleModifier: 1
-  _maxLightIntensity: 7
-  _dirLightMod: 0.05
-  _debugNotUseDirLight: 1
+  _maxLightIntensity: 3
+  _dirLightMod: 0.275
 --- !u!95 &1447504297
 Animator:
   serializedVersion: 3
