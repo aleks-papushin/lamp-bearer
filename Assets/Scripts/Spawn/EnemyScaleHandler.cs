@@ -13,7 +13,7 @@ public class EnemyScaleHandler : MonoBehaviour
             if (!collision.GetComponent<EnemyWalkerCollisions>().IsTriggeredAtLeastOnce)
             {
                 collision.GetComponent<EnemyWalkerCollisions>().IsTriggeredAtLeastOnce = true;
-                StartCoroutine(collision.GetComponent<EnemyScaling>().IncreaseSizeRoutine());
+                collision.GetComponent<EnemyScaling>().IsIncrease = true;
             }
             else
             {
@@ -21,7 +21,7 @@ public class EnemyScaleHandler : MonoBehaviour
 
                 if (isDestroyEnemy)
                 {
-                    StartCoroutine(collision.GetComponent<EnemyScaling>().DecreaseSizeRoutine());
+                    collision.GetComponent<EnemyScaling>().IsDestroy = true;
                 }
                 else
                 {

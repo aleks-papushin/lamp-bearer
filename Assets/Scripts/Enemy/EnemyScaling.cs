@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 
 public class EnemyScaling : MonoBehaviour
@@ -8,52 +7,61 @@ public class EnemyScaling : MonoBehaviour
     [SerializeField] private float _incrementValue;
     [SerializeField] private float _routineTimeInterval;
     private float _defaultScaleX;
-    private Vector3 _scaleIncrementVector;
     private EnemyWalkerMovement _movement;
 
-    public Vector3 ScaleIncrementVector
-    {
-        get
-        {
-            float x = transform.localScale.x > 0 ? _incrementValue : -_incrementValue;
-            float y = transform.localScale.y > 0 ? _incrementValue : -_incrementValue;
-            float z = transform.localScale.z > 0 ? _incrementValue : -_incrementValue;
+    public bool IsIncrease { get; set; } = false;
+    public bool IsDestroy { get; set; } = false;
 
-            _scaleIncrementVector = new Vector3(x, y, z);
-
-            return _scaleIncrementVector;
-        }
-    }
-
-    private void Awake()
+    private void Start()
     {
         _defaultScaleX = Math.Abs(transform.localScale.x);
         transform.localScale *= _initScaleMultiplier;
         _movement = GetComponent<EnemyWalkerMovement>();
     }
 
-    public IEnumerator DecreaseSizeRoutine()
+    private void Update()
     {
-        var scaleIncrementVector = ScaleIncrementVector * (_movement.Speed * 0.15f);
-        var finalScale = _initScaleMultiplier * 0.1;
-        while (Math.Abs(transform.localScale.x) > finalScale)
+        if (IsIncrease)
         {
-            transform.localScale -= scaleIncrementVector;
-            yield return new WaitForSeconds(_routineTimeInterval);
+            this.Increase();
         }
-
-        Destroy(gameObject);
+        else if (IsDestroy)
+        {
+            this.DecreaseAndDestroy();
+        }
     }
 
-    public IEnumerator IncreaseSizeRoutine()
+    private Vector3 GetScaleIncrementVector()
     {
-        yield return new WaitForSeconds(0.3f);
+        float x = transform.localScale.x > 0 ? _incrementValue : -_incrementValue;
+        float y = transform.localScale.y > 0 ? _incrementValue : -_incrementValue;
+        float z = transform.localScale.z > 0 ? _incrementValue : -_incrementValue;
 
-        var scaleIncrementVector = ScaleIncrementVector;
-        while (Math.Abs(transform.localScale.x) < _defaultScaleX)
-        {            
-            transform.localScale += scaleIncrementVector;
-            yield return new WaitForSeconds(_routineTimeInterval);
+        return new Vector3(x, y, z);
+    }
+
+    private void DecreaseAndDestroy()
+    {
+        var finalScale = _initScaleMultiplier * 0.1;
+        if (Math.Abs(transform.localScale.x) > finalScale)
+        {
+            transform.localScale -= GetScaleIncrementVector() * _movement.Speed * (Time.deltaTime * 25);            
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Increase()
+    {
+        if (Math.Abs(transform.localScale.x) < _defaultScaleX)
+        {
+            transform.localScale += GetScaleIncrementVector() * _movement.Speed * (Time.deltaTime * 25);
+        }
+        else
+        {
+            IsIncrease = false;
         }
     }
 }
