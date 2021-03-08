@@ -35,9 +35,10 @@ public class EnemyScaling : MonoBehaviour
 
     private Vector3 GetScaleIncrementVector()
     {
-        var x = transform.localScale.x > 0 ? _incrementValue : -_incrementValue;
-        var y = transform.localScale.y > 0 ? _incrementValue : -_incrementValue;
-        var z = transform.localScale.z > 0 ? _incrementValue : -_incrementValue;
+        var localScale = transform.localScale;
+        var x = localScale.x > 0 ? _incrementValue : -_incrementValue;
+        var y = localScale.y > 0 ? _incrementValue : -_incrementValue;
+        var z = localScale.z > 0 ? _incrementValue : -_incrementValue;
 
         return new Vector3(x, y, z);
     }
