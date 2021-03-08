@@ -9,10 +9,11 @@ public class Parallax : MonoBehaviour
 
     private void Awake()
     {
-        transform.position = new Vector3(0, 0, transform.position.z);
+        var cachedTransform = transform;
+        cachedTransform.position = new Vector3(0, 0, cachedTransform.position.z);
     }
 
-    void Start()
+    private void Start()
     {
         _source = GameObject.FindGameObjectWithTag(Tags.Player);
         if (_source != null)
@@ -27,10 +28,12 @@ public class Parallax : MonoBehaviour
         {
             if (_source != null)
             {
-                var newPosX = _source.transform.position.x * _degree;
-                var newPosY = _source.transform.position.y * _degree;
+                var position = _source.transform.position;
+                var newPosX = position.x * _degree;
+                var newPosY = position.y * _degree;
 
-                transform.position = new Vector3(newPosX, newPosY, transform.position.z);
+                var cachedTransform = transform;
+                cachedTransform.position = new Vector3(newPosX, newPosY, cachedTransform.position.z);
             }
             else
             {

@@ -2,7 +2,7 @@
 
 public class EnemyWalkerMovement : EnemyMovementBase
 {
-    void Update()
+    private void Update()
     {
         Move();
     }

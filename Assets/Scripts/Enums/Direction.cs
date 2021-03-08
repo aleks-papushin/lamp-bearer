@@ -4,4 +4,4 @@
     Left, 
     Up, 
     Right 
-};
+}

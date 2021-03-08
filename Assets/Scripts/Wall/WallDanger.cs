@@ -13,7 +13,7 @@ public class WallDanger : MonoBehaviour
     private WallLighting _lighting;
     private WallAnimation _animation;
 
-    void Start()
+    private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _spriteRenderer.sprite = safe;

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Utils;
+﻿using System;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -11,7 +12,7 @@ namespace Assets.Scripts.Player
         // jumping
         [SerializeField] private float _jumpForce;
         private bool _isJumpAxisWasIdle = true;
-        internal bool _isChangedDirectionInJump = false;
+        internal bool _isChangedDirectionInJump;
         [SerializeField] private float _forbidDirectionChangingDistance;
 
         // collisions
@@ -27,14 +28,15 @@ namespace Assets.Scripts.Player
         // other
         private PlayerRunning _playerRunning;
         private Rigidbody2D _rig;
-        private bool _isSideAxisWasHeld = false;
+        private bool _isSideAxisWasHeld;
+        private static readonly int Jumping = Animator.StringToHash("IsJumping");
 
-        public bool IsInputHorisontalNegative => Input.GetAxisRaw("Horizontal") < 0;
-        public bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
-        public bool IsInputVerticalNegative => Input.GetAxisRaw("Vertical") < 0;
-        public bool IsInputVerticalPositive => Input.GetAxisRaw("Vertical") > 0;
+        private static bool IsInputHorizontalNegative => Input.GetAxisRaw("Horizontal") < 0;
+        private static bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
+        private static bool IsInputVerticalNegative => Input.GetAxisRaw("Vertical") < 0;
+        private static bool IsInputVerticalPositive => Input.GetAxisRaw("Vertical") > 0;
 
-        public bool IsGrounded { get; set; }
+        private bool IsGrounded { get; set; }
 
         public static GameObject Player { get; private set; }
 
@@ -43,7 +45,7 @@ namespace Assets.Scripts.Player
             Player = gameObject;
         }
 
-        void Start()
+        private void Start()
         {
             _rig = GetComponent<Rigidbody2D>();
             _playerRunning = GetComponent<PlayerRunning>();
@@ -54,10 +56,10 @@ namespace Assets.Scripts.Player
             PlayerWallCollisions.OnIsGroundedChanged += PlayerWallCollisions_OnIsGroundedChanged;
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
-            this.HandleJumping();
-            this.HandleInAirDirectionChanging();
+            HandleJumping();
+            HandleInAirDirectionChanging();
         }
 
         public void UnfreezeRig()
@@ -72,19 +74,19 @@ namespace Assets.Scripts.Player
             {
                 if (_playerWallCollisions.IsTouchBottomWall)
                 {
-                    this.Jump(Direction.Up, new Vector2(0, _jumpForce));
+                    Jump(Direction.Up, new Vector2(0, _jumpForce));
                 }
                 else if (_playerWallCollisions.IsTouchUpperWall)
                 {
-                    this.Jump(Direction.Down, new Vector2(0, -_jumpForce));
+                    Jump(Direction.Down, new Vector2(0, -_jumpForce));
                 }
                 else if (_playerWallCollisions.IsTouchLeftWall)
                 {
-                    this.Jump(Direction.Right, new Vector2(_jumpForce, 0));
+                    Jump(Direction.Right, new Vector2(_jumpForce, 0));
                 }
                 else if (_playerWallCollisions.IsTouchRightWall)
                 {
-                    this.Jump(Direction.Left, new Vector2(-_jumpForce, 0));
+                    Jump(Direction.Left, new Vector2(-_jumpForce, 0));
                 }
 
                 _isJumpAxisWasIdle = false;
@@ -112,15 +114,15 @@ namespace Assets.Scripts.Player
 
         private void Jump(Direction gravity, Vector2 jumpVector)
         {
-            this.SetIsSideAxisHeld();
+            SetIsSideAxisHeld();
 
             // HACK to stop velocity changing immediately
             _playerRunning.IsGrounded = false;
 
-            this.FreezePerpendicularAxis(gravity);
+            FreezePerpendicularAxis(gravity);
             _gravityHandler.SwitchLocalGravity(gravity);
             _rig.AddForce(jumpVector, ForceMode2D.Impulse);
-            _animator.SetBool("IsJumping", true);
+            _animator.SetBool(Jumping, true);
             _playerSounds.Jump();
         }
 
@@ -138,6 +140,8 @@ namespace Assets.Scripts.Player
                 case Direction.Right:
                     _rig.constraints = RigidbodyConstraints2D.FreezePositionY;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(gravity), gravity, null);
             }
         }
 
@@ -146,7 +150,7 @@ namespace Assets.Scripts.Player
             return
                 _isChangedDirectionInJump ||
                 IsGrounded ||
-                transform.IsDistanceToAnyFloorLessThan(_forbidDirectionChangingDistance);
+                transform.DistanceToAnyFloorLessThan(_forbidDirectionChangingDistance);
         }
 
         private void HandleInAirDirectionChanging()
@@ -155,7 +159,7 @@ namespace Assets.Scripts.Player
             // must not change direction until button is up and pressed again
             if (_isSideAxisWasHeld) 
             {
-                this.SetIsSideAxisHeld();
+                SetIsSideAxisHeld();
             }
             else
             {
@@ -165,13 +169,13 @@ namespace Assets.Scripts.Player
                 {
                     _isChangedDirectionInJump = true;
 
-                    if (IsInputHorisontalNegative)
+                    if (IsInputHorizontalNegative)
                     {
-                        this.Jump(Direction.Left, new Vector2(-_jumpForce, 0));
+                        Jump(Direction.Left, new Vector2(-_jumpForce, 0));
                     }
                     else if (IsInputHorizontalPositive)
                     {
-                        this.Jump(Direction.Right, new Vector2(_jumpForce, 0));
+                        Jump(Direction.Right, new Vector2(_jumpForce, 0));
                     }
                 }
                 else if (Input.GetAxisRaw("Vertical") != 0 && _gravityHandler.IsGravityVectorHorizontal)
@@ -180,11 +184,11 @@ namespace Assets.Scripts.Player
 
                     if (IsInputVerticalNegative)
                     {
-                        this.Jump(Direction.Down, new Vector2(0, -_jumpForce));
+                        Jump(Direction.Down, new Vector2(0, -_jumpForce));
                     }
                     else if (IsInputVerticalPositive)
                     {
-                        this.Jump(Direction.Up, new Vector2(0, _jumpForce));
+                        Jump(Direction.Up, new Vector2(0, _jumpForce));
                     }
                 }
             }

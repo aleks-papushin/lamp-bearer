@@ -15,9 +15,9 @@ namespace Assets.Scripts
         private GravityHandler _gravityHandler;
         private IGroundedStateHandler _groundedStateHandler;
 
-        public GameObject Ground => DirectionUtils.GetFloorFor(_gravityHandler.GravityVector);
+        private GameObject Ground => DirectionUtils.GetFloorFor(_gravityHandler.GravityVector);
 
-        void Awake()
+        private void Awake()
         {
             _rotationSpeed = _defaultRotationSpeed;
             _groundedStateHandler = GetComponent<IGroundedStateHandler>();
@@ -29,20 +29,20 @@ namespace Assets.Scripts
             Handle();
         }
 
-        public void Handle()
+        private void Handle()
         {
             if (_groundedStateHandler.IsGrounded) return;
 
-            GameObject ground = DirectionUtils.GetFloorFor(_gravityHandler.GravityVector);
+            var ground = DirectionUtils.GetFloorFor(_gravityHandler.GravityVector);
             var distanceToGround = transform.GetDistanceTo(ground);
             if (distanceToGround < _startRotationDistance)
             {
-                this.RotateTowards(_gravityHandler.GravityVector, accelerateRotation: true);
+                RotateTowards(_gravityHandler.GravityVector, true);
             }
             else
             {
                 _rotationSpeed = _defaultRotationSpeed;
-                this.RotateTowards(DirectionUtils.OppositeTo(_gravityHandler.GravityVector), accelerateRotation: false);
+                RotateTowards(DirectionUtils.OppositeTo(_gravityHandler.GravityVector), false);
             }
         }
 

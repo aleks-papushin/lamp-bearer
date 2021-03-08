@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Interfaces;
+﻿using System;
+using Assets.Scripts.Interfaces;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -9,7 +10,7 @@ namespace Assets.Scripts
 
         private IWallCollisions _collisions;
 
-        void Awake()
+        private void Awake()
         {
             _collisions = GetComponent<IWallCollisions>();
         }
@@ -19,53 +20,57 @@ namespace Assets.Scripts
             switch (direction)
             {
                 case Direction.Left:
-                default:
                     if (_collisions.IsTouchBottomWall && transform.localScale.x < 0)
                     {
-                        this.FlipScale();
+                        FlipScale();
                     }
                     else if (_collisions.IsTouchUpperWall && transform.localScale.x > 0)
                     {
-                        this.FlipScale();
+                        FlipScale();
                     }
+
                     break;
                 case Direction.Right:
                     if (_collisions.IsTouchBottomWall && transform.localScale.x > 0)
                     {
-                        this.FlipScale();
+                        FlipScale();
                     }
                     else if (_collisions.IsTouchUpperWall && transform.localScale.x < 0)
                     {
-                        this.FlipScale();
+                        FlipScale();
                     }
+
                     break;
                 case Direction.Down:
                     if (_collisions.IsTouchLeftWall && transform.localScale.x < 0)
                     {
-                        this.FlipScale();
+                        FlipScale();
                     }
                     else if (_collisions.IsTouchRightWall && transform.localScale.x > 0)
                     {
-                        this.FlipScale();
+                        FlipScale();
                     }
+
                     break;
                 case Direction.Up:
                     if (_collisions.IsTouchLeftWall && transform.localScale.x > 0)
                     {
-                        this.FlipScale();
+                        FlipScale();
                     }
                     else if (_collisions.IsTouchRightWall && transform.localScale.x < 0)
                     {
-                        this.FlipScale();
+                        FlipScale();
                     }
+
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
         }
 
         public void Handle(bool positive)
         {
-            if ((positive && transform.localScale.x > 0) ||                 
-                (!positive && transform.localScale.x < 0))
+            if (positive && transform.localScale.x > 0 || !positive && transform.localScale.x < 0)
             {
                 FlipScale();
             }
@@ -73,10 +78,11 @@ namespace Assets.Scripts
 
         private void FlipScale()
         {
-            var newScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-            transform.localScale = newScale;
+            var cachedTransform = transform;
+            var localScale = cachedTransform.localScale;
+            var newScale = new Vector3(localScale.x * -1, localScale.y, localScale.z);
+            localScale = newScale;
+            cachedTransform.localScale = localScale;
         }
-
-
     }
 }

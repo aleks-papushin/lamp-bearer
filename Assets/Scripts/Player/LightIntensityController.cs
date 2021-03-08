@@ -16,21 +16,21 @@ public class LightIntensityController : MonoBehaviour
     private GameObject _dirLightObj;
     private GameManager _gameManager;
 
-    private readonly float _decreasingIntervalSec = 0.025f;
-    private readonly float _dirLightHardModeMin = 0;
+    private const float DecreasingIntervalSec = 0.025f;
+    private const float DirLightHardModeMin = 0;
     private Light _dirLight;
 
-    public float Intensity
+    private float Intensity
     {
         get => _light.intensity;
         set
         {
             _light.intensity = value;
-            _dirLight.intensity = (_light.intensity * _dirLightMod) + _dirLightHardModeMin;
+            _dirLight.intensity = _light.intensity * _dirLightMod + DirLightHardModeMin;
         }
     }
 
-    public bool IsOilAffectLight { get; set; }
+    private bool IsOilAffectLight { get; set; }
 
     private void Start()
     {
@@ -62,8 +62,8 @@ public class LightIntensityController : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(_decreasingIntervalSec);
-            Intensity -= _lightDecrement + (_lightDecrement * Intensity);
+            yield return new WaitForSeconds(DecreasingIntervalSec);
+            Intensity -= _lightDecrement + _lightDecrement * Intensity;
         }
     }
 }

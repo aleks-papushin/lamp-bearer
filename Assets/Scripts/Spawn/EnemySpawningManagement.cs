@@ -1,7 +1,7 @@
-﻿using Assets.Scripts;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts;
 using UnityEngine;
 
 public class EnemySpawningManagement : MonoBehaviour
@@ -10,34 +10,17 @@ public class EnemySpawningManagement : MonoBehaviour
     private List<SpawnEnemy> _enemySpawners;
     private int _waveEnemyCount;
 
-    public int ActualEnemyCount
-    {
-        get
-        {
-            int count = 0;
-            foreach (var spawner in _enemySpawners)
-            {
-                count += spawner.EnemyCount;
-            }
-            return count;
-        }
-    }
+    private int ActualEnemyCount => _enemySpawners.Sum(spawner => spawner.EnemyCount);
 
-    void Start()
+    private void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
         _enemySpawners = GetComponentsInChildren<SpawnEnemy>().ToList();
 
-        StartCoroutine(HandleEnemyExistanceRoutine());
+        StartCoroutine(HandleEnemyExistenceRoutine());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private IEnumerator HandleEnemyExistanceRoutine()
+    
+    private IEnumerator HandleEnemyExistenceRoutine()
     {
         while (true)
         {
@@ -45,26 +28,16 @@ public class EnemySpawningManagement : MonoBehaviour
 
             _waveEnemyCount = _gameManager.WaveManager.CurrentWave.enemyCount;
 
-            if (ActualEnemyCount < _waveEnemyCount)
-            {
-                SpawnEnemy spawner = this.PickFreeSpawner();
-                yield return new WaitForSeconds(1);
-                spawner.Spawn();
-            }
+            if (ActualEnemyCount >= _waveEnemyCount) continue;
+            var spawner = PickFreeSpawner();
+            yield return new WaitForSeconds(1);
+            spawner.Spawn();
         }
     }
 
     private SpawnEnemy PickFreeSpawner()
     {
-        var freeSpawners = new List<SpawnEnemy>();
-
-        foreach (var spawner in _enemySpawners)
-        {
-            if (spawner.PairEnemyCount == 0) freeSpawners.Add(spawner);
-        }
-
-        if (freeSpawners.Count == 0) return null;
-
-        return freeSpawners[Random.Range(0, freeSpawners.Count)];
+        var freeSpawners = _enemySpawners.Where(spawner => spawner.PairEnemyCount == 0).ToList();
+        return freeSpawners.Count == 0 ? null : freeSpawners[Random.Range(0, freeSpawners.Count)];
     }
 }

@@ -11,11 +11,12 @@ namespace Assets.Scripts.Player
         private PlayerController _playerController;
         private LightIntensityController _light;
         private Animator _animator;
+        private static readonly int Jumping = Animator.StringToHash("IsJumping");
 
         public static event Action OnOilBottleTaken;
         public static event Action OnPlayerDied;
 
-        void Start()
+        private void Start()
         {
             _gameManager = FindObjectOfType<GameManager>();
             _playerController = GetComponent<PlayerController>();
@@ -27,18 +28,18 @@ namespace Assets.Scripts.Player
             _animator = animator;
         }
 
-        void OnCollisionEnter2D(Collision2D collision)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            this.HandleWalls(collision);        
-            this.HandlePlayerGrounding(collision);
-            this.HandleEnemy(collision);
+            HandleWalls(collision);        
+            HandlePlayerGrounding(collision);
+            HandleEnemy(collision);
         }
 
         private void HandleEnemy(Collision2D collision)
         {
             if (collision.gameObject.tag.Contains(Tags.Enemy))
             {
-                this.HandlePlayerDead();
+                HandlePlayerDead();
             }
         }
 
@@ -46,31 +47,29 @@ namespace Assets.Scripts.Player
         {
             if (collision.gameObject.tag.Contains(Tags.WallSuffix))
             {
-                this.HandleBeingOnWall(collision, isOnWall: false);
+                HandleBeingOnWall(collision, false);
             }
         }
 
         private void HandleWalls(Collision2D collision)
         {
-            if (collision.gameObject.tag.Contains(Tags.WallSuffix))
-            {
-                this.HandleDangerousWall(collision);
-                _animator.SetBool("IsJumping", false);
-                this.HandleBeingOnWall(collision, isOnWall: true);
-            }
+            if (!collision.gameObject.tag.Contains(Tags.WallSuffix)) return;
+            HandleDangerousWall(collision);
+            _animator.SetBool(Jumping, false);
+            HandleBeingOnWall(collision, true);
         }
 
-        private void HandleBeingOnWall(Collision2D collision, bool isOnWall)
+        private static void HandleBeingOnWall(Collision2D collision, bool isOnWall)
         {
             collision.transform.GetComponent<WallPlayerCollisions>().IsPlayerStandsOnMe = isOnWall;
         }
 
         private void OnCollisionStay2D(Collision2D collision)
         {        
-            this.HandleDangerousWall(collision);
+            HandleDangerousWall(collision);
         }
 
-        void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag(Tags.OilBottle))
             {
@@ -78,7 +77,7 @@ namespace Assets.Scripts.Player
             }
         }
 
-        private void OilBottleTaken(Collider2D oilBottle)
+        private void OilBottleTaken(Component oilBottle)
         {
             Destroy(oilBottle.gameObject);
             _gameManager.UpdateScore(1);
@@ -89,12 +88,10 @@ namespace Assets.Scripts.Player
 
         private void HandlePlayerGrounding(Collision2D collision)
         {
-            if (collision.gameObject.tag.Contains(Tags.WallSuffix))
-            {
-                _playerController._isChangedDirectionInJump = false;
-                _playerController.UnfreezeRig();
-                _playerSounds.Landing();
-            }
+            if (!collision.gameObject.tag.Contains(Tags.WallSuffix)) return;
+            _playerController._isChangedDirectionInJump = false;
+            _playerController.UnfreezeRig();
+            _playerSounds.Landing();
         }
 
         private void HandleDangerousWall(Collision2D collision)
@@ -102,7 +99,7 @@ namespace Assets.Scripts.Player
             var variableWall = collision.gameObject.GetComponent<WallDanger>();
             if (variableWall != null && variableWall.IsDangerous)
             {
-                this.HandlePlayerDead();
+                HandlePlayerDead();
             }
         }
 

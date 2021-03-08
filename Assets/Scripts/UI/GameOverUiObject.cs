@@ -11,7 +11,7 @@ public class GameOverUiObject : MonoBehaviour
     private TextMeshProUGUI _textMesh;
     private Button _restartButton;
 
-    void Start()
+    private void Start()
     {
         _ui = FindObjectOfType<UserInterface>();
         _textMesh = transform.Find("ScoreText").GetComponent<TextMeshProUGUI>();
@@ -35,7 +35,7 @@ public class GameOverUiObject : MonoBehaviour
         _textMesh.text = $"Your Score: {_ui.CurrentScore}";
     }
 
-    private void RestartGame()
+    private static void RestartGame()
     {
         SceneManager.LoadScene(1);
     }

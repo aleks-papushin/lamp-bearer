@@ -5,9 +5,11 @@ namespace Assets.Scripts.Enemy
 {
     public abstract class EnemyMovementBase : MonoBehaviour, IMovement
     {
+        public bool IsDirectionPositive { get; set; } = true;
         [SerializeField] private float _speed;
         [SerializeField] private ObjectWallCollisions _wallCollisions;
         private HandleObjectFacing _facing;
+        private Rigidbody2D _rig;
 
         private void Start()
         {
@@ -20,11 +22,7 @@ namespace Assets.Scripts.Enemy
             set => _speed = value;
         }
 
-        public bool IsDirectionPositive { get; set; } = true;
-
-        private Rigidbody2D _rig;
-
-        void Awake()
+        private void Awake()
         {
             _rig = GetComponent<Rigidbody2D>();
         }

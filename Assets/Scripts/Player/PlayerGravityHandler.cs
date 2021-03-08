@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -14,7 +15,6 @@ namespace Assets.Scripts.Player
             switch (GravityVector)
             {
                 case Direction.Down:
-                default:
                     Physics2D.gravity = new Vector2(0, -_gravity);
                     break;
                 case Direction.Up:
@@ -26,6 +26,8 @@ namespace Assets.Scripts.Player
                 case Direction.Right:
                     Physics2D.gravity = new Vector2(_gravity, 0);
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

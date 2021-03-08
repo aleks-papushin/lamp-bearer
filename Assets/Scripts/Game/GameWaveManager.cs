@@ -11,8 +11,8 @@ namespace Assets.Scripts
         private readonly int _maxWaveNumber;
 
         public static GameDifficulty GameDifficulty { get; set; }
-        public int CurrentNumber { get; set; }
-        public bool IsCurrentWaveLast => CurrentNumber >= _maxWaveNumber;
+        private int CurrentNumber { get; set; }
+        private bool IsCurrentWaveLast => CurrentNumber >= _maxWaveNumber;
 
         public GameWaveDto CurrentWave => _waveList[CurrentNumber];
 
@@ -27,17 +27,15 @@ namespace Assets.Scripts
 
         private void GameTimer_OnWaveIncrementing()
         {
-            this.TryIncrement();
+            TryIncrement();
         }
 
-        private bool TryIncrement()
+        private void TryIncrement()
         {
             if (!IsCurrentWaveLast)
             {
                 CurrentNumber++;
-                return true;
             }
-            else return false;
         }
     }
 }

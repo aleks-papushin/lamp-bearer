@@ -1,14 +1,14 @@
-﻿using Assets.Scripts;
+﻿using System.Collections;
+using Assets.Scripts;
 using Assets.Scripts.Player;
-using System.Collections;
 using UnityEngine;
 
 public class SpawnOil : MonoBehaviour
 {
     public GameObject _oilBottle;
 
-    private readonly float _xRange = 6;
-    private readonly float _yRange = 2;
+    private const float XRange = 6;
+    private const float YRange = 2;
     private GameObject _bottle;
 
     public bool IsBottleExist => _bottle != null;
@@ -18,20 +18,20 @@ public class SpawnOil : MonoBehaviour
         PlayerCollisions.OnOilBottleTaken += PlayerCollisions_OnOilBottleTaken;
     }
 
-    public void Spawn(int count = 1)
+    private void Spawn(int count = 1)
     {
-        for (int i = 0; i < count; i++)
+        for (var i = 0; i < count; i++)
         {
             var position = GetRandomPosition();
-            this.Spawn(position.x, position.y);
+            Spawn(position.x, position.y);
         }
     }
 
     public void Spawn(int count, float x, float y)
     {
-        for (int i = 0; i < count; i++)
+        for (var i = 0; i < count; i++)
         {
-            this.Spawn(x, y);
+            Spawn(x, y);
         }
     }
 
@@ -40,11 +40,11 @@ public class SpawnOil : MonoBehaviour
         _bottle = Instantiate(_oilBottle, new Vector3(x, y, 0), _oilBottle.transform.rotation);
     }
 
-    private Vector2 GetRandomPosition()
+    private static Vector2 GetRandomPosition()
     {
         return new Vector2(
-            Random.Range(-_xRange, _xRange),
-            Random.Range(-_yRange, _yRange));
+            Random.Range(-XRange, XRange),
+            Random.Range(-YRange, YRange));
     }
 
     private void PlayerCollisions_OnOilBottleTaken()
