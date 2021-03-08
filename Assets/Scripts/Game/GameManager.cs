@@ -1,8 +1,9 @@
-﻿using Assets.Scripts.Resources;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Resources;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Assets.Scripts
 {
@@ -10,17 +11,14 @@ namespace Assets.Scripts
     {
         public GameObject _spawner;
         public int oilBottleCountForSpawn;
-
+        public GameWaveManager WaveManager { get; private set; }
+        public bool IsThereOilBottles => GameObject.FindGameObjectsWithTag(Tags.OilBottle).Any();
+        
         private UserInterface _userInterface;
-
-        public GameWaveManager WaveManager { get; set; }
-
-        public List<GameObject> WallsToBeDangerous => FindObjectsOfType<WallDanger>()
+        private static List<GameObject> WallsToBeDangerous => FindObjectsOfType<WallDanger>()
             .Where(w => !w.GetComponent<WallPlayerCollisions>().IsPlayerStandsOnMe)
             .Select(w => w.gameObject)
             .ToList();
-
-        public bool IsThereOilBottles => GameObject.FindGameObjectsWithTag(Tags.OilBottle).Any();
 
         [SerializeField] private float _wallWarningInterval;
         [SerializeField] private float _wallDangerousInterval;
@@ -31,11 +29,11 @@ namespace Assets.Scripts
             WaveManager = new GameWaveManager();
         }
 
-        void Start()
+        private void Start()
         {
             _userInterface = FindObjectOfType<UserInterface>();
-            this.GameTimer_OnWaveIncrementing();
-            StartCoroutine(this.HandleWallsDangerousness());
+            GameTimer_OnWaveIncrementing();
+            StartCoroutine(HandleWallsDangerousness());
             _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCountForSpawn, 0, 0);
             GameTimer.OnWaveIncrementing += GameTimer_OnWaveIncrementing;
         }
@@ -67,7 +65,7 @@ namespace Assets.Scripts
 
                 var dangerousInterval = _wallDangerousInterval + _wallWarningInterval;
 
-                var wallIdx = new System.Random().Next(WallsToBeDangerous.Count);
+                var wallIdx = new Random().Next(WallsToBeDangerous.Count);
                 var wall = WallsToBeDangerous[wallIdx];
                 
                 StartCoroutine(wall.GetComponent<WallDanger>().BecameDangerousCoroutine(_wallWarningInterval));

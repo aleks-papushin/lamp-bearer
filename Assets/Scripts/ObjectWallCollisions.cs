@@ -6,77 +6,58 @@ namespace Assets.Scripts
 {
     public class ObjectWallCollisions : MonoBehaviour, IWallCollisions, IGroundedStateHandler
     {
-        private int _bWallCollisionEntered = 0;
-        private int _uWallCollisionEntered = 0;
-        private int _lWallCollisionEntered = 0;
-        private int _rWallCollisionEntered = 0;
+        private int _bWallCollisionEntered;
+        private int _uWallCollisionEntered;
+        private int _lWallCollisionEntered;
+        private int _rWallCollisionEntered;
 
-        public bool IsTouchBottomWall
+        public ObjectWallCollisions()
         {
-            get
-            {
-                return _bWallCollisionEntered > 0;
-            }
+            _uWallCollisionEntered = 0;
+            _lWallCollisionEntered = 0;
+            _rWallCollisionEntered = 0;
         }
 
-        public bool IsTouchUpperWall
-        {
-            get
-            {
-                return _uWallCollisionEntered > 0;
-            }
-        }
+        public bool IsTouchBottomWall => _bWallCollisionEntered > 0;
 
-        public bool IsTouchLeftWall
-        {
-            get
-            {
-                return _lWallCollisionEntered > 0;
-            }
-        }
+        public bool IsTouchUpperWall => _uWallCollisionEntered > 0;
 
-        public bool IsTouchRightWall
-        {
-            get
-            {
-                return _rWallCollisionEntered > 0;
-            }
-        }
+        public bool IsTouchLeftWall => _lWallCollisionEntered > 0;
+
+        public bool IsTouchRightWall => _rWallCollisionEntered > 0;
 
         public bool IsTouchHorizontalWall => IsTouchBottomWall || IsTouchUpperWall;
         public bool IsTouchVerticalWall => IsTouchLeftWall || IsTouchRightWall;
         
         public bool IsGrounded => IsTouchHorizontalWall || IsTouchVerticalWall;
 
-        void OnCollisionEnter2D(Collision2D otherCollider)
+        private void OnCollisionEnter2D(Collision2D otherCollider)
         {
-            this.HandleCollisionState(otherCollider, 1);
+            HandleCollisionState(otherCollider, 1);
         }
 
-        void OnCollisionExit2D(Collision2D otherCollider)
+        private void OnCollisionExit2D(Collision2D otherCollider)
         {
-            this.HandleCollisionState(otherCollider, -1);
+            HandleCollisionState(otherCollider, -1);
         }
 
         protected void HandleCollisionState(Collision2D otherCollider, int collisionIncrement)
         {
-            if (otherCollider.gameObject.tag.Contains(Tags.WallSuffix))
+            if (!otherCollider.gameObject.tag.Contains(Tags.WallSuffix)) return;
+            switch (otherCollider.gameObject.tag)
             {
-                switch (otherCollider.gameObject.tag)
-                {
-                    case Tags.LeftWall:
-                        _lWallCollisionEntered += collisionIncrement;
-                        break;
-                    case Tags.RightWall:
-                        _rWallCollisionEntered += collisionIncrement;
-                        break;
-                    case Tags.BottomWall:
-                        _bWallCollisionEntered += collisionIncrement;
-                        break;
-                    case Tags.UpperWall:
-                        _uWallCollisionEntered += collisionIncrement;
-                        break;
-                }
+                case Tags.LeftWall:
+                    _lWallCollisionEntered += collisionIncrement;
+                    break;
+                case Tags.RightWall:
+                    _rWallCollisionEntered += collisionIncrement;
+                    break;
+                case Tags.BottomWall:
+                    _bWallCollisionEntered += collisionIncrement;
+                    break;
+                case Tags.UpperWall:
+                    _uWallCollisionEntered += collisionIncrement;
+                    break;
             }
         }
     }

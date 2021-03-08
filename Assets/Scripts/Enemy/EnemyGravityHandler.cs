@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
@@ -6,26 +7,22 @@ namespace Assets.Scripts.Enemy
     {
         public Rigidbody2D _rig;
 
-        void Awake()
+        private void Awake()
         {
             _rig = GetComponent<Rigidbody2D>();
             _rig.gravityScale = 0;
             SwitchLocalGravity(Direction.Down);
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
-            this.ApplyGravity();
+            ApplyGravity();
         }
 
         private void ApplyGravity()
         {
             switch (GravityVector)
             {
-                case Direction.Down:
-                default:
-                    _rig.AddForce(new Vector2(0, -_gravity), ForceMode2D.Force);
-                    break;
                 case Direction.Up:
                     _rig.AddForce(new Vector2(0, _gravity), ForceMode2D.Force);
                     break;
@@ -35,6 +32,11 @@ namespace Assets.Scripts.Enemy
                 case Direction.Right:
                     _rig.AddForce(new Vector2(_gravity, 0), ForceMode2D.Force);
                     break;
+                case Direction.Down:
+                    _rig.AddForce(new Vector2(0, -_gravity), ForceMode2D.Force);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

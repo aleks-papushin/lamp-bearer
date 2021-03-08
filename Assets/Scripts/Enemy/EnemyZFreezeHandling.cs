@@ -6,7 +6,7 @@ public class EnemyZFreezeHandling : MonoBehaviour
 {
     private Rigidbody2D _rig;
 
-    void Start()
+    private void Start()
     {
         _rig = GetComponent<Rigidbody2D>();
     }

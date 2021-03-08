@@ -12,14 +12,14 @@ public class PlayMusic : SoundSource
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
+    private void Start()
     {
         _source = GetComponent<AudioSource>();        
         _currentVolume = _source.volume;
-        this.PlayLoop(_source, _intro);
+        PlayLoop(_source, _intro);
         StartButton.OnGameStarted += StartButton_OnGameStarted;
     }
 
@@ -39,6 +39,6 @@ public class PlayMusic : SoundSource
 
         _source.Stop();
         _source.volume = _currentVolume;
-        this.PlayLoop(_source, clip);
+        PlayLoop(_source, clip);
     }
 }

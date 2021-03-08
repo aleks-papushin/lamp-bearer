@@ -4,4 +4,4 @@
     OneAxis, 
     Angles, 
     Full 
-};
+}

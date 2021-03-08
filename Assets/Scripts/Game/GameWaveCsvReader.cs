@@ -15,7 +15,7 @@ namespace Assets.Scripts.Game
                 ? Paths.WaveEasyModeFilePath
                 : Paths.WaveHardModeFilePath;
 
-            using (StreamReader file = new StreamReader(waveFilePath))
+            using (var file = new StreamReader(waveFilePath))
             {
                 _ = file.ReadLine(); // feed line with column names
                 string wave;
@@ -23,16 +23,16 @@ namespace Assets.Scripts.Game
 
                 while ((wave = file.ReadLine()) != null)
                 {
-                    gameWaves.Add(this.ParseWave(wave));
+                    gameWaves.Add(ParseWave(wave));
                 }
 
                 return gameWaves;
             }
         }
 
-        private GameWaveDto ParseWave(string waveString)
+        private static GameWaveDto ParseWave(string waveString)
         {
-            string[] wave = waveString.Split(',');
+            var wave = waveString.Split(',');
 
             return new GameWaveDto
             {

@@ -1,15 +1,14 @@
-﻿using Assets.Scripts;
+﻿using System;
+using Assets.Scripts;
 using Assets.Scripts.Enums;
-using Assets.Scripts.Resources;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class WatchDropDownValue : MonoBehaviour
 {
     private TMP_Dropdown _dropdown;
 
-    void Start()
+    private void Start()
     {
         _dropdown = GetComponent<TMP_Dropdown>();
         Handle();
@@ -17,13 +16,16 @@ public class WatchDropDownValue : MonoBehaviour
 
     private void Handle()
     {
-        if (GameWaveManager.GameDifficulty == GameDifficulty.Easy)
+        switch (GameWaveManager.GameDifficulty)
         {
-            _dropdown.value = 0;
-        }
-        else if (GameWaveManager.GameDifficulty == GameDifficulty.Hard)
-        {
-            _dropdown.value = 1;
+            case GameDifficulty.Easy:
+                _dropdown.value = 0;
+                break;
+            case GameDifficulty.Hard:
+                _dropdown.value = 1;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 }

@@ -12,18 +12,17 @@ namespace Assets.Scripts
         private GameManager _gameManager;
         public static event Action OnWaveIncrementing;
 
-        public float WaveIncrementIntervalSec { get; set; }
+        private float WaveIncrementIntervalSec { get; set; }
 
-        public bool IsTimeToIncrementWave
+        private bool IsTimeToIncrementWave
         {
             get
             {
-                if (_time.Elapsed > (_lastWaveIncrementTime + TimeSpan.FromSeconds(WaveIncrementIntervalSec)))
-                {
-                    _lastWaveIncrementTime = _time.Elapsed;
-                    return true;
-                }
-                else return false;
+                if (_time.Elapsed <= _lastWaveIncrementTime + TimeSpan.FromSeconds(WaveIncrementIntervalSec))
+                    return false;
+                _lastWaveIncrementTime = _time.Elapsed;
+                return true;
+
             }
         }            
 

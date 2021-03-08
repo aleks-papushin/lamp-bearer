@@ -11,7 +11,7 @@ namespace Assets.Scripts.Enemy
             MoveWithCornerHandling();
         }
 
-        protected void MoveWithCornerHandling()
+        private void MoveWithCornerHandling()
         {
             if (_cornerJump.IsCornerReached) return;
 

@@ -12,13 +12,13 @@ namespace Assets.Scripts
         public void UpdateScore(int increment)
         {
             CurrentScore += increment;
-            this.UpdateScoreDisplay();
+            UpdateScoreDisplay();
         }
 
         public void ResetScore()
         {
             CurrentScore = 0;
-            this.UpdateScoreDisplay();
+            UpdateScoreDisplay();
         }
 
         private void UpdateScoreDisplay()

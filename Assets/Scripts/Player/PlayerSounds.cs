@@ -1,4 +1,5 @@
-﻿using Assets.Scripts;
+﻿using System.Collections.Generic;
+using Assets.Scripts;
 using Assets.Scripts.Interfaces;
 using UnityEngine;
 
@@ -13,26 +14,26 @@ public class PlayerSounds : SoundSource, ICornerJumpSoundSource
 
     public void CornerJump()
     {
-        this.PlayOnce(_playerAudio, this.PickRandom(_jumpToSide));
+        PlayOnce(_playerAudio, PickRandom(_jumpToSide));
     }
 
     public void Jump()
     {
-        this.PlayOnce(_playerAudio, _jump);
+        PlayOnce(_playerAudio, _jump);
     }
 
     public void Landing()
     {
-        this.PlayOnce(_playerAudio, this.PickRandom(_landing));
+        PlayOnce(_playerAudio, PickRandom(_landing));
     }
 
     public void OilTaken()
     {
-        this.PlayOnce(_playerAudio, this.PickRandom(_oilTaken));
+        PlayOnce(_playerAudio, PickRandom(_oilTaken));
     }
 
-    private AudioClip PickRandom(AudioClip[] clip)
+    private static AudioClip PickRandom(IReadOnlyList<AudioClip> clip)
     {
-        return clip[Random.Range(0, clip.Length)];
+        return clip[Random.Range(0, clip.Count)];
     }
 }

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Resources;
+﻿using System;
+using Assets.Scripts.Resources;
 using UnityEngine;
 
 namespace Assets.Scripts.Utils
@@ -10,7 +11,6 @@ namespace Assets.Scripts.Utils
             switch (gravityDirection)
             {
                 case Direction.Down:
-                default:
                     return GameObject.FindGameObjectWithTag(Tags.BottomWall);
                 case Direction.Left:
                     return GameObject.FindGameObjectWithTag(Tags.LeftWall);
@@ -18,6 +18,8 @@ namespace Assets.Scripts.Utils
                     return GameObject.FindGameObjectWithTag(Tags.UpperWall);
                 case Direction.Right:
                     return GameObject.FindGameObjectWithTag(Tags.RightWall);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(gravityDirection), gravityDirection, null);
             }
         }
 
@@ -30,10 +32,11 @@ namespace Assets.Scripts.Utils
                 case Direction.Left:
                     return Direction.Right;
                 case Direction.Up:
-                default:
                     return Direction.Down;
                 case Direction.Right:
                     return Direction.Left;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(gravityVector), gravityVector, null);
             }
         }
     }

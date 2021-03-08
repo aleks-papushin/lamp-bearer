@@ -23,7 +23,7 @@ public class StartButton : MonoBehaviour
         }
     }
 
-    private void StartGame()
+    private static void StartGame()
     {
         SceneManager.LoadScene(1);
         OnGameStarted?.Invoke();

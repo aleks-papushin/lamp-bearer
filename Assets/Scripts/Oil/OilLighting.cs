@@ -7,18 +7,15 @@ public class OilLighting : MonoBehaviour
     private Light _light;
     [SerializeField] private float _maxLightIntensity;
 
-    void Start()
+    private void Start()
     {
         _player = GameObject.FindGameObjectWithTag(Tags.Player);
         _light = GetComponent<Light>();
     }
 
-    void Update()
+    private void Update()
     {
-        if (_player != null)
-        {
-            this.HandleLighting();
-        }
+        HandleLighting();
     }
 
     private void HandleLighting()

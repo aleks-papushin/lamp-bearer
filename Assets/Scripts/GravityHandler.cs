@@ -7,7 +7,7 @@ namespace Assets.Scripts
     {
         [SerializeField] protected float _gravity = 9.8f;
 
-        public Direction GravityVector { get; set; }
+        public Direction GravityVector { get; protected set; }
 
         public abstract void SwitchLocalGravity(Direction direction);
     }
