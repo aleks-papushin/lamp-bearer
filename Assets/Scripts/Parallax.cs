@@ -1,46 +1,37 @@
-﻿using Assets.Scripts.Resources;
-using System.Collections;
+﻿using System;
+using Assets.Scripts.Player;
+using Assets.Scripts.Resources;
 using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
     [SerializeField] private float _degree;
-    private GameObject _source;
-
-    private void Awake()
-    {
-        var cachedTransform = transform;
-        cachedTransform.position = new Vector3(0, 0, cachedTransform.position.z);
-    }
+    private GameObject player;
+    private static bool playerDied;
+    
 
     private void Start()
     {
-        _source = GameObject.FindGameObjectWithTag(Tags.Player);
-        if (_source != null)
-        {
-            StartCoroutine(ParallaxRoutine());
-        }
+        var cachedTransform = transform;
+        cachedTransform.position = new Vector3(0, 0, cachedTransform.position.z);
+        PlayerCollisions.OnPlayerDied += PlayerDied;
+        playerDied = false;
+        player = GameObject.FindGameObjectWithTag(Tags.Player);
     }
 
-    private IEnumerator ParallaxRoutine()
+    private void Update()
     {
-        while (true)
-        {
-            if (_source != null)
-            {
-                var position = _source.transform.position;
-                var newPosX = position.x * _degree;
-                var newPosY = position.y * _degree;
+        if (playerDied) return;
+        var position = player.transform.position;
+        var newPosX = position.x * _degree;
+        var newPosY = position.y * _degree;
 
-                var cachedTransform = transform;
-                cachedTransform.position = new Vector3(newPosX, newPosY, cachedTransform.position.z);
-            }
-            else
-            {
-                _source = GameObject.FindGameObjectWithTag(Tags.Player);
-            }
+        var cachedTransform = transform;
+        cachedTransform.position = new Vector3(newPosX, newPosY, cachedTransform.position.z);
+    }
 
-            yield return new WaitForSeconds(0.02f);
-        }
+    private static void PlayerDied()
+    {
+        playerDied = true;
     }
 }
