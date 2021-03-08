@@ -2,6 +2,7 @@
 using Assets.Scripts.Interfaces;
 using Assets.Scripts.Resources;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 namespace Assets.Scripts.Game
@@ -36,14 +37,14 @@ namespace Assets.Scripts.Game
             return new GameWaveDto
             {
                 number = int.Parse(wave[0]),
-                wallWarningInterval = float.Parse(wave[1]),
-                wallDangerousInterval = float.Parse(wave[2]),
-                wallCoolDownInterval = float.Parse(wave[3]),
+                wallWarningInterval = float.Parse(wave[1], CultureInfo.InvariantCulture),
+                wallDangerousInterval = float.Parse(wave[2], CultureInfo.InvariantCulture),
+                wallCoolDownInterval = float.Parse(wave[3], CultureInfo.InvariantCulture),
                 switchOnWalls = int.Parse(wave[4]) != 0,
                 enemyCount = int.Parse(wave[5]),
-                enemySpeed = float.Parse(wave[6]),
+                enemySpeed = float.Parse(wave[6], CultureInfo.InvariantCulture),
                 isOilAffectLight = int.Parse(wave[7]) != 0,
-                waveDuration = float.Parse(wave[8])
+                waveDuration = float.Parse(wave[8], CultureInfo.InvariantCulture)
             };
         }
     }
