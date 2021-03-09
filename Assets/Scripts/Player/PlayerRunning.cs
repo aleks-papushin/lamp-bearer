@@ -17,7 +17,7 @@ namespace Assets.Scripts.Player
         private void Start()
         {
             _rig = GetComponent<Rigidbody2D>();
-            _collisions = GetComponent<PlayerCollisions>();
+            GetComponent<PlayerCollisions>();
             _animator = GetComponent<Animator>();
             _facing = GetComponent<HandleObjectFacing>();
             _gravityHandler = GetComponent<PlayerGravityHandler>();

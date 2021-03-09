@@ -9,9 +9,6 @@ public class SpawnOil : MonoBehaviour
 
     private const float XRange = 6;
     private const float YRange = 2;
-    private GameObject _bottle;
-
-    public bool IsBottleExist => _bottle != null;
 
     private void Start()
     {
@@ -37,7 +34,7 @@ public class SpawnOil : MonoBehaviour
 
     private void Spawn(float x, float y)
     {
-        _bottle = Instantiate(_oilBottle, new Vector3(x, y, 0), _oilBottle.transform.rotation);
+        Instantiate(_oilBottle, new Vector3(x, y, 0), _oilBottle.transform.rotation);
     }
 
     private static Vector2 GetRandomPosition()

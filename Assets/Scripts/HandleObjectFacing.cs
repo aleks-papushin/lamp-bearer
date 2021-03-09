@@ -6,8 +6,6 @@ namespace Assets.Scripts
 {
     public class HandleObjectFacing : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer _sprite;
-
         private IWallCollisions _collisions;
 
         private void Awake()

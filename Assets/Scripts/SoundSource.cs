@@ -2,16 +2,16 @@
 
 namespace Assets.Scripts
 {
-    public abstract class SoundSource : MonoBehaviour, ISoundSource
+    public abstract class SoundSource : MonoBehaviour
     {
-        public void PlayLoop(AudioSource source, AudioClip clip)
+        protected static void PlayLoop(AudioSource source, AudioClip clip)
         {
             source.clip = clip;
             source.loop = true;
             source.Play();
         }
 
-        public void PlayOnce(AudioSource source, AudioClip clip)
+        protected static void PlayOnce(AudioSource source, AudioClip clip)
         {
             source.PlayOneShot(clip);
         }

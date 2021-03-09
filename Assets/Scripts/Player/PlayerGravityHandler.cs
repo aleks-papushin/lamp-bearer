@@ -26,7 +26,7 @@ namespace Assets.Scripts.Player
                 case Direction.Right:
                     Physics2D.gravity = new Vector2(_gravity, 0);
                     break;
-                default:
+                default: 
                     throw new ArgumentOutOfRangeException();
             }
         }

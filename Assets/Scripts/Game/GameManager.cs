@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Resources;
 using UnityEngine;
 using Random = System.Random;
 
@@ -12,8 +11,7 @@ namespace Assets.Scripts
         public GameObject _spawner;
         public int oilBottleCountForSpawn;
         public GameWaveManager WaveManager { get; private set; }
-        public bool IsThereOilBottles => GameObject.FindGameObjectsWithTag(Tags.OilBottle).Any();
-        
+
         private UserInterface _userInterface;
         private static List<GameObject> WallsToBeDangerous => FindObjectsOfType<WallDanger>()
             .Where(w => !w.GetComponent<WallPlayerCollisions>().IsPlayerStandsOnMe)
