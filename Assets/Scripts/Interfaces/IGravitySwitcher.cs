@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Interfaces
+﻿using Enums;
+
+namespace Interfaces
 {
     public interface IGravitySwitcher
     {

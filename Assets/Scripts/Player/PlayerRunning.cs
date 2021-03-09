@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Enums;
+using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     public class PlayerRunning : PlayerAction
     {

@@ -1,31 +1,34 @@
-﻿using Assets.Scripts.Player;
-using Assets.Scripts.Resources;
+﻿using Player;
+using Resources;
 using UnityEngine;
 
-public class OilLighting : MonoBehaviour
+namespace Oil
 {
-    private GameObject player;
-    private Light _light;
-    [SerializeField] private float _maxLightIntensity;
-    private static bool playerDied;
-
-    private void Start()
+    public class OilLighting : MonoBehaviour
     {
-        player = GameObject.FindGameObjectWithTag(Tags.Player);
-        playerDied = false;
-        _light = GetComponent<Light>();
-        PlayerCollisions.OnPlayerDied += PlayerDied;
-    }
+        private GameObject player;
+        private Light _light;
+        [SerializeField] private float _maxLightIntensity;
+        private static bool playerDied;
 
-    private void Update()
-    {
-        if (playerDied) return;
-        var distance = Vector2.Distance(transform.position, player.transform.position);
-        _light.intensity = _maxLightIntensity / (distance * (distance * 0.1f) + 1);
-    }
+        private void Start()
+        {
+            player = GameObject.FindGameObjectWithTag(Tags.Player);
+            playerDied = false;
+            _light = GetComponent<Light>();
+            PlayerCollisions.OnPlayerDied += PlayerDied;
+        }
+
+        private void Update()
+        {
+            if (playerDied) return;
+            var distance = Vector2.Distance(transform.position, player.transform.position);
+            _light.intensity = _maxLightIntensity / (distance * (distance * 0.1f) + 1);
+        }
     
-    private static void PlayerDied()
-    {
-        playerDied = true;
+        private static void PlayerDied()
+        {
+            playerDied = true;
+        }
     }
 }

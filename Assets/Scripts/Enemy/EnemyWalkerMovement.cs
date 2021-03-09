@@ -1,9 +1,10 @@
-﻿using Assets.Scripts.Enemy;
-
-public class EnemyWalkerMovement : EnemyMovementBase
+﻿namespace Enemy
 {
-    private void Update()
+    public class EnemyWalkerMovement : EnemyMovementBase
     {
-        Move();
+        private void Update()
+        {
+            Move();
+        }
     }
 }

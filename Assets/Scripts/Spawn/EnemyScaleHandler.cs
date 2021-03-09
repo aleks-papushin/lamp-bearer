@@ -1,39 +1,43 @@
-﻿using Assets.Scripts.Resources;
-using System.Collections;
+﻿using System.Collections;
+using Enemy;
+using Resources;
 using UnityEngine;
 
-public class EnemyScaleHandler : MonoBehaviour
+namespace Spawn
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class EnemyScaleHandler : MonoBehaviour
     {
-        if (!collision.CompareTag(Tags.Enemy)) return;
-        StartCoroutine(TemporaryDisable());
-
-        if (!collision.GetComponent<EnemyWalkerCollisions>().IsTriggeredAtLeastOnce)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            collision.GetComponent<EnemyWalkerCollisions>().IsTriggeredAtLeastOnce = true;
-            collision.GetComponent<EnemyScaling>().IsIncrease = true;
-        }
-        else
-        {
-            var isDestroyEnemy = Random.Range(1, 2) == 1;
+            if (!collision.CompareTag(Tags.Enemy)) return;
+            StartCoroutine(TemporaryDisable());
 
-            if (isDestroyEnemy)
+            if (!collision.GetComponent<EnemyWalkerCollisions>().IsTriggeredAtLeastOnce)
             {
-                collision.GetComponent<EnemyScaling>().IsDestroy = true;
+                collision.GetComponent<EnemyWalkerCollisions>().IsTriggeredAtLeastOnce = true;
+                collision.GetComponent<EnemyScaling>().IsIncrease = true;
             }
             else
             {
-                collision.GetComponent<EnemyWalkerMovement>().ChangeDirection();
+                var isDestroyEnemy = Random.Range(1, 2) == 1;
+
+                if (isDestroyEnemy)
+                {
+                    collision.GetComponent<EnemyScaling>().IsDestroy = true;
+                }
+                else
+                {
+                    collision.GetComponent<EnemyWalkerMovement>().ChangeDirection();
+                }
             }
         }
-    }
 
-    private IEnumerator TemporaryDisable()
-    {
-        var edgeCollider = GetComponent<EdgeCollider2D>();
-        edgeCollider.enabled = false;
-        yield return new WaitForSeconds(1);
-        edgeCollider.enabled = true;
+        private IEnumerator TemporaryDisable()
+        {
+            var edgeCollider = GetComponent<EdgeCollider2D>();
+            edgeCollider.enabled = false;
+            yield return new WaitForSeconds(1);
+            edgeCollider.enabled = true;
+        }
     }
 }

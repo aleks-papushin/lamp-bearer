@@ -3,29 +3,32 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class StartButton : MonoBehaviour
+namespace UI
 {
-    private Button _startButton;
-
-    public static event Action OnGameStarted;
-
-    private void Start()
+    public class StartButton : MonoBehaviour
     {
-        _startButton = GetComponent<Button>();
-        _startButton.onClick.AddListener(StartGame);
-    }
+        private Button _startButton;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
+        public static event Action OnGameStarted;
+
+        private void Start()
         {
-            StartGame();
+            _startButton = GetComponent<Button>();
+            _startButton.onClick.AddListener(StartGame);
         }
-    }
 
-    private static void StartGame()
-    {
-        SceneManager.LoadScene(1);
-        OnGameStarted?.Invoke();
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                StartGame();
+            }
+        }
+
+        private static void StartGame()
+        {
+            SceneManager.LoadScene(1);
+            OnGameStarted?.Invoke();
+        }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System;
-using Assets.Scripts.Utils;
+using Enums;
 using UnityEngine;
+using Utils;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     public class PlayerController : MonoBehaviour
     {

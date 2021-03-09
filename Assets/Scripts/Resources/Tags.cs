@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Resources
+﻿namespace Resources
 {
     public static class Tags
     {

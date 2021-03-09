@@ -1,69 +1,71 @@
 ﻿using System.Collections;
-using Assets.Scripts;
-using Assets.Scripts.Player;
+using Player;
 using UnityEngine;
 
-public class SpawnOil : MonoBehaviour
+namespace Spawn
 {
-    public GameObject _oilBottle;
-
-    private const float XRange = 6;
-    private const float YRange = 2;
-
-    private void Start()
+    public class SpawnOil : MonoBehaviour
     {
-        PlayerCollisions.OnOilBottleTaken += PlayerCollisions_OnOilBottleTaken;
-    }
+        public GameObject _oilBottle;
 
-    private void Spawn(int count = 1)
-    {
-        for (var i = 0; i < count; i++)
+        private const float XRange = 6;
+        private const float YRange = 2;
+
+        private void Start()
         {
-            var position = GetRandomPosition();
-            Spawn(position.x, position.y);
-        }
-    }
-
-    public void Spawn(int count, float x, float y)
-    {
-        for (var i = 0; i < count; i++)
-        {
-            Spawn(x, y);
-        }
-    }
-
-    private void Spawn(float x, float y)
-    {
-        Instantiate(_oilBottle, new Vector3(x, y, 0), _oilBottle.transform.rotation);
-    }
-
-    private static Vector2 GetRandomPosition()
-    {
-        return new Vector2(
-            Random.Range(-XRange, XRange),
-            Random.Range(-YRange, YRange));
-    }
-
-    private void PlayerCollisions_OnOilBottleTaken()
-    {
-        StartCoroutine(WaitPlayerGroundedAndSpawnOil());
-    }
-
-    // TODO change to event handler which will be check if there is no oil when player is grounded
-    private IEnumerator WaitPlayerGroundedAndSpawnOil()
-    {
-        var playerWallCollisions = PlayerController.Player.GetComponent<ObjectWallCollisions>();
-
-        while (!playerWallCollisions.IsGrounded)
-        {
-            yield return new WaitForSeconds(0.01f);
+            PlayerCollisions.OnOilBottleTaken += PlayerCollisions_OnOilBottleTaken;
         }
 
-        Spawn();
-    }
+        private void Spawn(int count = 1)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                var position = GetRandomPosition();
+                Spawn(position.x, position.y);
+            }
+        }
 
-    private void OnDestroy()
-    {
-        PlayerCollisions.OnOilBottleTaken -= PlayerCollisions_OnOilBottleTaken;
+        public void Spawn(int count, float x, float y)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                Spawn(x, y);
+            }
+        }
+
+        private void Spawn(float x, float y)
+        {
+            Instantiate(_oilBottle, new Vector3(x, y, 0), _oilBottle.transform.rotation);
+        }
+
+        private static Vector2 GetRandomPosition()
+        {
+            return new Vector2(
+                Random.Range(-XRange, XRange),
+                Random.Range(-YRange, YRange));
+        }
+
+        private void PlayerCollisions_OnOilBottleTaken()
+        {
+            StartCoroutine(WaitPlayerGroundedAndSpawnOil());
+        }
+
+        // TODO change to event handler which will be check if there is no oil when player is grounded
+        private IEnumerator WaitPlayerGroundedAndSpawnOil()
+        {
+            var playerWallCollisions = PlayerController.Player.GetComponent<ObjectWallCollisions>();
+
+            while (!playerWallCollisions.IsGrounded)
+            {
+                yield return new WaitForSeconds(0.01f);
+            }
+
+            Spawn();
+        }
+
+        private void OnDestroy()
+        {
+            PlayerCollisions.OnOilBottleTaken -= PlayerCollisions_OnOilBottleTaken;
+        }
     }
 }

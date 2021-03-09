@@ -1,46 +1,49 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class WallDanger : MonoBehaviour
+namespace Wall
 {
-    public bool IsDangerous { get; private set; }
-
-    public Sprite safe;
-
-    private SpriteRenderer _spriteRenderer;
-    private WallLighting _lighting;
-    private WallAnimation _animation;
-
-    private void Start()
+    public class WallDanger : MonoBehaviour
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _spriteRenderer.sprite = safe;
+        public bool IsDangerous { get; private set; }
 
-        _lighting = GetComponentInChildren<WallLighting>(true);
-        _animation = GetComponent<WallAnimation>();
+        public Sprite safe;
 
-        IsDangerous = false;        
-    }
+        private SpriteRenderer _spriteRenderer;
+        private WallLighting _lighting;
+        private WallAnimation _animation;
 
-    public IEnumerator BecameDangerousCoroutine(float _wallWarningInterval)
-    {
-        //_spriteRenderer.sprite = warning;
-        _animation.MakeWarning();
-        _lighting.SetWarning();
+        private void Start()
+        {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _spriteRenderer.sprite = safe;
 
-        yield return new WaitForSeconds(_wallWarningInterval);
+            _lighting = GetComponentInChildren<WallLighting>(true);
+            _animation = GetComponent<WallAnimation>();
 
-        //_spriteRenderer.sprite = danger;
-        _animation.BecameDanger();
-        _lighting.SetDanger();
-        IsDangerous = true;
-    }
+            IsDangerous = false;        
+        }
 
-    public void BecameSafe()
-    {
-        //_spriteRenderer.sprite = safe;
-        _animation.BecameSafe();
-        _lighting.Disable();
-        IsDangerous = false;
+        public IEnumerator BecameDangerousCoroutine(float _wallWarningInterval)
+        {
+            //_spriteRenderer.sprite = warning;
+            _animation.MakeWarning();
+            _lighting.SetWarning();
+
+            yield return new WaitForSeconds(_wallWarningInterval);
+
+            //_spriteRenderer.sprite = danger;
+            _animation.BecameDanger();
+            _lighting.SetDanger();
+            IsDangerous = true;
+        }
+
+        public void BecameSafe()
+        {
+            //_spriteRenderer.sprite = safe;
+            _animation.BecameSafe();
+            _lighting.Disable();
+            IsDangerous = false;
+        }
     }
 }

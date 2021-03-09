@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Enums;
 using UnityEngine;
 
-namespace Assets.Scripts.Utils
+namespace Utils
 {
     public static class TransformExtensions
     {

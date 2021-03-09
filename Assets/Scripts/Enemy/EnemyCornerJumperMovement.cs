@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Enemy
+namespace Enemy
 {
     public class EnemyCornerJumperMovement : EnemyMovementBase
     {        

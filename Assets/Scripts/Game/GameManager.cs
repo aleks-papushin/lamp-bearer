@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Spawn;
+using UI;
 using UnityEngine;
+using Wall;
 using Random = System.Random;
 
-namespace Assets.Scripts
+namespace Game
 {
     public class GameManager : MonoBehaviour
     {

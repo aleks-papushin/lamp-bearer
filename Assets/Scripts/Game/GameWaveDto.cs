@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Scripts
+namespace Game
 {
     [Serializable]
     public struct GameWaveDto
