@@ -22,8 +22,6 @@ namespace Assets.Scripts.Player
         // scripts
         [SerializeField] private PlayerSounds _playerSounds;
         [SerializeField] private PlayerGravityHandler _gravityHandler;
-        [SerializeField] private HandleObjectFacing _spriteFacing;
-        [SerializeField] private HandleSpriteRotation _spriteRotation;
 
         // other
         private PlayerRunning _playerRunning;

@@ -6,8 +6,6 @@ public class WallDanger : MonoBehaviour
     public bool IsDangerous { get; private set; }
 
     public Sprite safe;
-    public Sprite warning;
-    public Sprite danger;
 
     private SpriteRenderer _spriteRenderer;
     private WallLighting _lighting;

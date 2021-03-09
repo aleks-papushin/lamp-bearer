@@ -15,12 +15,6 @@ namespace Assets.Scripts
             UpdateScoreDisplay();
         }
 
-        public void ResetScore()
-        {
-            CurrentScore = 0;
-            UpdateScoreDisplay();
-        }
-
         private void UpdateScoreDisplay()
         {
             scoreText.text = $": {CurrentScore}";

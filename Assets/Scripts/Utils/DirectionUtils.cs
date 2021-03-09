@@ -6,18 +6,23 @@ namespace Assets.Scripts.Utils
 {
     public static class DirectionUtils
     {
+        private static readonly GameObject bottomWall = GameObject.FindGameObjectWithTag(Tags.BottomWall);
+        private static readonly GameObject leftWall = GameObject.FindGameObjectWithTag(Tags.LeftWall);
+        private static readonly GameObject upWall = GameObject.FindGameObjectWithTag(Tags.UpperWall);
+        private static readonly GameObject rightWall = GameObject.FindGameObjectWithTag(Tags.RightWall);
+
         public static GameObject GetFloorFor(Direction gravityDirection)
         {
             switch (gravityDirection)
             {
                 case Direction.Down:
-                    return GameObject.FindGameObjectWithTag(Tags.BottomWall);
+                    return bottomWall;
                 case Direction.Left:
-                    return GameObject.FindGameObjectWithTag(Tags.LeftWall);
+                    return leftWall;
                 case Direction.Up:
-                    return GameObject.FindGameObjectWithTag(Tags.UpperWall);
+                    return upWall;
                 case Direction.Right:
-                    return GameObject.FindGameObjectWithTag(Tags.RightWall);
+                    return rightWall;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gravityDirection), gravityDirection, null);
             }

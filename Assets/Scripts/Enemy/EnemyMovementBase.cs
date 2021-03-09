@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
-    public abstract class EnemyMovementBase : MonoBehaviour, IMovement
+    public abstract class EnemyMovementBase : MonoBehaviour
     {
         public bool IsDirectionPositive { get; set; } = true;
         [SerializeField] private float _speed;
@@ -29,7 +29,7 @@ namespace Assets.Scripts.Enemy
 
         public void ChangeDirection() => IsDirectionPositive = !IsDirectionPositive;
 
-        public void Move()
+        protected void Move()
         {
             if (!_wallCollisions.IsGrounded) return;
 

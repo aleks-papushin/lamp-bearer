@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Scripts.Player;
+﻿using Assets.Scripts.Player;
 using Assets.Scripts.Resources;
 using UnityEngine;
 

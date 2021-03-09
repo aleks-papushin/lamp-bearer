@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Interfaces
 {
-    public interface ICornerJumpSoundSource : ISoundSource
+    public interface ICornerJumpSoundSource
     {
         void CornerJump();
     }

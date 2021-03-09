@@ -5,7 +5,6 @@ public class EnemyScaling : MonoBehaviour
 {
     [SerializeField] private float _initScaleMultiplier;
     [SerializeField] private float _incrementValue;
-    [SerializeField] private float _routineTimeInterval;
     private float _defaultScaleX;
     private EnemyWalkerMovement _movement;
 

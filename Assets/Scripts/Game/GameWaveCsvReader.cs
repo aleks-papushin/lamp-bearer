@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Enums;
-using Assets.Scripts.Interfaces;
 using Assets.Scripts.Resources;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,7 +6,7 @@ using System.IO;
 
 namespace Assets.Scripts.Game
 {
-    public class GameWaveCsvReader : IGameDataReader
+    public class GameWaveCsvReader
     {
         public List<GameWaveDto> ReadGameData(GameDifficulty difficulty)
         {
