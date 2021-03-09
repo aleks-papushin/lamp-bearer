@@ -1,43 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts;
+using Game;
 using UnityEngine;
 
-public class EnemySpawningManagement : MonoBehaviour
+namespace Spawn
 {
-    private GameManager _gameManager;
-    private List<SpawnEnemy> _enemySpawners;
-    private int _waveEnemyCount;
-
-    private int ActualEnemyCount => _enemySpawners.Sum(spawner => spawner.EnemyCount);
-
-    private void Start()
+    public class EnemySpawningManagement : MonoBehaviour
     {
-        _gameManager = FindObjectOfType<GameManager>();
-        _enemySpawners = GetComponentsInChildren<SpawnEnemy>().ToList();
+        private GameManager _gameManager;
+        private List<SpawnEnemy> _enemySpawners;
+        private int _waveEnemyCount;
 
-        StartCoroutine(HandleEnemyExistenceRoutine());
-    }
-    
-    private IEnumerator HandleEnemyExistenceRoutine()
-    {
-        while (true)
+        private int ActualEnemyCount => _enemySpawners.Sum(spawner => spawner.EnemyCount);
+
+        private void Start()
         {
-            yield return null;
+            _gameManager = FindObjectOfType<GameManager>();
+            _enemySpawners = GetComponentsInChildren<SpawnEnemy>().ToList();
 
-            _waveEnemyCount = _gameManager.WaveManager.CurrentWave.enemyCount;
-
-            if (ActualEnemyCount >= _waveEnemyCount) continue;
-            var spawner = PickFreeSpawner();
-            yield return new WaitForSeconds(1);
-            spawner.Spawn();
+            StartCoroutine(HandleEnemyExistenceRoutine());
         }
-    }
+    
+        private IEnumerator HandleEnemyExistenceRoutine()
+        {
+            while (true)
+            {
+                yield return null;
 
-    private SpawnEnemy PickFreeSpawner()
-    {
-        var freeSpawners = _enemySpawners.Where(spawner => spawner.PairEnemyCount == 0).ToList();
-        return freeSpawners.Count == 0 ? null : freeSpawners[Random.Range(0, freeSpawners.Count)];
+                _waveEnemyCount = _gameManager.WaveManager.CurrentWave.enemyCount;
+
+                if (ActualEnemyCount >= _waveEnemyCount) continue;
+                var spawner = PickFreeSpawner();
+                yield return new WaitForSeconds(1);
+                spawner.Spawn();
+            }
+        }
+
+        private SpawnEnemy PickFreeSpawner()
+        {
+            var freeSpawners = _enemySpawners.Where(spawner => spawner.PairEnemyCount == 0).ToList();
+            return freeSpawners.Count == 0 ? null : freeSpawners[Random.Range(0, freeSpawners.Count)];
+        }
     }
 }

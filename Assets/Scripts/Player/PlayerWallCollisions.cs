@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.Resources;
-using System;
+﻿using System;
+using Resources;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     public class PlayerWallCollisions : ObjectWallCollisions
     {

@@ -1,28 +1,24 @@
 ﻿using System;
-using Assets.Scripts.Resources;
+using Enums;
+using Resources;
 using UnityEngine;
 
-namespace Assets.Scripts.Utils
+namespace Utils
 {
     public static class DirectionUtils
     {
-        private static readonly GameObject bottomWall = GameObject.FindGameObjectWithTag(Tags.BottomWall);
-        private static readonly GameObject leftWall = GameObject.FindGameObjectWithTag(Tags.LeftWall);
-        private static readonly GameObject upWall = GameObject.FindGameObjectWithTag(Tags.UpperWall);
-        private static readonly GameObject rightWall = GameObject.FindGameObjectWithTag(Tags.RightWall);
-
         public static GameObject GetFloorFor(Direction gravityDirection)
         {
             switch (gravityDirection)
             {
                 case Direction.Down:
-                    return bottomWall;
+                    return GameObject.FindGameObjectWithTag(Tags.BottomWall);
                 case Direction.Left:
-                    return leftWall;
+                    return GameObject.FindGameObjectWithTag(Tags.LeftWall);
                 case Direction.Up:
-                    return upWall;
+                    return GameObject.FindGameObjectWithTag(Tags.UpperWall);
                 case Direction.Right:
-                    return rightWall;
+                    return GameObject.FindGameObjectWithTag(Tags.RightWall);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gravityDirection), gravityDirection, null);
             }

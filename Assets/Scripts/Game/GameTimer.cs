@@ -3,7 +3,7 @@ using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Game
 {
     public class GameTimer : MonoBehaviour
     {

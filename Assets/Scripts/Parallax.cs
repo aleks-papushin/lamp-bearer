@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.Player;
-using Assets.Scripts.Resources;
+﻿using Player;
+using Resources;
 using UnityEngine;
 
 public class Parallax : MonoBehaviour

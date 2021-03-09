@@ -1,7 +1,8 @@
 ﻿using System;
+using Enums;
 using UnityEngine;
 
-namespace Assets.Scripts.Enemy
+namespace Enemy
 {
     public class EnemyGravityHandler : GravityHandler
     {

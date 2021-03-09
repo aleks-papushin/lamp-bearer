@@ -1,7 +1,8 @@
 ﻿using System;
+using Enums;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     public class PlayerGravityHandler : GravityHandler
     {

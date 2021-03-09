@@ -1,14 +1,12 @@
-﻿using Assets.Scripts.Interfaces;
+﻿using Enums;
+using Interfaces;
 using UnityEngine;
 
-namespace Assets.Scripts
+public abstract class GravityHandler : MonoBehaviour, IGravitySwitcher
 {
-    public abstract class GravityHandler : MonoBehaviour, IGravitySwitcher
-    {
-        [SerializeField] protected float _gravity = 9.8f;
+    [SerializeField] protected float _gravity = 9.8f;
 
-        public Direction GravityVector { get; protected set; }
+    public Direction GravityVector { get; protected set; }
 
-        public abstract void SwitchLocalGravity(Direction direction);
-    }
+    public abstract void SwitchLocalGravity(Direction direction);
 }

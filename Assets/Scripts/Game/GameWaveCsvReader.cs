@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.Enums;
-using Assets.Scripts.Resources;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using Enums;
+using Resources;
 
-namespace Assets.Scripts.Game
+namespace Game
 {
     public class GameWaveCsvReader
     {

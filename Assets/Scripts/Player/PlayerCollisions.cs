@@ -1,8 +1,10 @@
-﻿using Assets.Scripts.Resources;
-using System;
+﻿using System;
+using Game;
+using Resources;
 using UnityEngine;
+using Wall;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     public class PlayerCollisions : MonoBehaviour
     {

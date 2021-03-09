@@ -1,7 +1,6 @@
-﻿using Assets.Scripts.Interfaces;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts.Enemy
+namespace Enemy
 {
     public abstract class EnemyMovementBase : MonoBehaviour
     {

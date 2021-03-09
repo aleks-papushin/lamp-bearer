@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Resources
+namespace Resources
 {
     public static class Paths
     {

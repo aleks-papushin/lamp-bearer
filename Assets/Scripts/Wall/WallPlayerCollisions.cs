@@ -1,23 +1,26 @@
-﻿using Assets.Scripts.Resources;
+﻿using Resources;
 using UnityEngine;
 
-public class WallPlayerCollisions : MonoBehaviour
+namespace Wall
 {
-    public bool IsPlayerStandsOnMe { get; set; }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    public class WallPlayerCollisions : MonoBehaviour
     {
-        if (collision.gameObject.CompareTag(Tags.Player))
+        public bool IsPlayerStandsOnMe { get; set; }
+
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            IsPlayerStandsOnMe = true;
+            if (collision.gameObject.CompareTag(Tags.Player))
+            {
+                IsPlayerStandsOnMe = true;
+            }
         }
-    }
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag(Tags.Player))
+        private void OnCollisionExit2D(Collision2D collision)
         {
-            IsPlayerStandsOnMe = false;
+            if (collision.gameObject.CompareTag(Tags.Player))
+            {
+                IsPlayerStandsOnMe = false;
+            }
         }
     }
 }

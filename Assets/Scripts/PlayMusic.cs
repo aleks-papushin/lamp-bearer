@@ -1,5 +1,5 @@
-﻿using Assets.Scripts;
-using System.Collections;
+﻿using System.Collections;
+using UI;
 using UnityEngine;
 
 public class PlayMusic : SoundSource
