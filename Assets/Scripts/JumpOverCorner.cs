@@ -41,7 +41,7 @@ public class JumpOverCorner : MonoBehaviour
         Corner currentCorner;
         switch (objectTag)
         {
-            default:
+            case Tags.BottomLeftCorner:
                 currentCorner = Corner.BottomLeft;
                 break;
             case Tags.BottomRightCorner:
@@ -53,6 +53,8 @@ public class JumpOverCorner : MonoBehaviour
             case Tags.UpperRightCorner:
                 currentCorner = Corner.UpperRight;
                 break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
 
         CornerJump(currentCorner);

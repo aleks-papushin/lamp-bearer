@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Enums;
 using UnityEngine;
 using Utils;
@@ -13,7 +14,7 @@ namespace Player
         // jumping
         [SerializeField] private float _jumpForce;
         private bool _isJumpAxisWasIdle = true;
-        internal bool _isChangedDirectionInJump;
+        internal bool DirectionWasChangedInJump;
         [SerializeField] private float _forbidDirectionChangingDistance;
 
         // collisions
@@ -36,6 +37,15 @@ namespace Player
         private static bool IsInputVerticalPositive => Input.GetAxisRaw("Vertical") > 0;
 
         private bool IsGrounded { get; set; }
+        
+        private bool IsDistanceToAnyFloorForbidsChange
+        {
+            get
+            {
+                return (from dir in (Direction[]) Enum.GetValues(typeof(Direction)) select DirectionUtils.GetFloorFor(dir))
+                    .Any(floor => transform.GetDistanceTo(floor) < _forbidDirectionChangingDistance);
+            }
+        }
 
         public static GameObject Player { get; private set; }
 
@@ -147,11 +157,11 @@ namespace Player
         private bool ForbidInAirTurning()
         {
             return
-                _isChangedDirectionInJump ||
+                DirectionWasChangedInJump ||
                 IsGrounded ||
-                transform.DistanceToAnyFloorLessThan(_forbidDirectionChangingDistance);
+                IsDistanceToAnyFloorForbidsChange;
         }
-
+        
         private void HandleInAirDirectionChanging()
         {
             // if side buttons were held before jump - 
@@ -166,7 +176,7 @@ namespace Player
 
                 if (Input.GetAxisRaw("Horizontal") != 0 && _gravityHandler.IsGravityVectorVertical)
                 {
-                    _isChangedDirectionInJump = true;
+                    DirectionWasChangedInJump = true;
 
                     if (IsInputHorizontalNegative)
                     {
@@ -179,7 +189,7 @@ namespace Player
                 }
                 else if (Input.GetAxisRaw("Vertical") != 0 && _gravityHandler.IsGravityVectorHorizontal)
                 {
-                    _isChangedDirectionInJump = true;
+                    DirectionWasChangedInJump = true;
 
                     if (IsInputVerticalNegative)
                     {

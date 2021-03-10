@@ -56,7 +56,7 @@ public class HandleSpriteRotation : MonoBehaviour
 
         var floorAnchor = DirectionUtils.GetFloorFor(gravityVector)
             .GetComponentsInChildren<Transform>()
-            .SingleOrDefault(t => t.tag.Contains(Tags.AnchorSuffix));
+            .Single(t => t.tag.Contains(Tags.AnchorSuffix));
 
         transform.rotation =
             Quaternion.RotateTowards(transform.rotation, floorAnchor.transform.rotation, Time.deltaTime * _rotationSpeed);

@@ -24,13 +24,13 @@ namespace Wall
             IsDangerous = false;        
         }
 
-        public IEnumerator BecameDangerousCoroutine(float _wallWarningInterval)
+        public IEnumerator BecameDangerousCoroutine(float wallWarningInterval)
         {
             //_spriteRenderer.sprite = warning;
             _animation.MakeWarning();
             _lighting.SetWarning();
 
-            yield return new WaitForSeconds(_wallWarningInterval);
+            yield return new WaitForSeconds(wallWarningInterval);
 
             //_spriteRenderer.sprite = danger;
             _animation.BecameDanger();

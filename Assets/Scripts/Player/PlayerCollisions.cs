@@ -91,7 +91,7 @@ namespace Player
         private void HandlePlayerGrounding(Collision2D collision)
         {
             if (!collision.gameObject.tag.Contains(Tags.WallSuffix)) return;
-            _playerController._isChangedDirectionInJump = false;
+            _playerController.DirectionWasChangedInJump = false;
             _playerController.UnfreezeRig();
             _playerSounds.Landing();
         }

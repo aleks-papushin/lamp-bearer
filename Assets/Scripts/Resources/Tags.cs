@@ -14,6 +14,7 @@
 
         public const string CornerSuffix = "Corner";
         public const string BottomRightCorner = "BottomRightCorner";
+        public const string BottomLeftCorner = "BottomLeftCorner";
         public const string UpperLeftCorner = "UpperLeftCorner";
         public const string UpperRightCorner = "UpperRightCorner";
 
