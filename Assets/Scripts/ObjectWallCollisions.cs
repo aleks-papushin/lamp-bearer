@@ -8,14 +8,7 @@ public class ObjectWallCollisions : MonoBehaviour, IWallCollisions, IGroundedSta
     private int _uWallCollisionEntered;
     private int _lWallCollisionEntered;
     private int _rWallCollisionEntered;
-
-    public ObjectWallCollisions()
-    {
-        _uWallCollisionEntered = 0;
-        _lWallCollisionEntered = 0;
-        _rWallCollisionEntered = 0;
-    }
-
+    
     public bool IsTouchBottomWall => _bWallCollisionEntered > 0;
 
     public bool IsTouchUpperWall => _uWallCollisionEntered > 0;

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Parallax : MonoBehaviour
 {
     [SerializeField] private float _degree;
-    private GameObject player;
-    private static bool playerDied;
+    private GameObject _player;
+    private static bool _playerDied;
     
 
     private void Start()
@@ -14,14 +14,14 @@ public class Parallax : MonoBehaviour
         var cachedTransform = transform;
         cachedTransform.position = new Vector3(0, 0, cachedTransform.position.z);
         PlayerCollisions.OnPlayerDied += PlayerDied;
-        playerDied = false;
-        player = GameObject.FindGameObjectWithTag(Tags.Player);
+        _playerDied = false;
+        _player = GameObject.FindGameObjectWithTag(Tags.Player);
     }
 
     private void Update()
     {
-        if (playerDied) return;
-        var position = player.transform.position;
+        if (_playerDied) return;
+        var position = _player.transform.position;
         var newPosX = position.x * _degree;
         var newPosY = position.y * _degree;
 
@@ -31,6 +31,6 @@ public class Parallax : MonoBehaviour
 
     private static void PlayerDied()
     {
-        playerDied = true;
+        _playerDied = true;
     }
 }

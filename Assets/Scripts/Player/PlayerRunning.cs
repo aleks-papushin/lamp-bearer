@@ -17,7 +17,7 @@ namespace Player
 
         private void Start()
         {
-            _rig = GetComponent<Rigidbody2D>();
+            Rig = GetComponent<Rigidbody2D>();
             GetComponent<PlayerCollisions>();
             _animator = GetComponent<Animator>();
             _facing = GetComponent<HandleObjectFacing>();
@@ -81,7 +81,7 @@ namespace Player
         {
             if (IsGrounded)
             {
-                _rig.velocity = vector * speed;
+                Rig.velocity = vector * speed;
             }
         }
 

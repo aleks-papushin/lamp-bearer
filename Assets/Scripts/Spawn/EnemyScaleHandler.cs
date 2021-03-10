@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using Enemy;
 using Resources;
 using UnityEngine;
@@ -32,6 +33,7 @@ namespace Spawn
             }
         }
 
+        [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess", Justification = "Can't be optimized")]
         private IEnumerator TemporaryDisable()
         {
             var edgeCollider = GetComponent<EdgeCollider2D>();

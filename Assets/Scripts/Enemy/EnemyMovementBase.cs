@@ -4,11 +4,12 @@ namespace Enemy
 {
     public abstract class EnemyMovementBase : MonoBehaviour
     {
-        public bool IsDirectionPositive { get; set; } = true;
         [SerializeField] private float _speed;
         [SerializeField] private ObjectWallCollisions _wallCollisions;
         private HandleObjectFacing _facing;
         private Rigidbody2D _rig;
+        
+        public bool IsDirectionPositive { get; set; } = true;
 
         private void Start()
         {
