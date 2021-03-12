@@ -131,7 +131,6 @@ namespace Player
             FreezePerpendicularAxis(gravity);
             _gravityHandler.SwitchLocalGravity(gravity);
             _rig.AddForce(jumpVector, ForceMode2D.Impulse);
-            _animator.SetBool(Jumping, true);
             _playerSounds.Jump();
         }
 
