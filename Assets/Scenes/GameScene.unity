@@ -1514,6 +1514,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1447504297, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427484700431134808, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1894497229938108201, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.02
@@ -1556,6 +1564,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1894497229938108201, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894497229938108203, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: m_Interpolate
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894497229938108203, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894497229938108203, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894497229938108203, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: m_BodyType
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1894497229938108207, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
