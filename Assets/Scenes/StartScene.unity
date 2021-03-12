@@ -2177,7 +2177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficultyLabel: {fileID: 1873481015}
-  otherButton: {fileID: 2105163350}
 --- !u!114 &1211669376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2547,6 +2546,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3746405045857200465, guid: e02f597c4c6c60745a3bd93ccbbbcfa9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3746405046491252237, guid: e02f597c4c6c60745a3bd93ccbbbcfa9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.05
@@ -2594,6 +2597,10 @@ PrefabInstance:
     - target: {fileID: 3746405046491252238, guid: e02f597c4c6c60745a3bd93ccbbbcfa9, type: 3}
       propertyPath: m_Name
       value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 3746405046525386811, guid: e02f597c4c6c60745a3bd93ccbbbcfa9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e02f597c4c6c60745a3bd93ccbbbcfa9, type: 3}
@@ -3178,7 +3185,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficultyLabel: {fileID: 1873481015}
-  otherButton: {fileID: 1211669376}
 --- !u!114 &2105163350
 MonoBehaviour:
   m_ObjectHideFlags: 0
