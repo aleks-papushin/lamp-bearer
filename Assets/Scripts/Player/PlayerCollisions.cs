@@ -45,25 +45,11 @@ namespace Player
             }
         }
 
-        private void OnCollisionExit2D(Collision2D collision)
-        {
-            if (collision.gameObject.tag.Contains(Tags.WallSuffix))
-            {
-                HandleBeingOnWall(collision, false);
-            }
-        }
-
         private void HandleWalls(Collision2D collision)
         {
             if (!collision.gameObject.tag.Contains(Tags.WallSuffix)) return;
             HandleDangerousWall(collision);
             _animator.SetBool(Jumping, false);
-            HandleBeingOnWall(collision, true);
-        }
-
-        private static void HandleBeingOnWall(Collision2D collision, bool isOnWall)
-        {
-            collision.transform.GetComponent<WallPlayerCollisions>().IsPlayerStandsOnMe = isOnWall;
         }
 
         private void OnCollisionStay2D(Collision2D collision)
