@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1003006799126669695}
   - component: {fileID: 7833204895088434833}
   - component: {fileID: 4256132794250231788}
-  - component: {fileID: 1901503950}
   - component: {fileID: 7388424766153083356}
   - component: {fileID: 1186531237}
   - component: {fileID: 1186531236}
@@ -161,18 +160,6 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!114 &1901503950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003006799126669569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e647037f65047484da5312186282667c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7388424766153083356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,8 +173,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safe: {fileID: 21300000, guid: c58c2ec619a5ddd4284b256f646b63fb, type: 3}
-  warning: {fileID: 21300000, guid: 85304c5c661aa7b46813bddc0e754a77, type: 3}
-  danger: {fileID: 21300000, guid: 07bbc98d1b73c274eb676ded71d5a014, type: 3}
 --- !u!95 &1186531237
 Animator:
   serializedVersion: 3
