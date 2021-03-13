@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 1003006799126669568}
   - component: {fileID: 1003006799126669694}
   - component: {fileID: 1003006799126669695}
-  - component: {fileID: 7833204895088434833}
-  - component: {fileID: 4256132794250231788}
   - component: {fileID: 7388424766153083356}
   - component: {fileID: 1186531237}
   - component: {fileID: 1186531236}
@@ -116,50 +114,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 66.31984, y: 5.2886734}
   m_EdgeRadius: 0
---- !u!68 &7833204895088434833
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003006799126669569}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0.01
-  m_Points:
-  - {x: -36.66208, y: -21.477057}
-  - {x: -31.242537, y: -16.370148}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
---- !u!68 &4256132794250231788
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003006799126669569}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0.01
-  m_Points:
-  - {x: 31.67356, y: -16.3771}
-  - {x: 37.06297, y: -21.60056}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!114 &7388424766153083356
 MonoBehaviour:
   m_ObjectHideFlags: 0
