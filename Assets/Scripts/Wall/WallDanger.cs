@@ -12,6 +12,7 @@ namespace Wall
         private SpriteRenderer _spriteRenderer;
         private WallLighting _lighting;
         private WallAnimation _animation;
+        private readonly float waitingDangerAnimationEndingIntrval = 0.4f;
 
         private void Start()
         {
@@ -26,21 +27,21 @@ namespace Wall
 
         public IEnumerator BecameDangerousCoroutine(float wallWarningInterval)
         {
-            //_spriteRenderer.sprite = warning;
             _animation.MakeWarning();
             _lighting.SetWarning();
 
             yield return new WaitForSeconds(wallWarningInterval);
 
-            //_spriteRenderer.sprite = danger;
             _animation.BecameDanger();
+
+            yield return new WaitForSeconds(waitingDangerAnimationEndingIntrval);
+
             _lighting.SetDanger();
             IsDangerous = true;
         }
 
         public void BecameSafe()
         {
-            //_spriteRenderer.sprite = safe;
             _animation.BecameSafe();
             _lighting.Disable();
             IsDangerous = false;
