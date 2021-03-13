@@ -15,7 +15,6 @@ public class JumpOverCorner : MonoBehaviour
     private IWallCollisions _wallCollisions;
     private IGravitySwitcher _gravitySwitcher;
     private ICornerJumpSoundSource _sound;
-    private static readonly int Jumping = Animator.StringToHash("IsJumping");
 
     public bool IsCornerReached { get; private set; }
 
@@ -127,7 +126,6 @@ public class JumpOverCorner : MonoBehaviour
 
     private void PerformCornerJump(Vector2 force, Direction newGravity)
     {
-        _animator.SetBool(Jumping, true);
         _rig.velocity = Vector2.zero;
         _rig.AddForce(force, ForceMode2D.Impulse);
         _gravitySwitcher.SwitchLocalGravity(newGravity);
