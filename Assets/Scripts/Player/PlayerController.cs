@@ -8,9 +8,6 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
-        // animation
-        [SerializeField] private Animator _animator;
-
         // jumping
         [SerializeField] private float _jumpForce;
         private bool _isJumpAxisWasIdle = true;
@@ -59,7 +56,6 @@ namespace Player
             _playerRunning = GetComponent<PlayerRunning>();
             _playerCollisions = GetComponent<PlayerCollisions>();
             _playerWallCollisions = GetComponent<PlayerWallCollisions>();
-            _playerCollisions.SetAnimator(_animator);
             _gravityHandler.SwitchLocalGravity(Direction.Down);
             PlayerWallCollisions.OnIsGroundedChanged += PlayerWallCollisions_OnIsGroundedChanged;
         }

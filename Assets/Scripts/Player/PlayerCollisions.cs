@@ -12,8 +12,6 @@ namespace Player
         private GameManager _gameManager;
         private PlayerController _playerController;
         private LightIntensityController _light;
-        private Animator _animator;
-        private static readonly int Jumping = Animator.StringToHash("IsJumping");
 
         public static event Action OnOilBottleTaken;
         public static event Action OnPlayerDied;
@@ -23,11 +21,6 @@ namespace Player
             _gameManager = FindObjectOfType<GameManager>();
             _playerController = GetComponent<PlayerController>();
             _light = GetComponent<LightIntensityController>();
-        }
-
-        public void SetAnimator(Animator animator)
-        {
-            _animator = animator;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -49,7 +42,6 @@ namespace Player
         {
             if (!collision.gameObject.tag.Contains(Tags.WallSuffix)) return;
             HandleDangerousWall(collision);
-            _animator.SetBool(Jumping, false);
         }
 
         private void OnCollisionStay2D(Collision2D collision)
