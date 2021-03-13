@@ -148,8 +148,6 @@ GameObject:
   - component: {fileID: 6910171466334249506}
   - component: {fileID: 6910171466334249504}
   - component: {fileID: 6910171466334249507}
-  - component: {fileID: 6135581229563583713}
-  - component: {fileID: 7907712212562739853}
   - component: {fileID: 6910171466334249505}
   - component: {fileID: 3181373169937738959}
   - component: {fileID: 921166729082167479}
@@ -253,50 +251,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.5630035, y: 29.805222}
   m_EdgeRadius: 0
---- !u!68 &6135581229563583713
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6910171466334249509}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: 32.87068, y: -14.846382}
-  - {x: 38.295795, y: -19.70825}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
---- !u!68 &7907712212562739853
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6910171466334249509}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: 32.841908, y: 14.962}
-  - {x: 38.27617, y: 19.831812}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!114 &6910171466334249505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,8 +264,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safe: {fileID: 21300000, guid: be0cd1e1a9f007c4184ae9af678a7fc1, type: 3}
-  warning: {fileID: 21300000, guid: 1c5117f686976ed438db766a6f86a354, type: 3}
-  danger: {fileID: 21300000, guid: 55b7a1444f6f0e44fac78442da799b36, type: 3}
 --- !u!114 &3181373169937738959
 MonoBehaviour:
   m_ObjectHideFlags: 0
