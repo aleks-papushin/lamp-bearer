@@ -29,7 +29,6 @@ namespace Player
         private PlayerRunning _playerRunning;
         private Rigidbody2D _rig;
         private bool _isSideAxisWasHeld;
-        private static readonly int Jumping = Animator.StringToHash("IsJumping");
 
         private static bool IsInputHorizontalNegative => Input.GetAxisRaw("Horizontal") < 0;
         private static bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
