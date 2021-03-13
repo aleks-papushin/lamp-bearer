@@ -16,7 +16,7 @@ namespace Game
         public GameWaveManager WaveManager { get; private set; }
 
         private UserInterface _userInterface;
-        private static WallDanger[] WallsToBeDangerous => FindObjectsOfType<WallDanger>();
+        private static List<GameObject> WallsToBeDangerous => FindObjectsOfType<WallDanger>().Select(w => w.gameObject).ToList();
 
         [SerializeField] private float _wallWarningInterval;
         [SerializeField] private float _wallDangerousInterval;
@@ -63,13 +63,13 @@ namespace Game
 
                 var dangerousInterval = _wallDangerousInterval + _wallWarningInterval;
 
-                var wall = WallsToBeDangerous[new Random().Next(WallsToBeDangerous.Length)];
+                var wall = WallsToBeDangerous[new Random().Next(WallsToBeDangerous.Count())];
                 
-                StartCoroutine(wall.BecameDangerousCoroutine(_wallWarningInterval));
+                StartCoroutine(wall.GetComponent<WallDanger>().BecameDangerousCoroutine(_wallWarningInterval));
 
                 yield return new WaitForSeconds(dangerousInterval);
 
-                wall.BecameSafe();
+                wall.GetComponent<WallDanger>().BecameSafe();
 
                 yield return new WaitForSeconds(_wallCoolDownInterval);
             }
