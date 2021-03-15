@@ -19,7 +19,9 @@ namespace UI
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return) || 
+                Input.GetKeyDown("joystick button 0") || 
+                Input.GetKeyDown("joystick button 7"))
             {
                 StartGame();
             }
