@@ -24,7 +24,7 @@ namespace Game
 
         private void Awake()
         {
-            WaveManager = new GameWaveManager();
+            WaveManager = FindObjectOfType<GameWaveManager>();
         }
 
         private void Start()
