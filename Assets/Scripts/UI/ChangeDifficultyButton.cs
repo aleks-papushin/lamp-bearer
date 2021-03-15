@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Enums;
 using Game;
 using TMPro;
@@ -8,29 +10,36 @@ namespace UI
 {
     public class ChangeDifficultyButton : MonoBehaviour
     {
-        private Button _changeDifficultyButton;
         public TMP_Text difficultyLabel;
+        private List<Button> _changeDifficultyButtons = new List<Button>();
+        private bool _horAxisWasZero = true;
 
         public string DifficultyLabelText => $"{GameWaveManager.GameDifficulty} Mode";
 
         private void Start()
         {
-            _changeDifficultyButton = GetComponent<Button>();
-            _changeDifficultyButton.onClick.AddListener(ChangeDifficulty);
+            _changeDifficultyButtons = GetComponentsInChildren<Button>().ToList();
+            _changeDifficultyButtons.ForEach(b => b.onClick.AddListener(ChangeDifficulty));
             difficultyLabel.text = DifficultyLabelText;
         }
 
         private void ChangeDifficulty()
         {
-            GameWaveManager.GameDifficulty = GameWaveManager.GameDifficulty == GameDifficulty.Easy ? GameDifficulty.Hard : GameDifficulty.Easy;
+            GameWaveManager.GameDifficulty = 
+                GameWaveManager.GameDifficulty == GameDifficulty.Easy ? GameDifficulty.Hard : GameDifficulty.Easy;
             difficultyLabel.text = DifficultyLabelText;
         }
         
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (_horAxisWasZero && Input.GetAxisRaw("Horizontal") != 0)
             {
+                _horAxisWasZero = false;
                 ChangeDifficulty();
+            }
+            else if (!_horAxisWasZero && Input.GetAxisRaw("Horizontal") == 0)
+            {
+                _horAxisWasZero = true;
             }
         }
     }
