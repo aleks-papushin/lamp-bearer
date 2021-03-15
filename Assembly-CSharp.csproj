@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\ObjectWallCollisions.cs" />
     <Compile Include="Assets\Scripts\UI\UserInterface.cs" />
     <Compile Include="Assets\Scripts\Wall\WallDanger.cs" />
+    <Compile Include="Assets\Scripts\Difficulties\Difficulty.cs" />
     <Compile Include="Assets\Scripts\Wall\WallAnimation.cs" />
     <Compile Include="Assets\Scripts\Spawn\EnemySpawningManagement.cs" />
     <Compile Include="Assets\Scripts\Utils\TransformExtensions.cs" />
@@ -97,7 +98,6 @@
     <Compile Include="Assets\Scripts\Game\GameTimer.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICornerJumpSoundSource.cs" />
     <Compile Include="Assets\Scripts\Spawn\SpawnEnemy.cs" />
-    <Compile Include="Assets\Scripts\Game\GameWaveCsvReader.cs" />
     <Compile Include="Assets\Scripts\ObjectDestroyer.cs" />
     <Compile Include="Assets\Scripts\Enums\GameDifficulty.cs" />
     <Compile Include="Assets\Scripts\UI\StartButton.cs" />
