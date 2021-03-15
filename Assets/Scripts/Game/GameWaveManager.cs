@@ -1,22 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Difficulties;
 using Enums;
 using Resources;
+using UnityEngine;
 
 namespace Game
 {
-    public class GameWaveManager
+    public class GameWaveManager: MonoBehaviour
     {
         private readonly List<GameWaveDto> _waveList;
         private readonly int _maxWaveNumber;
+
+        [SerializeField] private Difficulty[] _difficulties;
 
         public static GameDifficulty GameDifficulty { get; set; }
         private int CurrentNumber { get; set; }
         private bool IsCurrentWaveLast => CurrentNumber >= _maxWaveNumber;
 
         public GameWaveDto CurrentWave => _waveList[CurrentNumber];
+
+        public void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
 
         public GameWaveManager()
         {
