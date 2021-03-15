@@ -12,8 +12,8 @@ namespace Game
 {
     public class GameWaveManager: MonoBehaviour
     {
-        private readonly List<GameWaveDto> _waveList;
-        private readonly int _maxWaveNumber;
+        private List<GameWaveDto> _waveList;
+        private int _maxWaveNumber;
 
         [SerializeField] private Difficulty[] _difficulties;
 
@@ -25,14 +25,10 @@ namespace Game
 
         public void Awake()
         {
-            DontDestroyOnLoad(gameObject);
-        }
-
-        public GameWaveManager()
-        {
             _waveList = ReadGameData(GameDifficulty);
             CurrentNumber = _waveList.Min(w => w.number);
             _maxWaveNumber = _waveList.Max(w => w.number);
+            
 
             GameTimer.OnWaveIncrementing += GameTimer_OnWaveIncrementing;
         }
@@ -49,13 +45,11 @@ namespace Game
                 CurrentNumber++;
             }
         }
-        public List<GameWaveDto> ReadGameData(GameDifficulty difficulty)
-        {
-            var waveFilePath = difficulty == GameDifficulty.Easy
-                ? Paths.WaveEasyModeFilePath
-                : Paths.WaveHardModeFilePath;
 
-            using (var file = new StreamReader(waveFilePath))
+        private List<GameWaveDto> ReadGameData(GameDifficulty difficulty)
+        {
+            var difficultySettings = _difficulties[difficulty == GameDifficulty.Easy ? 0 : 1].Text;
+            using (var file = new StringReader(difficultySettings))
             {
                 _ = file.ReadLine(); // feed line with column names
                 string wave;
