@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using Difficulties;
 using Enums;
-using Resources;
 using UnityEngine;
 
 namespace Game
@@ -16,11 +14,11 @@ namespace Game
         private int _maxWaveNumber;
 
         [SerializeField] private Difficulty[] _difficulties;
-
-        public static GameDifficulty GameDifficulty { get; set; }
+        
         private int CurrentNumber { get; set; }
         private bool IsCurrentWaveLast => CurrentNumber >= _maxWaveNumber;
 
+        public static GameDifficulty GameDifficulty { get; set; }
         public GameWaveDto CurrentWave => _waveList[CurrentNumber];
 
         public void Awake()
@@ -30,15 +28,10 @@ namespace Game
             _maxWaveNumber = _waveList.Max(w => w.number);
             
 
-            GameTimer.OnWaveIncrementing += GameTimer_OnWaveIncrementing;
+            GameTimer.OnWaveIncrementing += OnWaveIncrementing;
         }
 
-        private void GameTimer_OnWaveIncrementing()
-        {
-            TryIncrement();
-        }
-
-        private void TryIncrement()
+        private void OnWaveIncrementing()
         {
             if (!IsCurrentWaveLast)
             {
