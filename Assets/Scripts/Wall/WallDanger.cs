@@ -6,19 +6,13 @@ namespace Wall
     public class WallDanger : MonoBehaviour
     {
         public bool IsDangerous { get; private set; }
-
-        public Sprite safe;
-
-        private SpriteRenderer _spriteRenderer;
+        
         private WallLighting _lighting;
         private WallAnimation _animation;
         private const float WaitingDangerAnimationEndingInterval = 0.4f;
 
         private void Start()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            _spriteRenderer.sprite = safe;
-
             _lighting = GetComponentInChildren<WallLighting>(true);
             _animation = GetComponent<WallAnimation>();
 
