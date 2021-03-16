@@ -2,7 +2,7 @@
 
 public abstract class GravityHandler : MonoBehaviour
 {
-    [SerializeField] protected float _gravity = 9.8f;
+    protected readonly float _gravity = Physics.gravity.magnitude;
 
     public Direction GravityVector { get; protected set; }
 
