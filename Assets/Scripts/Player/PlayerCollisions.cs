@@ -76,8 +76,8 @@ namespace Player
 
         private void HandleDangerousWall(Collision2D collision)
         {
-            var variableWall = collision.gameObject.GetComponent<WallDanger>();
-            if (variableWall != null && variableWall.IsDangerous)
+            var wall = collision.gameObject.GetComponent<WallDanger>();
+            if (wall != null && wall.IsDangerous)
             {
                 HandlePlayerDead();
             }

@@ -10,12 +10,6 @@ namespace Oil
         private GameObject _player;
         private Light _light;
         private static bool _playerDied;
-
-        public void OnPlayerDeath()
-        {
-            Debug.Log("here");
-        }
-        
         
         private void Start()
         {

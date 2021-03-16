@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerSounds : SoundSource, ICornerJumpSoundSource
+    public class PlayerSounds : MonoBehaviour, ICornerJumpSoundSource
     {
         [SerializeField] private AudioClip _jump;
         [SerializeField] private AudioClip[] _jumpToSide;
@@ -15,22 +15,22 @@ namespace Player
 
         public void CornerJump()
         {
-            PlayOnce(_playerAudio, PickRandom(_jumpToSide));
+            _playerAudio.PlayOneShot(PickRandom(_jumpToSide));
         }
 
         public void Jump()
         {
-            PlayOnce(_playerAudio, _jump);
+            _playerAudio.PlayOneShot(_jump);
         }
 
         public void Landing()
         {
-            PlayOnce(_playerAudio, PickRandom(_landing));
+            _playerAudio.PlayOneShot(PickRandom(_landing));
         }
 
         public void OilTaken()
         {
-            PlayOnce(_playerAudio, PickRandom(_oilTaken));
+            _playerAudio.PlayOneShot(PickRandom(_oilTaken));
         }
 
         private static AudioClip PickRandom(IReadOnlyList<AudioClip> clip)
