@@ -2,6 +2,7 @@
 using Resources;
 using UnityEngine;
 using Utils;
+using Wall;
 
 public class HandleSpriteRotation : MonoBehaviour
 {
