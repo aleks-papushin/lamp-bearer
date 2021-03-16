@@ -2,7 +2,7 @@
 using UI;
 using UnityEngine;
 
-public class PlayMusic : MonoBehaviour
+public class MusicPlayer : MonoBehaviour
 {
     [SerializeField] private AudioClip _intro;
     [SerializeField] private AudioClip[] _gameMusic;

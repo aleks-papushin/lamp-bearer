@@ -2,6 +2,7 @@
 using Player;
 using Resources;
 using UnityEngine;
+using Wall;
 
 public class JumpOverCorner : MonoBehaviour
 {
