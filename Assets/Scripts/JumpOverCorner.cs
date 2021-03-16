@@ -36,28 +36,23 @@ public class JumpOverCorner : MonoBehaviour
     {
         if (!collision.gameObject.tag.Contains(Tags.CornerSuffix)) return;
         IsCornerReached = true;
-        var objectTag = collision.gameObject.tag;
-
-        Corner currentCorner;
-        switch (objectTag)
+        switch (collision.gameObject.tag)
         {
             case Tags.BottomLeftCorner:
-                currentCorner = Corner.BottomLeft;
+                CornerJump(Corner.BottomLeft);
                 break;
             case Tags.BottomRightCorner:
-                currentCorner = Corner.BottomRight;
+                CornerJump(Corner.BottomRight);
                 break;
             case Tags.UpperLeftCorner:
-                currentCorner = Corner.UpperLeft;
+                CornerJump(Corner.UpperLeft);
                 break;
             case Tags.UpperRightCorner:
-                currentCorner = Corner.UpperRight;
+                CornerJump(Corner.UpperRight);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
-
-        CornerJump(currentCorner);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
