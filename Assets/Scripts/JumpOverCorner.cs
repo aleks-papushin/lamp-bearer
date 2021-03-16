@@ -9,7 +9,6 @@ public class JumpOverCorner : MonoBehaviour
     [SerializeField] private float _cornerJumpForce;
     [SerializeField] private float _cornerJumpModifier;
 
-    private Animator _animator;
     private Rigidbody2D _rig;
 
     private ObjectWallCollisions _wallCollisions;
@@ -24,11 +23,6 @@ public class JumpOverCorner : MonoBehaviour
         _wallCollisions = GetComponent<ObjectWallCollisions>();
         _gravitySwitcher = GetComponent<GravityHandler>();
         _sound = GetComponent<PlayerSounds>();
-    }
-
-    private void Start()
-    {
-        _animator = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
