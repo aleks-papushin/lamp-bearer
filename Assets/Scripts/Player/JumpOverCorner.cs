@@ -23,8 +23,6 @@ public class JumpOverCorner : MonoBehaviour
     private GravityHandler _gravitySwitcher;
     private PlayerSounds _sound;
 
-    public bool IsCornerReached { get; private set; }
-
     private void Awake()
     {
         _rig = GetComponent<Rigidbody2D>();
@@ -36,7 +34,6 @@ public class JumpOverCorner : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.gameObject.tag.Contains(Tags.CornerSuffix)) return;
-        IsCornerReached = true;
         switch (collision.gameObject.tag)
         {
             case Tags.BottomLeftCorner:
@@ -60,7 +57,6 @@ public class JumpOverCorner : MonoBehaviour
     {
         if (collision.gameObject.tag.Contains(Tags.CornerSuffix))
         {
-            IsCornerReached = false;
         }
     }
 
