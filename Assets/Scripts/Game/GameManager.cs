@@ -63,7 +63,7 @@ namespace Game
 
                 var dangerousInterval = _wallDangerousInterval + _wallWarningInterval;
 
-                var wall = WallsToBeDangerous[new Random().Next(WallsToBeDangerous.Count())];
+                var wall = WallsToBeDangerous[new Random().Next(WallsToBeDangerous.Count)];
                 
                 StartCoroutine(wall.GetComponent<WallDanger>().BecameDangerousCoroutine(_wallWarningInterval));
 

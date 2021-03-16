@@ -14,7 +14,7 @@ namespace UI
         private List<Button> _changeDifficultyButtons = new List<Button>();
         private bool _horAxisWasZero = true;
 
-        public string DifficultyLabelText => $"{GameWaveManager.GameDifficulty} Mode";
+        private static string DifficultyLabelText => $"{GameWaveManager.GameDifficulty} Mode";
 
         private void Start()
         {
