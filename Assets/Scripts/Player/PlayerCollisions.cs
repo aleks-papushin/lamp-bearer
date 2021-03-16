@@ -60,7 +60,7 @@ namespace Player
         private void OilBottleTaken(Component oilBottle)
         {
             Destroy(oilBottle.gameObject);
-            _gameManager.UpdateScore(1);
+            _gameManager.UpdateScore();
             _playerSounds.OilTaken();
             _light.OilTaken();
             OnOilBottleTaken?.Invoke();
