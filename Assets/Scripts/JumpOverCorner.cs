@@ -1,11 +1,18 @@
 ﻿using System;
-using Enums;
 using Player;
 using Resources;
 using UnityEngine;
 
 public class JumpOverCorner : MonoBehaviour
 {
+    private enum Corner
+    {
+        BottomLeft,
+        BottomRight,
+        UpperLeft,
+        UpperRight
+    }
+    
     [SerializeField] private float _cornerJumpForce;
     [SerializeField] private float _cornerJumpModifier;
 
@@ -126,3 +133,4 @@ public class JumpOverCorner : MonoBehaviour
         _sound?.CornerJump();
     }
 }
+
