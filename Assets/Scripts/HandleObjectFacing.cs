@@ -1,5 +1,4 @@
 ﻿using System;
-using Enums;
 using UnityEngine;
 
 public class HandleObjectFacing : MonoBehaviour

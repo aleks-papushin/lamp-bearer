@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Enums;
+using Difficulties;
 using Game;
 using TMPro;
 using UnityEngine;
