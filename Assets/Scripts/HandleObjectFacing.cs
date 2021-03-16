@@ -73,10 +73,7 @@ public class HandleObjectFacing : MonoBehaviour
 
     private void FlipScale()
     {
-        var cachedTransform = transform;
-        var localScale = cachedTransform.localScale;
-        var newScale = new Vector3(localScale.x * -1, localScale.y, localScale.z);
-        localScale = newScale;
-        cachedTransform.localScale = localScale;
+        var localScale = transform.localScale;
+        transform.localScale = new Vector3(localScale.x * -1, localScale.y, localScale.z);
     }
 }
