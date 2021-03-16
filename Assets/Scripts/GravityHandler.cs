@@ -1,8 +1,7 @@
 ﻿using Enums;
-using Interfaces;
 using UnityEngine;
 
-public abstract class GravityHandler : MonoBehaviour, IGravitySwitcher
+public abstract class GravityHandler : MonoBehaviour
 {
     [SerializeField] protected float _gravity = 9.8f;
 

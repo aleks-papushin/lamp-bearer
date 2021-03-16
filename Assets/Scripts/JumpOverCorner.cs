@@ -1,6 +1,6 @@
 ﻿using System;
 using Enums;
-using Interfaces;
+using Player;
 using Resources;
 using UnityEngine;
 
@@ -12,18 +12,18 @@ public class JumpOverCorner : MonoBehaviour
     private Animator _animator;
     private Rigidbody2D _rig;
 
-    private IWallCollisions _wallCollisions;
-    private IGravitySwitcher _gravitySwitcher;
-    private ICornerJumpSoundSource _sound;
+    private ObjectWallCollisions _wallCollisions;
+    private GravityHandler _gravitySwitcher;
+    private PlayerSounds _sound;
 
     public bool IsCornerReached { get; private set; }
 
     private void Awake()
     {
         _rig = GetComponent<Rigidbody2D>();
-        _wallCollisions = GetComponent<IWallCollisions>();
-        _gravitySwitcher = GetComponent<IGravitySwitcher>();
-        _sound = GetComponent<ICornerJumpSoundSource>();
+        _wallCollisions = GetComponent<ObjectWallCollisions>();
+        _gravitySwitcher = GetComponent<GravityHandler>();
+        _sound = GetComponent<PlayerSounds>();
     }
 
     private void Start()

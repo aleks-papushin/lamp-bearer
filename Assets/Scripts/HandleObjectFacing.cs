@@ -1,15 +1,14 @@
 ﻿using System;
 using Enums;
-using Interfaces;
 using UnityEngine;
 
 public class HandleObjectFacing : MonoBehaviour
 {
-    private IWallCollisions _collisions;
+    private ObjectWallCollisions _collisions;
 
     private void Awake()
     {
-        _collisions = GetComponent<IWallCollisions>();
+        _collisions = GetComponent<ObjectWallCollisions>();
     }
 
     public void Handle(Direction direction)
