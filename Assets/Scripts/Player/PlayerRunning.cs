@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerRunning : PlayerAction
+    public class PlayerRunning : MonoBehaviour
     {
         [SerializeField] private float _speed;
 
@@ -12,12 +12,13 @@ namespace Player
         private PlayerGravityHandler _gravityHandler;
         private PlayerWallCollisions _playerWallCollisions;
         private static readonly int Speed = Animator.StringToHash("Speed");
+        private Rigidbody2D _rig;
 
         public bool IsGrounded { get; set; }
 
         private void Start()
         {
-            Rig = GetComponent<Rigidbody2D>();
+            _rig = GetComponent<Rigidbody2D>();
             GetComponent<PlayerCollisions>();
             _animator = GetComponent<Animator>();
             _facing = GetComponent<HandleObjectFacing>();
@@ -81,7 +82,7 @@ namespace Player
         {
             if (IsGrounded)
             {
-                Rig.velocity = vector * speed;
+                _rig.velocity = vector * speed;
             }
         }
 
