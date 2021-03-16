@@ -116,8 +116,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3228378630703221544}
   - component: {fileID: 1885915341610193651}
-  - component: {fileID: 2136359357070727507}
   - component: {fileID: 1443990076804894379}
+  - component: {fileID: 65726054781144494}
   m_Layer: 2
   m_Name: Oil
   m_TagString: OilBottle
@@ -191,22 +191,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &2136359357070727507
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9029047532478187106}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.14407931, y: -0.42664787}
-  serializedVersion: 2
-  m_Radius: 2.04398
 --- !u!95 &1443990076804894379
 Animator:
   serializedVersion: 3
@@ -226,3 +210,45 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!60 &65726054781144494
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9029047532478187106}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 20.48, y: 20.48}
+    newSize: {x: 0.4, y: 0.4}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 2.407499, y: 1.7256002}
+      - {x: 2.6586995, y: 2.3715994}
+      - {x: 1.6515995, y: 3.0572}
+      - {x: 1.5017414, y: 3.0565586}
+      - {x: 1.0242994, y: 2.5704982}
+      - {x: 0.5143999, y: 1.6777976}
+      - {x: -0.46729967, y: 1.4758997}
+      - {x: -1.3188986, y: 0.88}
+      - {x: -1.733099, y: 0.2243001}
+      - {x: -1.7801998, y: -0.96299934}
+      - {x: -1.558899, y: -1.4900995}
+      - {x: -0.6257998, y: -2.3715994}
+      - {x: 0.8971995, y: -2.3244994}
+      - {x: 1.7726035, y: -1.6042012}
+      - {x: 2.107763, y: -0.96}
+      - {x: 1.8227977, y: 0.75205046}
+      - {x: 2.327499, y: 1.3271}
