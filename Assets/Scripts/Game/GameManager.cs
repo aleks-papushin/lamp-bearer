@@ -15,12 +15,14 @@ namespace Game
         public int oilBottleCountForSpawn;
         public GameWaveManager WaveManager { get; private set; }
 
-        private UserInterface _userInterface;
+        private Score _score;
         private static List<GameObject> WallsToBeDangerous => FindObjectsOfType<WallDanger>().Select(w => w.gameObject).ToList();
 
         [SerializeField] private float _wallWarningInterval;
         [SerializeField] private float _wallDangerousInterval;
         [SerializeField] private float _wallCoolDownInterval;
+        
+        public int CurrentScore { get; private set; }
 
         private void Awake()
         {
@@ -29,16 +31,17 @@ namespace Game
 
         private void Start()
         {
-            _userInterface = FindObjectOfType<UserInterface>();
+            _score = FindObjectOfType<Score>();
             GameTimer_OnWaveIncrementing();
             StartCoroutine(HandleWallsDangerousness());
             _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCountForSpawn, 0, 0);
             GameTimer.OnWaveIncrementing += GameTimer_OnWaveIncrementing;
         }
 
-        public void UpdateScore(int increment)
+        public void UpdateScore()
         {
-            _userInterface.UpdateScore(increment);
+            CurrentScore++;
+            _score.SetScore(CurrentScore);
         }
 
         private void GameTimer_OnWaveIncrementing()

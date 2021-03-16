@@ -1,4 +1,5 @@
-﻿using Player;
+﻿using Game;
+using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,13 +9,13 @@ namespace UI
 {
     public class GameOverUiObject : MonoBehaviour
     {
-        private UserInterface _ui;
+        private GameManager _gameManager;
         private TextMeshProUGUI _textMesh;
         private Button _restartButton;
 
         private void Start()
         {
-            _ui = FindObjectOfType<UserInterface>();
+            _gameManager = FindObjectOfType<GameManager>();
             _textMesh = transform.Find("ScoreText").GetComponent<TextMeshProUGUI>();
             _restartButton = GetComponentInChildren<Button>();
             _restartButton.onClick.AddListener(RestartGame);
@@ -35,7 +36,7 @@ namespace UI
         private void PlayerCollisions_OnPlayerDied()
         {
             gameObject.SetActive(true);
-            _textMesh.text = $"Your Score: {_ui.CurrentScore}";
+            _textMesh.text = $"Your Score: {_gameManager.CurrentScore}";
         }
 
         private static void RestartGame()
