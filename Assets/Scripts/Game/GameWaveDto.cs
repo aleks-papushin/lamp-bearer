@@ -9,7 +9,7 @@ namespace Game
         public float wallWarningInterval;
         public float wallDangerousInterval;
         public float wallCoolDownInterval;
-        public bool switchOnWalls;
+        public int dangerWallAmount;
         public int enemyCount;
         public float enemySpeed;
         public bool isOilAffectLight;

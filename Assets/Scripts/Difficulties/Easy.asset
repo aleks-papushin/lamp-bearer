@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1994bd25a22459f8bb0f72e305a13ce, type: 3}
   m_Name: Easy
   m_EditorClassIdentifier: 
-  Text: 'Number,WWarning,WDangerous,WCooldown,IsSwitchWalls,EnNumber,EnAvgSpeed,IsOilAffectLight,WaveDuration
+  Text: 'Number,WWarning,WDangerous,WCooldown,DWallAmount,EnNumber,EnAvgSpeed,IsOilAffectLight,WaveDuration
 
     0,2,2,3,0,0,1,0,5
 

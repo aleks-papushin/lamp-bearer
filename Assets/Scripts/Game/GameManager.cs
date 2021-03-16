@@ -56,7 +56,7 @@ namespace Game
             {
                 yield return null;
 
-                while (!WaveManager.CurrentWave.switchOnWalls)
+                while (WaveManager.CurrentWave.dangerWallAmount == 0)
                 {
                     yield return new WaitForSeconds(1);
                 }
