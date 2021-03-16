@@ -1,8 +1,7 @@
-﻿using Interfaces;
-using Resources;
+﻿using Resources;
 using UnityEngine;
 
-public class ObjectWallCollisions : MonoBehaviour, IWallCollisions, IGroundedStateHandler
+public class ObjectWallCollisions : MonoBehaviour
 {
     private int _bWallCollisionEntered;
     private int _uWallCollisionEntered;

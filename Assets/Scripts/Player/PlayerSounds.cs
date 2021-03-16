@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using Interfaces;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerSounds : MonoBehaviour, ICornerJumpSoundSource
+    public class PlayerSounds : MonoBehaviour
     {
         [SerializeField] private AudioClip _jump;
         [SerializeField] private AudioClip[] _jumpToSide;

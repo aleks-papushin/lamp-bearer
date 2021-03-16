@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Enums;
-using Interfaces;
 using Resources;
 using UnityEngine;
 using Utils;
@@ -12,14 +11,14 @@ public class HandleSpriteRotation : MonoBehaviour
     private float _rotationSpeed;
 
     private GravityHandler _gravityHandler;
-    private IGroundedStateHandler _groundedStateHandler;
+    private ObjectWallCollisions _groundedStateHandler;
 
     private GameObject Ground => DirectionUtils.GetFloorFor(_gravityHandler.GravityVector);
 
     private void Awake()
     {
         _rotationSpeed = _defaultRotationSpeed;
-        _groundedStateHandler = GetComponent<IGroundedStateHandler>();
+        _groundedStateHandler = GetComponent<ObjectWallCollisions>();
         _gravityHandler = GetComponent<GravityHandler>();
     }
 
