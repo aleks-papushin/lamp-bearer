@@ -15,7 +15,6 @@ namespace Player
         [SerializeField] private float _forbidDirectionChangingDistance;
 
         // collisions
-        private PlayerCollisions _playerCollisions;
         private PlayerWallCollisions _playerWallCollisions;
 
         // scripts
@@ -54,7 +53,6 @@ namespace Player
         {
             _rig = GetComponent<Rigidbody2D>();
             _playerRunning = GetComponent<PlayerRunning>();
-            _playerCollisions = GetComponent<PlayerCollisions>();
             _playerWallCollisions = GetComponent<PlayerWallCollisions>();
             _gravityHandler.SwitchLocalGravity(Direction.Down);
             PlayerWallCollisions.OnIsGroundedChanged += PlayerWallCollisions_OnIsGroundedChanged;
