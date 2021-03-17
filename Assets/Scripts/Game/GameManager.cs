@@ -13,10 +13,11 @@ namespace Game
     {
         public GameObject _spawner;
         public int oilBottleCountForSpawn;
-        public GameWaveManager WaveManager { get; private set; }
-
         private UserInterface _userInterface;
-        private static List<GameObject> WallsToBeDangerous => FindObjectsOfType<WallDanger>().Select(w => w.gameObject).ToList();
+
+        public GameWaveManager WaveManager { get; private set; }
+        public static List<GameObject> WallsToBeDangerous { get; set; } 
+        private static List<GameObject> RestingWalls { get; set; } = new List<GameObject>();
 
         [SerializeField] private float _wallWarningInterval;
         [SerializeField] private float _wallDangerousInterval;
@@ -25,6 +26,7 @@ namespace Game
         private void Awake()
         {
             WaveManager = FindObjectOfType<GameWaveManager>();
+            WallsToBeDangerous = FindObjectsOfType<WallDanger>().Select(w => w.gameObject).ToList();
         }
 
         private void Start()
@@ -62,17 +64,31 @@ namespace Game
                 }
 
                 var dangerousInterval = _wallDangerousInterval + _wallWarningInterval;
-
-                var wall = WallsToBeDangerous[new Random().Next(WallsToBeDangerous.Count())];
-                
+                var wall = WallsToBeDangerous[new Random().Next(WallsToBeDangerous.Count())];                
                 StartCoroutine(wall.GetComponent<WallDanger>().BecameDangerousCoroutine(_wallWarningInterval));
 
                 yield return new WaitForSeconds(dangerousInterval);
 
                 wall.GetComponent<WallDanger>().BecameSafe();
+                MoveRestingWallsToDangerous();
+                MoveWallToRestingWalls(wall);
 
                 yield return new WaitForSeconds(_wallCoolDownInterval);
             }
+        }
+
+        private void MoveRestingWallsToDangerous()
+        {
+            if (RestingWalls.Count == 0) return;
+
+            WallsToBeDangerous.AddRange(RestingWalls);
+            RestingWalls.Clear();
+        }
+
+        private void MoveWallToRestingWalls(GameObject wall)
+        {
+            WallsToBeDangerous.Remove(wall);
+            RestingWalls.Add(wall);
         }
     }
 }
