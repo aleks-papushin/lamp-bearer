@@ -14,14 +14,12 @@ namespace Player
         [SerializeField] private float _oilBottleModifier;
         [SerializeField] private float _maxLightIntensity;
         [SerializeField] private float _dirLightMod;
-
-        private GameObject _dirLightObj;
-        private GameManager _gameManager;
-
+        
         private const float DecreasingIntervalSec = 0.025f;
         private const float DirLightHardModeMin = 0;
         private Light _dirLight;
-
+        private bool _isOilAffectLight;
+        
         private float Intensity
         {
             get => _light.intensity;
@@ -32,16 +30,13 @@ namespace Player
             }
         }
 
-        private bool IsOilAffectLight { get; set; }
-
+        
         private void Start()
         {
-            _dirLightObj = GameObject.FindGameObjectWithTag(Tags.DirectionalLight);
-            _dirLight = _dirLightObj.GetComponent<Light>();
-            _gameManager = FindObjectOfType<GameManager>();
-            IsOilAffectLight = _gameManager.WaveManager.CurrentWave.isOilAffectLight;
+            _dirLight = GameObject.FindGameObjectWithTag(Tags.DirectionalLight).GetComponent<Light>();
+            _isOilAffectLight = FindObjectOfType<GameWaveManager>().CurrentWave.isOilAffectLight;
 
-            if (IsOilAffectLight)
+            if (_isOilAffectLight)
             {
                 Intensity = _hardModInitIntensity;
                 StartCoroutine(DecreaseIntensityRoutine());
@@ -54,7 +49,7 @@ namespace Player
 
         public void OilTaken()
         {
-            if (Intensity < _maxLightIntensity && IsOilAffectLight)
+            if (Intensity < _maxLightIntensity && _isOilAffectLight)
             {
                 Intensity += _oilBottleModifier;
             }
