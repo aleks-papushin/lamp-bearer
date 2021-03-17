@@ -27,7 +27,7 @@ namespace Game
 
         private void Start()
         {
-            WaveIncrementIntervalSec = GetComponent<GameWaveManager>().CurrentWave.waveDuration;
+            WaveIncrementIntervalSec = FindObjectOfType<GameWaveManager>().CurrentWave.waveDuration;
 
             _time = new Stopwatch();
             _time.Start();
