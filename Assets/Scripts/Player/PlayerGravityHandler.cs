@@ -1,15 +1,18 @@
 ﻿using System;
-using Enums;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerGravityHandler : GravityHandler
+    public class PlayerGravityHandler : MonoBehaviour
     {
+        private readonly float _gravity = Physics.gravity.magnitude;
+        public Direction GravityVector { get; private set; }
+
+        
         public bool IsGravityVectorVertical => GravityVector == Direction.Down || GravityVector == Direction.Up;
         public bool IsGravityVectorHorizontal => GravityVector == Direction.Left || GravityVector == Direction.Right;
 
-        public override void SwitchLocalGravity(Direction direction)
+        public void SwitchLocalGravity(Direction direction)
         {
             GravityVector = direction;
 

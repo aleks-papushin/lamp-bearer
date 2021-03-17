@@ -1,4 +1,4 @@
-﻿namespace Enums
+﻿namespace Difficulties
 {
     public enum GameDifficulty
     {

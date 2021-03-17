@@ -8,7 +8,7 @@ namespace Spawn
 {
     public class EnemySpawningManagement : MonoBehaviour
     {
-        private GameManager _gameManager;
+        private GameWaveManager _waveManager;
         private List<SpawnEnemy> _enemySpawners;
         private int _waveEnemyCount;
 
@@ -16,7 +16,7 @@ namespace Spawn
 
         private void Start()
         {
-            _gameManager = FindObjectOfType<GameManager>();
+            _waveManager = FindObjectOfType<GameWaveManager>();
             _enemySpawners = GetComponentsInChildren<SpawnEnemy>().ToList();
 
             StartCoroutine(HandleEnemyExistenceRoutine());
@@ -28,18 +28,21 @@ namespace Spawn
             {
                 yield return null;
 
-                _waveEnemyCount = _gameManager.WaveManager.CurrentWave.enemyCount;
+                _waveEnemyCount = _waveManager.CurrentWave.enemyCount;
 
                 if (ActualEnemyCount >= _waveEnemyCount) continue;
                 var spawner = PickFreeSpawner();
                 yield return new WaitForSeconds(1);
-                spawner.Spawn();
+                if (spawner != null)
+                {
+                    spawner.Spawn(_waveManager.CurrentWave.enemySpeed);
+                }
             }
         }
 
         private SpawnEnemy PickFreeSpawner()
         {
-            var freeSpawners = _enemySpawners.Where(spawner => spawner.PairEnemyCount == 0).ToList();
+            var freeSpawners = _enemySpawners.Where(spawner => spawner.IsFree).ToList();
             return freeSpawners.Count == 0 ? null : freeSpawners[Random.Range(0, freeSpawners.Count)];
         }
     }

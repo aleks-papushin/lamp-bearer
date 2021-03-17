@@ -2,7 +2,7 @@
 using UI;
 using UnityEngine;
 
-public class PlayMusic : SoundSource
+public class MusicPlayer : MonoBehaviour
 {
     [SerializeField] private AudioClip _intro;
     [SerializeField] private AudioClip[] _gameMusic;
@@ -40,5 +40,12 @@ public class PlayMusic : SoundSource
         _source.Stop();
         _source.volume = _currentVolume;
         PlayLoop(_source, clip);
+    }
+    
+    private static void PlayLoop(AudioSource source, AudioClip clip)
+    {
+        source.clip = clip;
+        source.loop = true;
+        source.Play();
     }
 }

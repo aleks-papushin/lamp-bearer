@@ -1,9 +1,8 @@
-﻿using Enums;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Player
 {
-    public class PlayerRunning : PlayerAction
+    public class PlayerRunning : MonoBehaviour
     {
         [SerializeField] private float _speed;
 
@@ -11,14 +10,14 @@ namespace Player
         private HandleObjectFacing _facing;
         private PlayerGravityHandler _gravityHandler;
         private PlayerWallCollisions _playerWallCollisions;
+        private Rigidbody2D _rig;
         private static readonly int Speed = Animator.StringToHash("Speed");
 
         public bool IsGrounded { get; set; }
 
         private void Start()
         {
-            Rig = GetComponent<Rigidbody2D>();
-            GetComponent<PlayerCollisions>();
+            _rig = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
             _facing = GetComponent<HandleObjectFacing>();
             _gravityHandler = GetComponent<PlayerGravityHandler>();
@@ -81,7 +80,7 @@ namespace Player
         {
             if (IsGrounded)
             {
-                Rig.velocity = vector * speed;
+                _rig.velocity = vector * speed;
             }
         }
 

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using Player;
 using UnityEngine;
+using Wall;
+using Random = UnityEngine.Random;
 
 namespace Spawn
 {
@@ -20,7 +22,7 @@ namespace Spawn
         {
             for (var i = 0; i < count; i++)
             {
-                var position = GetRandomPosition();
+                var position = new Vector2(Random.Range(-XRange, XRange), Random.Range(-YRange, YRange));
                 Spawn(position.x, position.y);
             }
         }
@@ -36,13 +38,6 @@ namespace Spawn
         private void Spawn(float x, float y)
         {
             Instantiate(_oilBottle, new Vector3(x, y, 0), _oilBottle.transform.rotation);
-        }
-
-        private static Vector2 GetRandomPosition()
-        {
-            return new Vector2(
-                Random.Range(-XRange, XRange),
-                Random.Range(-YRange, YRange));
         }
 
         private void PlayerCollisions_OnOilBottleTaken()
