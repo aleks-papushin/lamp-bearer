@@ -21,6 +21,7 @@ namespace Enemy
         private void Start()
         {
             _rig = GetComponent<Rigidbody2D>();
+            _rig.gravityScale = 0;
             _facing = GetComponent<HandleObjectFacing>();
         }
         
@@ -29,12 +30,8 @@ namespace Enemy
             Move();
         }
 
-        public void ChangeDirection() => IsDirectionPositive = !IsDirectionPositive;
-
         private void Move()
         {
-            if (!_wallCollisions.IsGrounded) return;
-
             var directionMod = IsDirectionPositive ? 1 : -1;
 
             _facing.Handle(IsDirectionPositive);
