@@ -1,4 +1,5 @@
 ﻿using System;
+using Resources;
 using UnityEngine;
 
 namespace Enemy
@@ -9,26 +10,25 @@ namespace Enemy
         [SerializeField] private float _incrementValue;
         private float _defaultScaleX;
         private EnemyWalkerMovement _movement;
-
-        public bool IsIncrease { get; set; }
-        public bool IsDestroy { get; set; }
+        private bool _isCreated;
+        private bool _isIncreasing;
+        private bool _isDestroying;
 
         private void Start()
         {
             var localScale = transform.localScale;
             _defaultScaleX = Math.Abs(localScale.x);
-            localScale *= _initScaleMultiplier;
-            transform.localScale = localScale;
+            transform.localScale = localScale * _initScaleMultiplier;
             _movement = GetComponent<EnemyWalkerMovement>();
         }
 
         private void Update()
         {
-            if (IsIncrease)
+            if (_isIncreasing)
             {
                 Increase();
             }
-            else if (IsDestroy)
+            else if (_isDestroying)
             {
                 DecreaseAndDestroy();
             }
@@ -65,8 +65,24 @@ namespace Enemy
             }
             else
             {
-                IsIncrease = false;
+                _isIncreasing = false;
             }
+        }
+        
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!other.tag.Contains(Tags.SpawnerSuffix)) return;
+            if (!_isCreated)
+            {
+                _isIncreasing = true;
+                _isCreated = true;
+            }
+            else if (!_isIncreasing)
+            {
+                _isDestroying = true;
+            }
+            
         }
     }
 }
