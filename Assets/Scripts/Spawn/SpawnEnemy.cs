@@ -28,7 +28,6 @@ namespace Spawn
             var cachedTransform = transform;
             Enemy = Instantiate(_enemyPrefab, cachedTransform.position, cachedTransform.rotation);
             SetInitDirection(Enemy);
-            SetInitGravity(Enemy);
             SetSpeed(Enemy);
         }
 
@@ -36,11 +35,6 @@ namespace Spawn
         {
             var speed = _gameManager.WaveManager.CurrentWave.enemySpeed;
             enemy.GetComponent<EnemyWalkerMovement>().Speed = speed;
-        }
-
-        private void SetInitGravity(GameObject enemy)
-        {
-            enemy.GetComponent<GravityHandler>().SwitchLocalGravity(_initGravity);
         }
 
         private void SetInitDirection(GameObject enemy)

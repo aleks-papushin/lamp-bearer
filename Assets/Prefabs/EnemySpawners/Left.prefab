@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba3f895df00c15340945533bf3e5c38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 1252155749681985246, guid: e17052f672e0ebf43b8af479dec2df2b, type: 3}
+  _enemyPrefab: {fileID: 8158667829994468754, guid: 3c68ce8760449064fa50b1c904601bd9, type: 3}
   _isEnemyDirectionPositive: 1
   _initGravity: 0
   _pairSpawner: {fileID: 0}

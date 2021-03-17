@@ -12,14 +12,14 @@ namespace Player
         [SerializeField] private float _defaultRotationSpeed = 1000f;
         private float _rotationSpeed;
 
-        private GravityHandler _gravityHandler;
+        private PlayerGravityHandler _gravityHandler;
         private ObjectWallCollisions _groundedStateHandler;
 
         private void Awake()
         {
             _rotationSpeed = _defaultRotationSpeed;
             _groundedStateHandler = GetComponent<ObjectWallCollisions>();
-            _gravityHandler = GetComponent<GravityHandler>();
+            _gravityHandler = GetComponent<PlayerGravityHandler>();
         }
 
         private void FixedUpdate()
