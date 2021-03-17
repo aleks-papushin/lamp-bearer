@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 18100876691239898}
   - component: {fileID: 18100876691239911}
   - component: {fileID: 18100876691239896}
-  - component: {fileID: 18100876691239897}
   m_Layer: 0
   m_Name: Left
   m_TagString: BottomSpawner
@@ -123,15 +122,3 @@ MonoBehaviour:
   _isEnemyDirectionPositive: 1
   _initGravity: 0
   _pairSpawner: {fileID: 0}
---- !u!114 &18100876691239897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 18100876691239909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d10fdb30de7ed4409138a8de2481fdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
