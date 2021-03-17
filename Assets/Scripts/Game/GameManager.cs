@@ -13,8 +13,8 @@ namespace Game
     {
         public GameObject _spawner;
         public int oilBottleCountForSpawn;
-        public GameWaveManager WaveManager { get; private set; }
 
+        private GameWaveManager _waveManager;
         private Score _score;
         private static List<GameObject> WallsToBeDangerous => FindObjectsOfType<WallDanger>().Select(w => w.gameObject).ToList();
 
@@ -26,7 +26,7 @@ namespace Game
 
         private void Awake()
         {
-            WaveManager = FindObjectOfType<GameWaveManager>();
+            _waveManager = FindObjectOfType<GameWaveManager>();
         }
 
         private void Start()
@@ -46,9 +46,9 @@ namespace Game
 
         private void GameTimer_OnWaveIncrementing()
         {
-            _wallWarningInterval = WaveManager.CurrentWave.wallWarningInterval;
-            _wallDangerousInterval = WaveManager.CurrentWave.wallDangerousInterval;
-            _wallCoolDownInterval = WaveManager.CurrentWave.wallCoolDownInterval;
+            _wallWarningInterval = _waveManager.CurrentWave.wallWarningInterval;
+            _wallDangerousInterval = _waveManager.CurrentWave.wallDangerousInterval;
+            _wallCoolDownInterval = _waveManager.CurrentWave.wallCoolDownInterval;
         }
 
         private IEnumerator HandleWallsDangerousness()
@@ -59,7 +59,7 @@ namespace Game
             {
                 yield return null;
 
-                while (!WaveManager.CurrentWave.switchOnWalls)
+                while (!_waveManager.CurrentWave.switchOnWalls)
                 {
                     yield return new WaitForSeconds(1);
                 }

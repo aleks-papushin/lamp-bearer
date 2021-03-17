@@ -10,7 +10,7 @@ namespace Spawn
         [SerializeField] private bool _isEnemyDirectionPositive;
         [SerializeField] private Direction _initGravity;
         [SerializeField] private GameObject _pairSpawner;
-        private GameManager _gameManager;
+        private GameWaveManager _gameWaveManager;
 
         private GameObject Enemy { get; set; }
         public int EnemyCount => Enemy != null ? 1 : 0;
@@ -19,7 +19,7 @@ namespace Spawn
 
         private void Awake()
         {
-            _gameManager = FindObjectOfType<GameManager>();
+            _gameWaveManager = FindObjectOfType<GameWaveManager>();
             Enemy = null;
         }
 
@@ -33,7 +33,7 @@ namespace Spawn
 
         private void SetSpeed(GameObject enemy)
         {
-            var speed = _gameManager.WaveManager.CurrentWave.enemySpeed;
+            var speed = _gameWaveManager.CurrentWave.enemySpeed;
             enemy.GetComponent<EnemyWalkerMovement>().Speed = speed;
         }
 
