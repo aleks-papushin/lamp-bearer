@@ -10,15 +10,14 @@ namespace Player
         private HandleObjectFacing _facing;
         private PlayerGravityHandler _gravityHandler;
         private PlayerWallCollisions _playerWallCollisions;
-        private static readonly int Speed = Animator.StringToHash("Speed");
         private Rigidbody2D _rig;
+        private static readonly int Speed = Animator.StringToHash("Speed");
 
         public bool IsGrounded { get; set; }
 
         private void Start()
         {
             _rig = GetComponent<Rigidbody2D>();
-            GetComponent<PlayerCollisions>();
             _animator = GetComponent<Animator>();
             _facing = GetComponent<HandleObjectFacing>();
             _gravityHandler = GetComponent<PlayerGravityHandler>();
