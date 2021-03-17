@@ -8,14 +8,12 @@ namespace Player
 {
     public class HandleSpriteRotation : MonoBehaviour
     {
-        [SerializeField] private float _startRotationDistance;
-        [SerializeField] private float _defaultRotationSpeed;
+        [SerializeField] private float _startRotationDistance = 5f;
+        [SerializeField] private float _defaultRotationSpeed = 1000f;
         private float _rotationSpeed;
 
         private GravityHandler _gravityHandler;
         private ObjectWallCollisions _groundedStateHandler;
-
-        private GameObject Ground => DirectionUtils.GetFloorFor(_gravityHandler.GravityVector);
 
         private void Awake()
         {
@@ -26,41 +24,32 @@ namespace Player
 
         private void FixedUpdate()
         {
-            Handle();
-        }
-
-        private void Handle()
-        {
             if (_groundedStateHandler.IsGrounded) return;
 
+            RotateTowardTheWall();
+        }
+
+        private void RotateTowardTheWall()
+        {
             var ground = DirectionUtils.GetFloorFor(_gravityHandler.GravityVector);
             var distanceToGround = transform.GetDistanceTo(ground);
             if (distanceToGround < _startRotationDistance)
             {
-                RotateTowards(_gravityHandler.GravityVector, true);
+                // 4 is magic number which is should be bigger than any GetDistanceTo(Ground)
+                var modifier = 4 / distanceToGround;
+                _rotationSpeed *= modifier;
             }
             else
             {
                 _rotationSpeed = _defaultRotationSpeed;
-                RotateTowards(DirectionUtils.OppositeTo(_gravityHandler.GravityVector), false);
-            }
-        }
-
-        private void RotateTowards(Direction gravityVector, bool accelerateRotation)
-        {
-            if (accelerateRotation)
-            {
-                // 4 is magic number which is should be bigger than any GetDistanceTo(Ground)
-                var modifier = 4 / transform.GetDistanceTo(Ground);
-                _rotationSpeed *= modifier;
             }
 
-            var floorAnchor = DirectionUtils.GetFloorFor(gravityVector)
-                .GetComponentsInChildren<Transform>()
+            var floorAnchor = ground.GetComponentsInChildren<Transform>()
                 .Single(t => t.tag.Contains(Tags.AnchorSuffix));
 
             transform.rotation =
-                Quaternion.RotateTowards(transform.rotation, floorAnchor.transform.rotation, Time.deltaTime * _rotationSpeed);
+                Quaternion.RotateTowards(transform.rotation, floorAnchor.transform.rotation,
+                    Time.deltaTime * _rotationSpeed);
         }
     }
 }
