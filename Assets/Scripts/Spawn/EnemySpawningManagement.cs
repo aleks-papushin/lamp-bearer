@@ -33,13 +33,16 @@ namespace Spawn
                 if (ActualEnemyCount >= _waveEnemyCount) continue;
                 var spawner = PickFreeSpawner();
                 yield return new WaitForSeconds(1);
-                spawner.Spawn();
+                if (spawner != null)
+                {
+                    spawner.Spawn(_waveManager.CurrentWave.enemySpeed);
+                }
             }
         }
 
         private SpawnEnemy PickFreeSpawner()
         {
-            var freeSpawners = _enemySpawners.Where(spawner => spawner.PairEnemyCount == 0).ToList();
+            var freeSpawners = _enemySpawners.Where(spawner => spawner.IsFree).ToList();
             return freeSpawners.Count == 0 ? null : freeSpawners[Random.Range(0, freeSpawners.Count)];
         }
     }
