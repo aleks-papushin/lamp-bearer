@@ -21,7 +21,6 @@ namespace Game
         private List<WallDanger> _wallsToBeDangerous;
         private GameWaveManager _waveManager;
         private Score _score;
-        private int _dangerWallsCurrently;
 
         public int CurrentScore { get; private set; }
 
@@ -56,26 +55,26 @@ namespace Game
 
         private IEnumerator WallsDangerousnessCoroutine()
         {
+            int dangerWallsCurrently = 0;
+
             while (true)
             {
-                yield return null;
-
                 while (_waveManager.CurrentWave.dangerWallAmount == 0 || 
-                    _waveManager.CurrentWave.dangerWallAmount <= _dangerWallsCurrently ||
+                    _waveManager.CurrentWave.dangerWallAmount <= dangerWallsCurrently ||
                     _wallsToBeDangerous.Count == 0)
                 {
                     yield return new WaitForSeconds(1);
                 }
 
                 var wall = _wallsToBeDangerous[new Random().Next(_wallsToBeDangerous.Count)];
-                _dangerWallsCurrently++;
-                wall.CanBeDangerous = false;
+                dangerWallsCurrently++;
                 StartCoroutine(wall.BecameDangerousCoroutine(
-                    () => _dangerWallsCurrently--,
+                    () => dangerWallsCurrently--,
                     _wallWarningInterval,
                     _wallDangerousInterval,
-                    _wallCoolDownInterval));                
-                MoveWallToRestingWalls(wall);
+                    _wallCoolDownInterval));  
+                _wallsToBeDangerous.Remove(wall);
+                _restingWalls.Add(wall);
 
                 // wait to not to make 2 walls dangerous at the same second
                 yield return new WaitForSeconds(1);
@@ -94,12 +93,6 @@ namespace Game
                 _restingWalls = _restingWalls.Except(wallsToMove).ToList();
                 _wallsToBeDangerous.AddRange(wallsToMove);
             }
-        }
-
-        private void MoveWallToRestingWalls(WallDanger wall)
-        {
-            _wallsToBeDangerous.Remove(wall);
-            _restingWalls.Add(wall);
         }
     }
 }

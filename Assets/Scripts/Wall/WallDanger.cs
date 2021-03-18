@@ -25,6 +25,8 @@ namespace Wall
             float _wallDangerousInterval, 
             float _wallCoolDownInterval)
         {
+            CanBeDangerous = false;
+
             _animation.MakeWarning();
             _lighting.SetWarning();
 
