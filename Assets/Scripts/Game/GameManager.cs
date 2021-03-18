@@ -35,7 +35,8 @@ namespace Game
         {
             _score = FindObjectOfType<Score>();
             GameTimer_OnWaveIncrementing();
-            StartCoroutine(HandleWallsDangerousness());
+            StartCoroutine(WallsDangerousnessCoroutine());
+            StartCoroutine(MoveRestingWallsToDangerousCoroutine());
             _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCountForSpawn, 0, 0);
             GameTimer.OnWaveIncrementing += GameTimer_OnWaveIncrementing;
         }
@@ -53,21 +54,16 @@ namespace Game
             _wallCoolDownInterval = _waveManager.CurrentWave.wallCoolDownInterval;
         }
 
-        private IEnumerator HandleWallsDangerousness()
+        private IEnumerator WallsDangerousnessCoroutine()
         {
-            // every N sec pick random wall and make it danger
-
             while (true)
             {
                 yield return null;
-
-                MoveRestingWallsToDangerous();
 
                 while (_waveManager.CurrentWave.dangerWallAmount == 0 || 
                     _waveManager.CurrentWave.dangerWallAmount <= _dangerWallsCurrently ||
                     _wallsToBeDangerous.Count == 0)
                 {
-                    MoveRestingWallsToDangerous();
                     yield return new WaitForSeconds(1);
                 }
 
@@ -80,18 +76,24 @@ namespace Game
                     _wallDangerousInterval,
                     _wallCoolDownInterval));                
                 MoveWallToRestingWalls(wall);
+
+                // wait to not to make 2 walls dangerous at the same second
+                yield return new WaitForSeconds(1);
             }
         }
 
-        // TODO Possibly should be implemented as independent coroutine 
-        // and removed from HandleWallsDangerousness()
-        private void MoveRestingWallsToDangerous()
+        private IEnumerator MoveRestingWallsToDangerousCoroutine()
         {
-            if (_restingWalls.Count == 0) return;
+            while (true)
+            {
+                yield return new WaitForSeconds(1);
 
-            var wallsToMove = _restingWalls.Where(w => w.CanBeDangerous).ToList();
-            _restingWalls = _restingWalls.Except(wallsToMove).ToList();
-            _wallsToBeDangerous.AddRange(wallsToMove);
+                if (_restingWalls.Count == 0) continue;
+
+                var wallsToMove = _restingWalls.Where(w => w.CanBeDangerous).ToList();
+                _restingWalls = _restingWalls.Except(wallsToMove).ToList();
+                _wallsToBeDangerous.AddRange(wallsToMove);
+            }
         }
 
         private void MoveWallToRestingWalls(WallDanger wall)
