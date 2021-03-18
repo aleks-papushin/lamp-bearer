@@ -11,24 +11,24 @@ namespace Game
 {
     public class GameManager : MonoBehaviour
     {
-        private static readonly List<GameObject> _restingWalls = new List<GameObject>();
-        private static List<GameObject> _wallsToBeDangerous;
-
         [SerializeField] private float _wallWarningInterval;
         [SerializeField] private float _wallDangerousInterval;
         [SerializeField] private float _wallCoolDownInterval;
         [SerializeField] private GameObject _spawner;
         [SerializeField] private int oilBottleCountForSpawn;
 
+        private List<WallDanger> _restingWalls = new List<WallDanger>();
+        private List<WallDanger> _wallsToBeDangerous;
         private GameWaveManager _waveManager;
         private Score _score;
+        private int _dangerWallsCurrently;
 
-        public int CurrentScore { get; private set; }     
+        public int CurrentScore { get; private set; }
 
         private void Awake()
         {
             _waveManager = FindObjectOfType<GameWaveManager>();
-            _wallsToBeDangerous = FindObjectsOfType<WallDanger>().Select(w => w.gameObject).ToList();
+            _wallsToBeDangerous = FindObjectsOfType<WallDanger>().ToList();
         }
 
         private void Start()
@@ -61,34 +61,40 @@ namespace Game
             {
                 yield return null;
 
-                while (_waveManager.CurrentWave.dangerWallAmount == 0)
+                MoveRestingWallsToDangerous();
+
+                while (_waveManager.CurrentWave.dangerWallAmount == 0 || 
+                    _waveManager.CurrentWave.dangerWallAmount <= _dangerWallsCurrently ||
+                    _wallsToBeDangerous.Count == 0)
                 {
+                    MoveRestingWallsToDangerous();
                     yield return new WaitForSeconds(1);
                 }
 
-                var dangerousInterval = _wallDangerousInterval + _wallWarningInterval;
-                var wall = _wallsToBeDangerous[new Random().Next(_wallsToBeDangerous.Count)];                
-                StartCoroutine(wall.GetComponent<WallDanger>().BecameDangerousCoroutine(_wallWarningInterval));
-
-                yield return new WaitForSeconds(dangerousInterval);
-
-                wall.GetComponent<WallDanger>().BecameSafe();
-                MoveRestingWallsToDangerous();
+                var wall = _wallsToBeDangerous[new Random().Next(_wallsToBeDangerous.Count)];
+                _dangerWallsCurrently++;
+                wall.CanBeDangerous = false;
+                StartCoroutine(wall.BecameDangerousCoroutine(
+                    () => _dangerWallsCurrently--,
+                    _wallWarningInterval,
+                    _wallDangerousInterval,
+                    _wallCoolDownInterval));                
                 MoveWallToRestingWalls(wall);
-
-                yield return new WaitForSeconds(_wallCoolDownInterval);
             }
         }
 
+        // TODO Possibly should be implemented as independent coroutine 
+        // and removed from HandleWallsDangerousness()
         private void MoveRestingWallsToDangerous()
         {
             if (_restingWalls.Count == 0) return;
 
-            _wallsToBeDangerous.AddRange(_restingWalls);
-            _restingWalls.Clear();
+            var wallsToMove = _restingWalls.Where(w => w.CanBeDangerous).ToList();
+            _restingWalls = _restingWalls.Except(wallsToMove).ToList();
+            _wallsToBeDangerous.AddRange(wallsToMove);
         }
 
-        private void MoveWallToRestingWalls(GameObject wall)
+        private void MoveWallToRestingWalls(WallDanger wall)
         {
             _wallsToBeDangerous.Remove(wall);
             _restingWalls.Add(wall);

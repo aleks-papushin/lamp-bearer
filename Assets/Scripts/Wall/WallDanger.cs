@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Wall
@@ -6,7 +7,8 @@ namespace Wall
     public class WallDanger : MonoBehaviour
     {
         public bool IsDangerous { get; private set; }
-        
+        public bool CanBeDangerous { get; set; }
+
         private WallLighting _lighting;
         private WallAnimation _animation;
         private const float WaitingDangerAnimationEndingInterval = 0.4f;
@@ -15,11 +17,13 @@ namespace Wall
         {
             _lighting = GetComponentInChildren<WallLighting>(true);
             _animation = GetComponent<WallAnimation>();
-
-            IsDangerous = false;        
         }
 
-        public IEnumerator BecameDangerousCoroutine(float wallWarningInterval)
+        public IEnumerator BecameDangerousCoroutine(
+            Action decrementDangerWallsCounter, 
+            float wallWarningInterval, 
+            float _wallDangerousInterval, 
+            float _wallCoolDownInterval)
         {
             _animation.MakeWarning();
             _lighting.SetWarning();
@@ -32,13 +36,22 @@ namespace Wall
 
             _lighting.SetDanger();
             IsDangerous = true;
+
+            yield return new WaitForSeconds(_wallDangerousInterval);
+
+            BecameSafe();
+            decrementDangerWallsCounter.Invoke();
+
+            yield return new WaitForSeconds(_wallCoolDownInterval);
+
+            CanBeDangerous = true;
         }
 
-        public void BecameSafe()
+        private void BecameSafe()
         {
             _animation.BecameSafe();
             _lighting.Disable();
-            IsDangerous = false;
+            IsDangerous = false;            
         }
     }
 }
