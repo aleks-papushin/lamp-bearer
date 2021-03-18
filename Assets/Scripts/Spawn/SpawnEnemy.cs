@@ -9,6 +9,7 @@ namespace Spawn
         [SerializeField] private GameObject _enemyPrefab;
         [SerializeField] private bool _isEnemyDirectionPositive;
         [SerializeField] private GameObject _pairSpawner;
+        [SerializeField] private GameObject _wall;
         private GameObject _enemy;
 
         public int EnemyCount => _enemy != null ? 1 : 0;
@@ -18,8 +19,10 @@ namespace Spawn
         {
             var cachedTransform = transform;
             _enemy = Instantiate(_enemyPrefab, cachedTransform.position, cachedTransform.rotation);
-            _enemy.GetComponent<EnemyWalkerMovement>().IsDirectionPositive = _isEnemyDirectionPositive;
-            _enemy.GetComponent<EnemyWalkerMovement>().Speed = speed;
+            var enemyWalkerMovement = _enemy.GetComponent<EnemyWalkerMovement>();
+            enemyWalkerMovement.IsDirectionPositive = _isEnemyDirectionPositive;
+            enemyWalkerMovement.Speed = speed;
+            enemyWalkerMovement.Wall = _wall;
         }
     }
 }
