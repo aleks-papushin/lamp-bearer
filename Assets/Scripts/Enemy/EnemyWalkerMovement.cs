@@ -55,21 +55,14 @@ namespace Enemy
             var directionMod = IsDirectionPositive ? 1 : -1;
 
             _facing.Handle(IsDirectionPositive);
-            switch (Wall.tag)
+            _rig.velocity = Wall.tag switch
             {
-                case Tags.BottomWall:
-                    _rig.velocity = new Vector2(directionMod, 0) * _speed;
-                    break;
-                case Tags.LeftWall:
-                    _rig.velocity = new Vector2(0, -directionMod) * _speed;
-                    break;
-                case Tags.UpperWall:
-                    _rig.velocity = new Vector2(-directionMod, 0) * _speed;
-                    break;
-                case Tags.RightWall:
-                    _rig.velocity = new Vector2(0, directionMod) * _speed;
-                    break;
-            }
+                Tags.BottomWall => new Vector2(directionMod, 0) * _speed,
+                Tags.LeftWall => new Vector2(0, -directionMod) * _speed,
+                Tags.UpperWall => new Vector2(-directionMod, 0) * _speed,
+                Tags.RightWall => new Vector2(0, directionMod) * _speed,
+                _ => _rig.velocity
+            };
         }
     }
 }
