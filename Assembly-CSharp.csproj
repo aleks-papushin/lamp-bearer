@@ -83,14 +83,14 @@
     <Compile Include="Assets\Scripts\Player\PlayerWallCollisions.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerSounds.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerCollisions.cs" />
-    <Compile Include="Assets\Scripts\Spawn\SpawnOil.cs" />
+    <Compile Include="Assets\Scripts\Spawn\OilSpawnManager.cs" />
     <Compile Include="Assets\Scripts\Game\GameTimer.cs" />
     <Compile Include="Assets\Scripts\Spawn\SpawnEnemy.cs" />
     <Compile Include="Assets\Scripts\Difficulties\GameDifficulty.cs" />
     <Compile Include="Assets\Scripts\UI\StartButton.cs" />
     <Compile Include="Assets\Scripts\Game\GameWaveManager.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyWalkerMovement.cs" />
-    <Compile Include="Assets\Scripts\Game\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Game\WallDangerManager.cs" />
     <Compile Include="Assets\Scripts\Background\Parallax.cs" />
   </ItemGroup>
   <ItemGroup>

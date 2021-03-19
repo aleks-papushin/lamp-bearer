@@ -9,20 +9,20 @@ using Random = System.Random;
 
 namespace Game
 {
-    public class GameManager : MonoBehaviour
+    public class WallDangerManager : MonoBehaviour
     {
         [SerializeField] private float _wallWarningInterval;
         [SerializeField] private float _wallDangerousInterval;
         [SerializeField] private float _wallCoolDownInterval;
-        [SerializeField] private GameObject _spawner;
-        [SerializeField] private int oilBottleCountForSpawn;
+        //[SerializeField] private GameObject _spawner;
+        //[SerializeField] private int oilBottleCountForSpawn;
 
         private List<WallDanger> _restingWalls = new List<WallDanger>();
         private List<WallDanger> _wallsToBeDangerous;
         private GameWaveManager _waveManager;
-        private Score _score;
+        //private Score _score;
 
-        public int CurrentScore { get; private set; }
+        //public int CurrentScore { get; private set; }
 
         private void Awake()
         {
@@ -32,19 +32,19 @@ namespace Game
 
         private void Start()
         {
-            _score = FindObjectOfType<Score>();
+            //_score = FindObjectOfType<Score>();
             GameTimer_OnWaveIncrementing();
             StartCoroutine(WallsDangerousnessCoroutine());
             StartCoroutine(MoveRestingWallsToDangerousCoroutine());
-            _spawner.GetComponent<SpawnOil>().Spawn(oilBottleCountForSpawn, 0, 0);
+            //_spawner.GetComponent<SpawnOil>().Spawn(oilBottleCountForSpawn, 0, 0);
             GameTimer.OnWaveIncrementing += GameTimer_OnWaveIncrementing;
         }
 
-        public void UpdateScore()
-        {
-            CurrentScore++;
-            _score.SetScore(CurrentScore);
-        }
+        //public void UpdateScore()
+        //{
+        //    CurrentScore++;
+        //    _score.SetScore(CurrentScore);
+        //}
 
         private void GameTimer_OnWaveIncrementing()
         {

@@ -609,8 +609,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bac8cefe10039644a8a0b06b43141ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: {fileID: 2078487368}
-  oilBottleCountForSpawn: 1
   _wallWarningInterval: 0
   _wallDangerousInterval: 0
   _wallCoolDownInterval: 0

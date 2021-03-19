@@ -1,5 +1,5 @@
-﻿using Game;
-using Player;
+﻿using Player;
+using Spawn;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,13 +9,13 @@ namespace UI
 {
     public class GameOverUiObject : MonoBehaviour
     {
-        private GameManager _gameManager;
+        private OilSpawnManager _oilSpawnManager;
         private TextMeshProUGUI _textMesh;
         private Button _restartButton;
 
         private void Start()
         {
-            _gameManager = FindObjectOfType<GameManager>();
+            _oilSpawnManager = FindObjectOfType<OilSpawnManager>();
             _textMesh = transform.Find("ScoreText").GetComponent<TextMeshProUGUI>();
             _restartButton = GetComponentInChildren<Button>();
             _restartButton.onClick.AddListener(RestartGame);
@@ -36,7 +36,7 @@ namespace UI
         private void PlayerCollisions_OnPlayerDied()
         {
             gameObject.SetActive(true);
-            _textMesh.text = $"Your Score: {_gameManager.CurrentScore}";
+            _textMesh.text = $"Your Score: {_oilSpawnManager.CurrentScore}";
         }
 
         private static void RestartGame()

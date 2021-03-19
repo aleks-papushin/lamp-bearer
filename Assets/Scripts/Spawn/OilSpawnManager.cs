@@ -1,38 +1,40 @@
 ﻿using System.Collections;
 using Player;
+using UI;
 using UnityEngine;
 using Wall;
 using Random = UnityEngine.Random;
 
 namespace Spawn
 {
-    public class SpawnOil : MonoBehaviour
+    public class OilSpawnManager : MonoBehaviour
     {
-        public GameObject _oilBottle;
+        [SerializeField] private GameObject _oilBottle;
 
-        private const float XRange = 6;
-        private const float YRange = 2;
+        private const float XRange = 5.5f;
+        private const float YRange = 1.5f;
+
+        private Score _score;
+
+        public int CurrentScore { get; private set; }
 
         private void Start()
         {
+            _score = FindObjectOfType<Score>();
             PlayerCollisions.OnOilBottleTaken += PlayerCollisions_OnOilBottleTaken;
+            Spawn(0, 0);
         }
 
-        private void Spawn(int count = 1)
+        public void UpdateScore()
         {
-            for (var i = 0; i < count; i++)
-            {
-                var position = new Vector2(Random.Range(-XRange, XRange), Random.Range(-YRange, YRange));
-                Spawn(position.x, position.y);
-            }
+            CurrentScore++;
+            _score.SetScore(CurrentScore);
         }
 
-        public void Spawn(int count, float x, float y)
+        private void SpawnBottlesInRamdomPlace()
         {
-            for (var i = 0; i < count; i++)
-            {
-                Spawn(x, y);
-            }
+            var position = new Vector2(Random.Range(-XRange, XRange), Random.Range(-YRange, YRange));
+            Spawn(position.x, position.y);
         }
 
         private void Spawn(float x, float y)
@@ -55,7 +57,7 @@ namespace Spawn
                 yield return new WaitForSeconds(0.01f);
             }
 
-            Spawn();
+            SpawnBottlesInRamdomPlace();
         }
 
         private void OnDestroy()
