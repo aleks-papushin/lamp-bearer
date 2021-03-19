@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Spawn;
-using UI;
 using UnityEngine;
 using Wall;
 using Random = System.Random;
@@ -14,15 +12,10 @@ namespace Game
         [SerializeField] private float _wallWarningInterval;
         [SerializeField] private float _wallDangerousInterval;
         [SerializeField] private float _wallCoolDownInterval;
-        //[SerializeField] private GameObject _spawner;
-        //[SerializeField] private int oilBottleCountForSpawn;
 
         private List<WallDanger> _restingWalls = new List<WallDanger>();
         private List<WallDanger> _wallsToBeDangerous;
         private GameWaveManager _waveManager;
-        //private Score _score;
-
-        //public int CurrentScore { get; private set; }
 
         private void Awake()
         {
@@ -32,19 +25,10 @@ namespace Game
 
         private void Start()
         {
-            //_score = FindObjectOfType<Score>();
             GameTimer_OnWaveIncrementing();
             StartCoroutine(WallsDangerousnessCoroutine());
-            StartCoroutine(MoveRestingWallsToDangerousCoroutine());
-            //_spawner.GetComponent<SpawnOil>().Spawn(oilBottleCountForSpawn, 0, 0);
             GameTimer.OnWaveIncrementing += GameTimer_OnWaveIncrementing;
         }
-
-        //public void UpdateScore()
-        //{
-        //    CurrentScore++;
-        //    _score.SetScore(CurrentScore);
-        //}
 
         private void GameTimer_OnWaveIncrementing()
         {
@@ -59,11 +43,20 @@ namespace Game
 
             while (true)
             {
-                while (_waveManager.CurrentWave.dangerWallAmount == 0 || 
-                    _waveManager.CurrentWave.dangerWallAmount <= dangerWallsCurrently ||
-                    _wallsToBeDangerous.Count == 0)
+                yield return new WaitForSeconds(0.1f);
+
+                if (_wallsToBeDangerous.Count == 0)
                 {
                     yield return new WaitForSeconds(1);
+                    continue;
+                }
+
+                MoveRestingWallsToDangerous();
+
+                if (_waveManager.CurrentWave.dangerWallAmount == 0 ||
+                    _waveManager.CurrentWave.dangerWallAmount <= dangerWallsCurrently)
+                {
+                    continue;
                 }
 
                 var wall = _wallsToBeDangerous[new Random().Next(_wallsToBeDangerous.Count)];
@@ -72,27 +65,19 @@ namespace Game
                     () => dangerWallsCurrently--,
                     _wallWarningInterval,
                     _wallDangerousInterval,
-                    _wallCoolDownInterval));  
+                    _wallCoolDownInterval));
                 _wallsToBeDangerous.Remove(wall);
                 _restingWalls.Add(wall);
-
-                // wait to not to make 2 walls dangerous at the same second
-                yield return new WaitForSeconds(1);
             }
         }
 
-        private IEnumerator MoveRestingWallsToDangerousCoroutine()
+        private void MoveRestingWallsToDangerous()
         {
-            while (true)
-            {
-                yield return new WaitForSeconds(1);
+            if (_restingWalls.Count == 0) return;
 
-                if (_restingWalls.Count == 0) continue;
-
-                var wallsToMove = _restingWalls.Where(w => w.CanBeDangerous).ToList();
-                _restingWalls = _restingWalls.Except(wallsToMove).ToList();
-                _wallsToBeDangerous.AddRange(wallsToMove);
-            }
+            var wallsToMove = _restingWalls.Where(w => w.CanBeDangerous).ToList();
+            _restingWalls = _restingWalls.Except(wallsToMove).ToList();
+            _wallsToBeDangerous.AddRange(wallsToMove);
         }
     }
 }
