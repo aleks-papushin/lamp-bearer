@@ -16,23 +16,14 @@ namespace Player
         {
             GravityVector = direction;
 
-            switch (GravityVector)
+            Physics2D.gravity = GravityVector switch
             {
-                case Direction.Down:
-                    Physics2D.gravity = new Vector2(0, -_gravity);
-                    break;
-                case Direction.Up:
-                    Physics2D.gravity = new Vector2(0, _gravity);
-                    break;
-                case Direction.Left:
-                    Physics2D.gravity = new Vector2(-_gravity, 0);
-                    break;
-                case Direction.Right:
-                    Physics2D.gravity = new Vector2(_gravity, 0);
-                    break;
-                default: 
-                    throw new ArgumentOutOfRangeException();
-            }
+                Direction.Down => new Vector2(0, -_gravity),
+                Direction.Up => new Vector2(0, _gravity),
+                Direction.Left => new Vector2(-_gravity, 0),
+                Direction.Right => new Vector2(_gravity, 0),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }

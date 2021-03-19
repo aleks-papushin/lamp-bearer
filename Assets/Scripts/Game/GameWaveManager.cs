@@ -41,19 +41,17 @@ namespace Game
         private List<GameWaveDto> ReadGameData(GameDifficulty difficulty)
         {
             var difficultySettings = _difficulties[difficulty == GameDifficulty.Easy ? 0 : 1].Text;
-            using (var file = new StringReader(difficultySettings))
+            using var file = new StringReader(difficultySettings);
+            _ = file.ReadLine(); // feed line with column names
+            string wave;
+            var gameWaves = new List<GameWaveDto>();
+
+            while ((wave = file.ReadLine()) != null)
             {
-                _ = file.ReadLine(); // feed line with column names
-                string wave;
-                var gameWaves = new List<GameWaveDto>();
-
-                while ((wave = file.ReadLine()) != null)
-                {
-                    gameWaves.Add(ParseWave(wave));
-                }
-
-                return gameWaves;
+                gameWaves.Add(ParseWave(wave));
             }
+
+            return gameWaves;
         }
 
         private static GameWaveDto ParseWave(string waveString)
