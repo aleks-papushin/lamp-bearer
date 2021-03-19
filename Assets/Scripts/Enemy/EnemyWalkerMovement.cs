@@ -1,4 +1,5 @@
-﻿using Resources;
+﻿using System;
+using Resources;
 using UnityEngine;
 
 namespace Enemy
@@ -23,7 +24,27 @@ namespace Enemy
             _rig = GetComponent<Rigidbody2D>();
             _facing = GetComponent<HandleObjectFacing>();
         }
-        
+
+        private void FixedUpdate()
+        {
+            var gravity = Physics.gravity.magnitude;
+            switch (Wall.tag)
+            {
+                case Tags.BottomWall:
+                    _rig.AddForce(new Vector2(0, -gravity), ForceMode2D.Force);
+                    break;
+                case Tags.LeftWall:
+                    _rig.AddForce(new Vector2(-gravity, 0), ForceMode2D.Force);
+                    break;
+                case Tags.UpperWall:
+                    _rig.AddForce(new Vector2(0, gravity), ForceMode2D.Force);
+                    break;
+                case Tags.RightWall:
+                    _rig.AddForce(new Vector2(gravity, 0), ForceMode2D.Force);
+                    break;
+            }
+        }
+
         private void Update()
         {
             Move();
@@ -34,21 +55,14 @@ namespace Enemy
             var directionMod = IsDirectionPositive ? 1 : -1;
 
             _facing.Handle(IsDirectionPositive);
-            switch (Wall.tag)
+            _rig.velocity = Wall.tag switch
             {
-                case Tags.BottomWall:
-                    _rig.velocity = new Vector2(directionMod, 0) * _speed;
-                    break;
-                case Tags.LeftWall:
-                    _rig.velocity = new Vector2(0, -directionMod) * _speed;
-                    break;
-                case Tags.UpperWall:
-                    _rig.velocity = new Vector2(-directionMod, 0) * _speed;
-                    break;
-                case Tags.RightWall:
-                    _rig.velocity = new Vector2(0, directionMod) * _speed;
-                    break;
-            }
+                Tags.BottomWall => new Vector2(directionMod, 0) * _speed,
+                Tags.LeftWall => new Vector2(0, -directionMod) * _speed,
+                Tags.UpperWall => new Vector2(-directionMod, 0) * _speed,
+                Tags.RightWall => new Vector2(0, directionMod) * _speed,
+                _ => _rig.velocity
+            };
         }
     }
 }
