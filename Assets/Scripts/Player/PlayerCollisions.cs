@@ -1,6 +1,6 @@
 ﻿using System;
-using Game;
 using Resources;
+using Spawn;
 using UnityEngine;
 using Wall;
 
@@ -9,7 +9,7 @@ namespace Player
     public class PlayerCollisions : MonoBehaviour
     {
         [SerializeField] private PlayerSounds _playerSounds;
-        private GameManager _gameManager;
+        private OilSpawnManager _oilSpawnManager;
         private PlayerController _playerController;
         private LightIntensityController _light;
 
@@ -18,7 +18,7 @@ namespace Player
 
         private void Start()
         {
-            _gameManager = FindObjectOfType<GameManager>();
+            _oilSpawnManager = FindObjectOfType<OilSpawnManager>();
             _playerController = GetComponent<PlayerController>();
             _light = GetComponent<LightIntensityController>();
         }
@@ -60,7 +60,7 @@ namespace Player
         private void OilBottleTaken(Component oilBottle)
         {
             Destroy(oilBottle.gameObject);
-            _gameManager.UpdateScore();
+            _oilSpawnManager.UpdateScore();
             _playerSounds.OilTaken();
             _light.OilTaken();
             OnOilBottleTaken?.Invoke();

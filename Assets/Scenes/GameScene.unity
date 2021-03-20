@@ -609,8 +609,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bac8cefe10039644a8a0b06b43141ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: {fileID: 2078487368}
-  oilBottleCountForSpawn: 1
   _wallWarningInterval: 0
   _wallDangerousInterval: 0
   _wallCoolDownInterval: 0
@@ -3061,7 +3059,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Walls
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8440024735952634432, guid: c393e0a8068de48dea48ea784992f05b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c393e0a8068de48dea48ea784992f05b, type: 3}
 --- !u!1 &8440024735324633876 stripped
 GameObject:

@@ -64,7 +64,7 @@ namespace Game
                 wallWarningInterval = float.Parse(wave[1], CultureInfo.InvariantCulture),
                 wallDangerousInterval = float.Parse(wave[2], CultureInfo.InvariantCulture),
                 wallCoolDownInterval = float.Parse(wave[3], CultureInfo.InvariantCulture),
-                switchOnWalls = int.Parse(wave[4]) != 0,
+                dangerWallAmount = int.Parse(wave[4]),
                 enemyCount = int.Parse(wave[5]),
                 enemySpeed = float.Parse(wave[6], CultureInfo.InvariantCulture),
                 isOilAffectLight = int.Parse(wave[7]) != 0,
