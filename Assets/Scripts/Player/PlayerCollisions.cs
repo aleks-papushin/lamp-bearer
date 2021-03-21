@@ -9,16 +9,13 @@ namespace Player
     public class PlayerCollisions : MonoBehaviour
     {
         [SerializeField] private PlayerSounds _playerSounds;
-        private OilSpawnManager _oilSpawnManager;
         private PlayerController _playerController;
         private LightIntensityController _light;
-
-        public static event Action OnOilBottleTaken;
+        
         public static event Action OnPlayerDied;
 
         private void Start()
         {
-            _oilSpawnManager = FindObjectOfType<OilSpawnManager>();
             _playerController = GetComponent<PlayerController>();
             _light = GetComponent<LightIntensityController>();
         }
@@ -53,17 +50,8 @@ namespace Player
         {
             if (collision.gameObject.CompareTag(Tags.OilBottle))
             {
-                OilBottleTaken(collision);
+                _light.OilTaken();
             }
-        }
-
-        private void OilBottleTaken(Component oilBottle)
-        {
-            Destroy(oilBottle.gameObject);
-            _oilSpawnManager.UpdateScore();
-            _playerSounds.OilTaken();
-            _light.OilTaken();
-            OnOilBottleTaken?.Invoke();
         }
 
         private void HandlePlayerGrounding(Collision2D collision)

@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using Player;
-using UI;
 using UnityEngine;
 using Wall;
 using Random = UnityEngine.Random;
@@ -13,36 +12,19 @@ namespace Spawn
 
         private const float XRange = 5.5f;
         private const float YRange = 1.5f;
-
-        private Score _score;
-
-        public int CurrentScore { get; private set; }
-
+        
         private void Start()
         {
-            _score = FindObjectOfType<Score>();
-            PlayerCollisions.OnOilBottleTaken += PlayerCollisions_OnOilBottleTaken;
-            Spawn(0, 0);
+            Instantiate(_oilBottle, new Vector3(0, 0, 0), _oilBottle.transform.rotation);
         }
 
-        public void UpdateScore()
-        {
-            CurrentScore++;
-            _score.SetScore(CurrentScore);
-        }
-
-        private void SpawnBottlesInRamdomPlace()
+        private void SpawnBottle()
         {
             var position = new Vector2(Random.Range(-XRange, XRange), Random.Range(-YRange, YRange));
-            Spawn(position.x, position.y);
+            Instantiate(_oilBottle, new Vector3(position.x, position.y, 0), _oilBottle.transform.rotation);
         }
 
-        private void Spawn(float x, float y)
-        {
-            Instantiate(_oilBottle, new Vector3(x, y, 0), _oilBottle.transform.rotation);
-        }
-
-        private void PlayerCollisions_OnOilBottleTaken()
+        public void SpawnNext()
         {
             StartCoroutine(WaitPlayerGroundedAndSpawnOil());
         }
@@ -57,12 +39,7 @@ namespace Spawn
                 yield return new WaitForSeconds(0.01f);
             }
 
-            SpawnBottlesInRamdomPlace();
-        }
-
-        private void OnDestroy()
-        {
-            PlayerCollisions.OnOilBottleTaken -= PlayerCollisions_OnOilBottleTaken;
+            SpawnBottle();
         }
     }
 }
