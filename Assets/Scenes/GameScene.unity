@@ -2498,7 +2498,6 @@ GameObject:
   - component: {fileID: 2049628075}
   - component: {fileID: 2049628077}
   - component: {fileID: 2049628076}
-  - component: {fileID: 2049628078}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -2624,18 +2623,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2049628074}
   m_CullTransparentMesh: 0
---- !u!114 &2049628078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2049628074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa7bd07292ef7b944990746a2591f2aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2078487368
 GameObject:
   m_ObjectHideFlags: 0
@@ -2895,6 +2882,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2699843052494055998, guid: b8dd051ce2ab44aa59178c3e22e24a5a, type: 3}
+      propertyPath: _scoreText
+      value: 
+      objectReference: {fileID: 2049628076}
     - target: {fileID: 2699843052494055999, guid: b8dd051ce2ab44aa59178c3e22e24a5a, type: 3}
       propertyPath: m_Name
       value: GameStatus
