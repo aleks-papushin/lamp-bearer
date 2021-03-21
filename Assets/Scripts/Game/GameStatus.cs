@@ -1,19 +1,14 @@
 using Difficulties;
-using UI;
+using TMPro;
 using UnityEngine;
 
 namespace Game
 {
     public class GameStatus: MonoBehaviour
     {
-        private Score _score;
+        [SerializeField] private TextMeshProUGUI _scoreText;
         private int _scoreValue;
-
-        private void Start()
-        {
-            _score = FindObjectOfType<Score>();
-        }
-
+        
         public int getScore()
         {
             return _scoreValue;
@@ -22,7 +17,7 @@ namespace Game
         public void AddToScore()
         {
             _scoreValue += GameWaveManager.GameDifficulty == GameDifficulty.Easy ? 1 : 2;
-            _score.SetScore(_scoreValue);
+            _scoreText.text = $": {_scoreValue}";
         }
     }
 }
