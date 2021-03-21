@@ -25,8 +25,6 @@ namespace Game
             _waveList = ReadGameData(GameDifficulty);
             CurrentNumber = _waveList.Min(w => w.number);
             _maxWaveNumber = _waveList.Max(w => w.number);
-            
-
             GameTimer.OnWaveIncrementing += OnWaveIncrementing;
         }
 

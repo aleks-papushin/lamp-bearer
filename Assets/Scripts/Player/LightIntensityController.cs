@@ -7,6 +7,9 @@ namespace Player
 {
     public class LightIntensityController : MonoBehaviour
     {
+        private const float DecreasingIntervalSec = 0.025f;
+        private const float DirLightHardModeMin = 0;
+
         [SerializeField] private Light _light;
         [SerializeField] private float _easyModIntensity;
         [SerializeField] private float _hardModInitIntensity;
@@ -14,11 +17,11 @@ namespace Player
         [SerializeField] private float _oilBottleModifier;
         [SerializeField] private float _maxLightIntensity;
         [SerializeField] private float _dirLightMod;
-        
-        private const float DecreasingIntervalSec = 0.025f;
-        private const float DirLightHardModeMin = 0;
+
+        private GameWaveManager _waveManager;
         private Light _dirLight;
-        private bool _isOilAffectLight;
+        private IEnumerator _lightControlRoutine;
+        private bool _oilAffectedLightInPreviouisWave;
         
         private float Intensity
         {
@@ -30,29 +33,47 @@ namespace Player
             }
         }
 
-        
+        public bool OilAffectsLightInCurrentWave => _waveManager.CurrentWave.isOilAffectLight;
+        public bool ShouldChangeLightMode => _oilAffectedLightInPreviouisWave != OilAffectsLightInCurrentWave;
+
         private void Start()
         {
+            _waveManager = FindObjectOfType<GameWaveManager>();
             _dirLight = GameObject.FindGameObjectWithTag(Tags.DirectionalLight).GetComponent<Light>();
-            _isOilAffectLight = FindObjectOfType<GameWaveManager>().CurrentWave.isOilAffectLight;
-
-            if (_isOilAffectLight)
-            {
-                Intensity = _hardModInitIntensity;
-                StartCoroutine(DecreaseIntensityRoutine());
-            }
-            else
-            {
-                Intensity = _easyModIntensity;
-            }
+            _lightControlRoutine = DecreaseIntensityRoutine();
+            PickLightControlMode();
+            GameTimer.OnWaveIncrementing += GameTimer_OnWaveIncrementing;
+            _oilAffectedLightInPreviouisWave = OilAffectsLightInCurrentWave;
         }
 
         public void OilTaken()
         {
-            if (Intensity < _maxLightIntensity && _isOilAffectLight)
+            if (Intensity < _maxLightIntensity && OilAffectsLightInCurrentWave)
             {
                 Intensity += _oilBottleModifier;
             }
+        }
+
+        private void GameTimer_OnWaveIncrementing()
+        {
+            if (!ShouldChangeLightMode) return;
+
+            PickLightControlMode();
+            _oilAffectedLightInPreviouisWave = OilAffectsLightInCurrentWave;
+        }
+
+        private void PickLightControlMode()
+        {
+            if (OilAffectsLightInCurrentWave)
+            {
+                Intensity = _hardModInitIntensity;
+                StartCoroutine(_lightControlRoutine);
+            }
+            else
+            {
+                StopCoroutine(_lightControlRoutine);
+                Intensity = _easyModIntensity;
+            }            
         }
 
         private IEnumerator DecreaseIntensityRoutine()
@@ -62,6 +83,11 @@ namespace Player
                 yield return new WaitForSeconds(DecreasingIntervalSec);
                 Intensity -= _lightDecrement + _lightDecrement * Intensity;
             }
+        }
+
+        private void OnDestroy()
+        {
+            GameTimer.OnWaveIncrementing -= GameTimer_OnWaveIncrementing;
         }
     }
 }
