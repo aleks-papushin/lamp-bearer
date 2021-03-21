@@ -45,13 +45,13 @@ namespace Game
             {
                 yield return new WaitForSeconds(0.1f);
 
+                MoveRestingWallsToDangerous();
+
                 if (_wallsToBeDangerous.Count == 0)
                 {
                     yield return new WaitForSeconds(1);
                     continue;
                 }
-
-                MoveRestingWallsToDangerous();
 
                 if (_waveManager.CurrentWave.dangerWallAmount == 0 ||
                     _waveManager.CurrentWave.dangerWallAmount <= dangerWallsCurrently)
