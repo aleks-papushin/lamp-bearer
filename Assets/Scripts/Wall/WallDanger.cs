@@ -7,7 +7,7 @@ namespace Wall
     public class WallDanger : MonoBehaviour
     {
         public bool IsDangerous { get; private set; }
-        public bool CanBeDangerous { get; set; }
+        public bool CanBeDangerous { get; set; } = true;
 
         private WallLighting _lighting;
         private WallAnimation _animation;

@@ -13,14 +13,13 @@ namespace Game
         [SerializeField] private float _wallDangerousInterval;
         [SerializeField] private float _wallCoolDownInterval;
 
-        private List<WallDanger> _restingWalls = new List<WallDanger>();
-        private List<WallDanger> _wallsToBeDangerous;
+        private List<WallDanger> _walls;
         private GameWaveManager _waveManager;
 
         private void Awake()
         {
             _waveManager = FindObjectOfType<GameWaveManager>();
-            _wallsToBeDangerous = FindObjectsOfType<WallDanger>().ToList();
+            _walls = FindObjectsOfType<WallDanger>().ToList();
         }
 
         private void Start()
@@ -45,9 +44,8 @@ namespace Game
             {
                 yield return new WaitForSeconds(0.1f);
 
-                MoveRestingWallsToDangerous();
-
-                if (_wallsToBeDangerous.Count == 0)
+                List<WallDanger> wallsToBeDangerous = _walls.Where(w => w.CanBeDangerous).ToList();
+                if (wallsToBeDangerous.Count == 0)
                 {
                     yield return new WaitForSeconds(1);
                     continue;
@@ -59,25 +57,14 @@ namespace Game
                     continue;
                 }
 
-                var wall = _wallsToBeDangerous[new Random().Next(_wallsToBeDangerous.Count)];
+                var wall = wallsToBeDangerous[new Random().Next(wallsToBeDangerous.Count)];
                 dangerWallsCurrently++;
                 StartCoroutine(wall.BecameDangerousCoroutine(
                     () => dangerWallsCurrently--,
                     _wallWarningInterval,
                     _wallDangerousInterval,
                     _wallCoolDownInterval));
-                _wallsToBeDangerous.Remove(wall);
-                _restingWalls.Add(wall);
             }
-        }
-
-        private void MoveRestingWallsToDangerous()
-        {
-            if (_restingWalls.Count == 0) return;
-
-            var wallsToMove = _restingWalls.Where(w => w.CanBeDangerous).ToList();
-            _restingWalls = _restingWalls.Except(wallsToMove).ToList();
-            _wallsToBeDangerous.AddRange(wallsToMove);
         }
     }
 }
