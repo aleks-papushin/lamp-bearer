@@ -9,12 +9,14 @@ namespace Wall
         public bool IsDangerous { get; private set; }
         public bool CanBeDangerous { get; set; } = true;
 
+        private WallSound _sound;
         private WallLighting _lighting;
         private WallAnimation _animation;
         private const float WaitingDangerAnimationEndingInterval = 0.4f;
 
         private void Start()
         {
+            _sound = GetComponent<WallSound>();
             _lighting = GetComponentInChildren<WallLighting>(true);
             _animation = GetComponent<WallAnimation>();
         }
@@ -33,6 +35,7 @@ namespace Wall
             yield return new WaitForSeconds(wallWarningInterval);
 
             _animation.BecameDanger();
+            _sound.PlayDangerSound();
 
             yield return new WaitForSeconds(WaitingDangerAnimationEndingInterval);
 

@@ -117,13 +117,13 @@ namespace Player
         {
             SetIsSideAxisHeld();
 
+            _playerSounds.Jump(IsGrounded);
             // HACK to stop velocity changing immediately
             _playerRunning.IsGrounded = false;
 
             FreezePerpendicularAxis(gravity);
             _gravityHandler.SwitchLocalGravity(gravity);
             _rig.AddForce(jumpVector, ForceMode2D.Impulse);
-            _playerSounds.Jump();
         }
 
         // This method was added because of slight side movement
