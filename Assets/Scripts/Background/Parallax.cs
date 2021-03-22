@@ -13,7 +13,7 @@ public class Parallax : MonoBehaviour
     {
         var cachedTransform = transform;
         cachedTransform.position = new Vector3(0, 0, cachedTransform.position.z);
-        PlayerCollisions.OnPlayerDied += PlayerDied;
+        PlayerCollisions.OnPlayerDeath += PlayerCollisions_OnPlayerDeath;
         _playerDied = false;
         _player = GameObject.FindGameObjectWithTag(Tags.Player);
     }
@@ -29,7 +29,7 @@ public class Parallax : MonoBehaviour
         cachedTransform.position = new Vector3(newPosX, newPosY, cachedTransform.position.z);
     }
 
-    private static void PlayerDied()
+    private static void PlayerCollisions_OnPlayerDeath(bool deathOfFire)
     {
         _playerDied = true;
     }
