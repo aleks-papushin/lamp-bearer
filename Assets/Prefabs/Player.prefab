@@ -90,6 +90,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &1894497229938108207
@@ -384,13 +385,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d25f58899b8bc848a7440a5e898e2b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 1447504297}
   _jumpForce: 11
   _forbidDirectionChangingDistance: 1.5
   _playerSounds: {fileID: 1495898472663841162}
   _gravityHandler: {fileID: 1068632376935203733}
-  _spriteFacing: {fileID: 2789588611599096974}
-  _spriteRotation: {fileID: 7037271132069420273}
 --- !u!114 &8311341827810949518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,17 +450,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f1bb3cc4b1537a548bee42be03c0da04, type: 3}
   - {fileID: 8300000, guid: 5ca78bb4f1e79ef4da80867952df831d, type: 3}
   - {fileID: 8300000, guid: 7dc2bfa8cbe0cbc49b73b4de2d277904, type: 3}
-  _oilTaken:
-  - {fileID: 8300000, guid: 8ed9c000b7ea2a848a36fbed5e2153c9, type: 3}
-  - {fileID: 8300000, guid: 8ebf1eadaf4b54747aa1d314365f0ba0, type: 3}
-  - {fileID: 8300000, guid: 574643606d558994e9a04d8acb84eff4, type: 3}
-  - {fileID: 8300000, guid: 9ea4a3541c57ccc4792b7626801c5362, type: 3}
-  - {fileID: 8300000, guid: 0f966dc18dea3b9449bb86a59712f2c9, type: 3}
-  - {fileID: 8300000, guid: 4fbb0874415b9f349840c4c7fa3e4746, type: 3}
-  - {fileID: 8300000, guid: ce4e786ecbf31554185ec97d8bf5291e, type: 3}
-  - {fileID: 8300000, guid: 322a862f2442b92469915c7637adb5aa, type: 3}
-  - {fileID: 8300000, guid: f41a6015e6f99ac4894b196b0c80cf10, type: 3}
-  - {fileID: 8300000, guid: 12ddb23094812af47b3d42d944c2f556, type: 3}
   _playerAudio: {fileID: 7316892633350565881}
 --- !u!114 &6660765314491143587
 MonoBehaviour:
@@ -502,7 +489,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2b78b0aaf0b884fb23381464616c35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gravity: 9.8
 --- !u!114 &2789588611599096974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,7 +501,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 032e12a0f421f9142be8a6988dea5b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 1894497229938108206}
 --- !u!114 &7037271132069420273
 MonoBehaviour:
   m_ObjectHideFlags: 0

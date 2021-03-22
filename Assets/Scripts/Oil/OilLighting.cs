@@ -16,7 +16,7 @@ namespace Oil
             _player = GameObject.FindGameObjectWithTag(Tags.Player);
             _playerDied = false;
             _light = GetComponent<Light>();
-            PlayerCollisions.OnPlayerDied += PlayerDied;
+            PlayerCollisions.OnPlayerDeath += PlayerCollisions_OnPlayerDeath;
         }
 
         private void Update()
@@ -26,7 +26,7 @@ namespace Oil
             _light.intensity = _maxLightIntensity / (distance * (distance * 0.1f) + 1);
         }
     
-        private static void PlayerDied()
+        private static void PlayerCollisions_OnPlayerDeath(bool deathOfFire)
         {
             _playerDied = true;
         }
