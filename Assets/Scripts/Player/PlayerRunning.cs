@@ -37,13 +37,13 @@ namespace Player
             {
                 if (Input.GetAxisRaw("Horizontal") < 0)
                 {
-                    RigidbodySetVelocity(new Vector2(-1, 0), _speed);
+                    _rig.velocity = Vector2.left * _speed;
                     _facing.Handle(Direction.Left);
                     _animator.SetFloat(Speed, _speed);
                 }
                 else if (Input.GetAxisRaw("Horizontal") > 0)
                 {
-                    RigidbodySetVelocity(new Vector2(1, 0), _speed);
+                    _rig.velocity = Vector2.right * _speed;
                     _facing.Handle(Direction.Right);
                     _animator.SetFloat(Speed, _speed);
                 }
@@ -56,13 +56,13 @@ namespace Player
             {
                 if (Input.GetAxisRaw("Vertical") < 0)
                 {
-                    RigidbodySetVelocity(new Vector2(0, -1), _speed);
+                    _rig.velocity = Vector2.down* _speed;
                     _facing.Handle(Direction.Up);
                     _animator.SetFloat(Speed, _speed);
                 }
                 else if (Input.GetAxisRaw("Vertical") > 0)
                 {
-                    RigidbodySetVelocity(new Vector2(0, 1), _speed);
+                    _rig.velocity = Vector2.up * _speed;
                     _facing.Handle(Direction.Down);
                     _animator.SetFloat(Speed, _speed);
                 }
@@ -70,14 +70,6 @@ namespace Player
                 {
                     _animator.SetFloat(Speed, 0);
                 }
-            }
-        }
-
-        private void RigidbodySetVelocity(Vector2 vector, float speed)
-        {
-            if (_playerWallCollisions.IsGrounded)
-            {
-                _rig.velocity = vector * speed;
             }
         }
     }

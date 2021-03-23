@@ -53,14 +53,7 @@ namespace Player
                     throw new ArgumentOutOfRangeException();
             }
         }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            if (collision.gameObject.tag.Contains(Tags.CornerSuffix))
-            {
-            }
-        }
-
+        
         private void CornerJump(Corner currentCorner)
         {
             switch (currentCorner)
