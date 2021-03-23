@@ -1,6 +1,5 @@
 ﻿using System;
 using Resources;
-using Spawn;
 using UnityEngine;
 using Wall;
 
@@ -12,40 +11,27 @@ namespace Player
         private PlayerController _playerController;
         private LightIntensityController _light;
         private bool _deathOfFire;
+        private Rigidbody2D _rig;
         
         public static event Action<bool> OnPlayerDeath;
-
 
         private void Start()
         {
             _playerController = GetComponent<PlayerController>();
             _light = GetComponent<LightIntensityController>();
+            _rig = GetComponent<Rigidbody2D>();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            HandleWalls(collision);        
-            HandlePlayerGrounding(collision);
-            HandleEnemy(collision);
-        }
-
-        private void HandleEnemy(Collision2D collision)
-        {
-            if (collision.gameObject.tag.Contains(Tags.Enemy))
-            {
-                HandlePlayerDead();
-            }
-        }
-
-        private void HandleWalls(Collision2D collision)
-        {
-            if (!collision.gameObject.tag.Contains(Tags.WallSuffix)) return;
-            HandleDangerousWall(collision);
+            OnDangerousWall(collision);        
+            OnPlayerGrounding(collision);
+            OnEnemyCollision(collision);
         }
 
         private void OnCollisionStay2D(Collision2D collision)
         {        
-            HandleDangerousWall(collision);
+            OnDangerousWall(collision);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -55,26 +41,35 @@ namespace Player
                 _light.OilTaken();
             }
         }
+        
+        private void OnEnemyCollision(Collision2D collision)
+        {
+            if (collision.gameObject.tag.Contains(Tags.Enemy))
+            {
+                PlayerDie();
+            }
+        }
 
-        private void HandlePlayerGrounding(Collision2D collision)
+        private void OnPlayerGrounding(Collision2D collision)
         {
             if (!collision.gameObject.tag.Contains(Tags.WallSuffix)) return;
+            _rig.velocity = Vector2.zero;
             _playerController.DirectionWasChangedInJump = false;
-            _playerController.UnfreezeRig();
             _playerSounds.Landing();
         }
 
-        private void HandleDangerousWall(Collision2D collision)
+        private void OnDangerousWall(Collision2D collision)
         {
+            if (!collision.gameObject.tag.Contains(Tags.WallSuffix)) return;
             var wall = collision.gameObject.GetComponent<WallDanger>();
             if (wall != null && wall.IsDangerous)
             {
                 _deathOfFire = true;
-                HandlePlayerDead();
+                PlayerDie();
             }
         }
 
-        private void HandlePlayerDead()
+        private void PlayerDie()
         {
             Destroy(gameObject);            
         }

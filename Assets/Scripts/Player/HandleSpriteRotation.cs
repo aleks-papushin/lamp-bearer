@@ -13,16 +13,16 @@ namespace Player
         private float _rotationSpeed;
 
         private PlayerGravityHandler _gravityHandler;
-        private ObjectWallCollisions _groundedStateHandler;
+        private PlayerWallCollisions _groundedStateHandler;
 
         private void Awake()
         {
             _rotationSpeed = _defaultRotationSpeed;
-            _groundedStateHandler = GetComponent<ObjectWallCollisions>();
+            _groundedStateHandler = GetComponent<PlayerWallCollisions>();
             _gravityHandler = GetComponent<PlayerGravityHandler>();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (_groundedStateHandler.IsGrounded) return;
 

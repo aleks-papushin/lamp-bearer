@@ -1,26 +1,51 @@
-﻿using System;
-using Resources;
+﻿using Resources;
 using UnityEngine;
-using Wall;
 
 namespace Player
 {
-    public class PlayerWallCollisions : ObjectWallCollisions
+    public class PlayerWallCollisions : MonoBehaviour
     {
-        public static event Action<bool> OnIsGroundedChanged;
+        private enum Wall 
+        { 
+            Down, 
+            Left, 
+            Up, 
+            Right,
+            None
+        }
+        
+        private Wall _wallDirection;
+        
+        public bool IsTouchBottomWall => _wallDirection == Wall.Down;
+
+        public bool IsTouchUpperWall => _wallDirection == Wall.Up;
+
+        public bool IsTouchLeftWall => _wallDirection == Wall.Left;
+
+        public bool IsTouchRightWall => _wallDirection == Wall.Right;
+
+        public bool IsTouchHorizontalWall => IsTouchBottomWall || IsTouchUpperWall;
+        public bool IsTouchVerticalWall => IsTouchLeftWall || IsTouchRightWall;
+
+        public bool IsGrounded => _wallDirection != Wall.None;
 
         private void OnCollisionEnter2D(Collision2D otherCollider)
         {
             if (!otherCollider.gameObject.tag.Contains(Tags.WallSuffix)) return;
-            HandleCollisionState(otherCollider, 1);
-            OnIsGroundedChanged?.Invoke(IsGrounded);
+            _wallDirection = otherCollider.gameObject.tag switch
+            {
+                Tags.LeftWall => Wall.Left,
+                Tags.RightWall => Wall.Right,
+                Tags.BottomWall => Wall.Down,
+                Tags.UpperWall => Wall.Up,
+                _ => _wallDirection
+            };
         }
 
         private void OnCollisionExit2D(Collision2D otherCollider)
         {
             if (!otherCollider.gameObject.tag.Contains(Tags.WallSuffix)) return;
-            HandleCollisionState(otherCollider, -1);
-            OnIsGroundedChanged?.Invoke(IsGrounded);
+            _wallDirection = Wall.None;
         }
     }
 }
