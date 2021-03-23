@@ -61,7 +61,6 @@ namespace Player
             if (!collision.gameObject.tag.Contains(Tags.WallSuffix)) return;
             _rig.velocity = Vector2.zero;
             _playerController.DirectionWasChangedInJump = false;
-            _playerController.UnfreezeRig();
             _playerSounds.Landing();
         }
 

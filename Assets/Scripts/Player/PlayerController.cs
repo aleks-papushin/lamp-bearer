@@ -58,11 +58,6 @@ namespace Player
             HandleInAirDirectionChanging();
         }
 
-        public void UnfreezeRig()
-        {
-            _rig.constraints = RigidbodyConstraints2D.FreezeRotation;
-        }
-
         private void HandleJumping()
         {
             // if on the surface, add impulse force in the opposite side
@@ -118,30 +113,10 @@ namespace Player
                 Direction.Up => Vector2.up,
                 _ => throw new ArgumentOutOfRangeException(nameof(gravity), gravity, null)
             };
-
-            FreezePerpendicularAxis(gravity);
+            
             _gravityHandler.SwitchLocalGravity(gravity);
             _rig.velocity = jumpVector * _jumpForce;
             _playerSounds.Jump();
-        }
-
-        // This method was added because of slight side movement
-        // observed in case if player pressed jump and side movement buttons simultaneously
-        private void FreezePerpendicularAxis(Direction gravity)
-        {
-            switch (gravity)
-            {
-                case Direction.Down:
-                case Direction.Up:
-                    _rig.constraints = RigidbodyConstraints2D.FreezePositionX;
-                    break;
-                case Direction.Left:
-                case Direction.Right:
-                    _rig.constraints = RigidbodyConstraints2D.FreezePositionY;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(gravity), gravity, null);
-            }
         }
 
         private bool ForbidInAirTurning()
