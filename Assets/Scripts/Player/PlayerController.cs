@@ -29,8 +29,6 @@ namespace Player
         private static bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
         private static bool IsInputVerticalNegative => Input.GetAxisRaw("Vertical") < 0;
         private static bool IsInputVerticalPositive => Input.GetAxisRaw("Vertical") > 0;
-
-        private bool IsGrounded { get; set; }
         
         private bool IsDistanceToAnyFloorForbidsChange
         {
@@ -54,7 +52,6 @@ namespace Player
             _playerRunning = GetComponent<PlayerRunning>();
             _playerWallCollisions = GetComponent<PlayerWallCollisions>();
             _gravityHandler.SwitchLocalGravity(Direction.Down);
-            PlayerWallCollisions.OnIsGroundedChanged += PlayerWallCollisions_OnIsGroundedChanged;
         }
 
         private void FixedUpdate()
@@ -70,6 +67,7 @@ namespace Player
     
         private void HandleJumping()
         {
+            if(!_playerWallCollisions.IsGrounded) return;
             // if on the surface, add impulse force in the opposite side
             if (_isJumpAxisWasIdle && Input.GetAxisRaw("Jump") > 0)
             {
@@ -118,7 +116,7 @@ namespace Player
             SetIsSideAxisHeld();
 
             // HACK to stop velocity changing immediately
-            _playerRunning.IsGrounded = false;
+            _playerWallCollisions.IsGrounded = false;
 
             FreezePerpendicularAxis(gravity);
             _gravityHandler.SwitchLocalGravity(gravity);
@@ -149,7 +147,7 @@ namespace Player
         {
             return
                 DirectionWasChangedInJump ||
-                IsGrounded ||
+                _playerWallCollisions.IsGrounded ||
                 IsDistanceToAnyFloorForbidsChange;
         }
         
@@ -192,16 +190,6 @@ namespace Player
                     }
                 }
             }
-        }
-
-        private void PlayerWallCollisions_OnIsGroundedChanged(bool isGrounded)
-        {
-            IsGrounded = isGrounded;
-        }
-
-        private void OnDestroy()
-        {
-            PlayerWallCollisions.OnIsGroundedChanged -= PlayerWallCollisions_OnIsGroundedChanged;
         }
     }
 }

@@ -20,14 +20,14 @@ namespace Player
 
         private Rigidbody2D _rig;
 
-        private ObjectWallCollisions _wallCollisions;
+        private PlayerWallCollisions _wallCollisions;
         private PlayerGravityHandler _gravitySwitcher;
         private PlayerSounds _sound;
 
         private void Awake()
         {
             _rig = GetComponent<Rigidbody2D>();
-            _wallCollisions = GetComponent<ObjectWallCollisions>();
+            _wallCollisions = GetComponent<PlayerWallCollisions>();
             _gravitySwitcher = GetComponent<PlayerGravityHandler>();
             _sound = GetComponent<PlayerSounds>();
         }

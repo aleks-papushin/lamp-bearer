@@ -13,8 +13,6 @@ namespace Player
         private Rigidbody2D _rig;
         private static readonly int Speed = Animator.StringToHash("Speed");
 
-        public bool IsGrounded { get; set; }
-
         private void Start()
         {
             _rig = GetComponent<Rigidbody2D>();
@@ -22,12 +20,11 @@ namespace Player
             _facing = GetComponent<HandleObjectFacing>();
             _gravityHandler = GetComponent<PlayerGravityHandler>();
             _playerWallCollisions = GetComponent<PlayerWallCollisions>();
-            PlayerWallCollisions.OnIsGroundedChanged += PlayerWallCollisions_OnIsGroundedChanged;
         }
 
         private void Update()
         {
-            if (IsGrounded)
+            if (_playerWallCollisions.IsGrounded)
             {
                 HandleMovement();
             }
@@ -78,20 +75,10 @@ namespace Player
 
         private void RigidbodySetVelocity(Vector2 vector, float speed)
         {
-            if (IsGrounded)
+            if (_playerWallCollisions.IsGrounded)
             {
                 _rig.velocity = vector * speed;
             }
-        }
-
-        private void PlayerWallCollisions_OnIsGroundedChanged(bool isGrounded)
-        {
-            IsGrounded = isGrounded;
-        }
-
-        private void OnDestroy()
-        {
-            PlayerWallCollisions.OnIsGroundedChanged -= PlayerWallCollisions_OnIsGroundedChanged;
         }
     }
 }

@@ -1,14 +1,15 @@
 ﻿using System;
+using Player;
 using UnityEngine;
 using Wall;
 
 public class HandleObjectFacing : MonoBehaviour
 {
-    private ObjectWallCollisions _collisions;
+    private PlayerWallCollisions _collisions;
 
     private void Awake()
     {
-        _collisions = GetComponent<ObjectWallCollisions>();
+        _collisions = GetComponent<PlayerWallCollisions>();
     }
 
     public void Handle(Direction direction)

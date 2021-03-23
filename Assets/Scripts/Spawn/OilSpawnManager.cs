@@ -32,7 +32,7 @@ namespace Spawn
         // TODO change to event handler which will be check if there is no oil when player is grounded
         private IEnumerator WaitPlayerGroundedAndSpawnOil()
         {
-            var playerWallCollisions = PlayerController.Player.GetComponent<ObjectWallCollisions>();
+            var playerWallCollisions = PlayerController.Player.GetComponent<PlayerWallCollisions>();
 
             while (!playerWallCollisions.IsGrounded)
             {
