@@ -64,14 +64,6 @@ public class HandleObjectFacing : MonoBehaviour
         }
     }
 
-    public void Handle(bool positive)
-    {
-        if (positive && transform.localScale.x > 0 || !positive && transform.localScale.x < 0)
-        {
-            FlipScale();
-        }
-    }
-
     private void FlipScale()
     {
         var localScale = transform.localScale;

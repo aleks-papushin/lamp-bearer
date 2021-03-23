@@ -1,5 +1,4 @@
-﻿using System;
-using Resources;
+﻿using Resources;
 using UnityEngine;
 
 namespace Enemy
@@ -7,7 +6,6 @@ namespace Enemy
     public class EnemyWalkerMovement : MonoBehaviour
     {
         [SerializeField] private float _speed;
-        private HandleObjectFacing _facing;
         private Rigidbody2D _rig;
         public GameObject Wall { get; set; }
 
@@ -22,7 +20,6 @@ namespace Enemy
         private void Start()
         {
             _rig = GetComponent<Rigidbody2D>();
-            _facing = GetComponent<HandleObjectFacing>();
         }
 
         private void FixedUpdate()
@@ -54,7 +51,7 @@ namespace Enemy
         {
             var directionMod = IsDirectionPositive ? 1 : -1;
 
-            _facing.Handle(IsDirectionPositive);
+            RotateTowardMovement(IsDirectionPositive);
             _rig.velocity = Wall.tag switch
             {
                 Tags.BottomWall => new Vector2(directionMod, 0) * _speed,
@@ -63,6 +60,15 @@ namespace Enemy
                 Tags.RightWall => new Vector2(0, directionMod) * _speed,
                 _ => _rig.velocity
             };
+        }
+        
+        private void RotateTowardMovement(bool positive)
+        {
+            if (positive && transform.localScale.x > 0 || !positive && transform.localScale.x < 0)
+            {
+                var localScale = transform.localScale;
+                transform.localScale = new Vector3(localScale.x * -1, localScale.y, localScale.z);
+            }
         }
     }
 }
