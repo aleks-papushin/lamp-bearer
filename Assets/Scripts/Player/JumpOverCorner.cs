@@ -111,9 +111,9 @@ namespace Player
             }
         }
 
-        private void PerformCornerJump(Vector2 force, Direction newGravity)
+        private void PerformCornerJump(Vector2 speed, Direction newGravity)
         {
-            _rig.velocity = force;
+            _rig.velocity = speed;
             _gravitySwitcher.SwitchLocalGravity(newGravity);
             _sound.CornerJump();
         }
