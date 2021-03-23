@@ -21,7 +21,6 @@ namespace Player
         [SerializeField] private PlayerGravityHandler _gravityHandler;
 
         // other
-        private PlayerRunning _playerRunning;
         private Rigidbody2D _rig;
         private bool _isSideAxisWasHeld;
 
@@ -29,7 +28,7 @@ namespace Player
         private static bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
         private static bool IsInputVerticalNegative => Input.GetAxisRaw("Vertical") < 0;
         private static bool IsInputVerticalPositive => Input.GetAxisRaw("Vertical") > 0;
-        
+
         private bool IsDistanceToAnyFloorForbidsChange
         {
             get
@@ -49,7 +48,6 @@ namespace Player
         private void Start()
         {
             _rig = GetComponent<Rigidbody2D>();
-            _playerRunning = GetComponent<PlayerRunning>();
             _playerWallCollisions = GetComponent<PlayerWallCollisions>();
             _gravityHandler.SwitchLocalGravity(Direction.Down);
         }
@@ -64,36 +62,35 @@ namespace Player
         {
             _rig.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
-    
+
         private void HandleJumping()
         {
-            if(!_playerWallCollisions.IsGrounded) return;
+            if (!_playerWallCollisions.IsGrounded) return;
             // if on the surface, add impulse force in the opposite side
             if (_isJumpAxisWasIdle && Input.GetAxisRaw("Jump") > 0)
             {
                 if (_playerWallCollisions.IsTouchBottomWall)
                 {
-                    Jump(Direction.Up, new Vector2(0, _jumpForce));
+                    Jump(Direction.Up);
                 }
                 else if (_playerWallCollisions.IsTouchUpperWall)
                 {
-                    Jump(Direction.Down, new Vector2(0, -_jumpForce));
+                    Jump(Direction.Down);
                 }
                 else if (_playerWallCollisions.IsTouchLeftWall)
                 {
-                    Jump(Direction.Right, new Vector2(_jumpForce, 0));
+                    Jump(Direction.Right);
                 }
                 else if (_playerWallCollisions.IsTouchRightWall)
                 {
-                    Jump(Direction.Left, new Vector2(-_jumpForce, 0));
+                    Jump(Direction.Left);
                 }
 
                 _isJumpAxisWasIdle = false;
-                
             }
             else if (Input.GetAxisRaw("Jump") == 0)
             {
-                _isJumpAxisWasIdle = true;                
+                _isJumpAxisWasIdle = true;
             }
         }
 
@@ -111,16 +108,24 @@ namespace Player
             }
         }
 
-        private void Jump(Direction gravity, Vector2 jumpVector)
+        private void Jump(Direction gravity)
         {
             SetIsSideAxisHeld();
+            var jumpVector = gravity switch
+            {
+                Direction.Left => Vector2.left,
+                Direction.Down => Vector2.down,
+                Direction.Right => Vector2.right,
+                Direction.Up => Vector2.up,
+                _ => throw new ArgumentOutOfRangeException(nameof(gravity), gravity, null)
+            };
 
             // HACK to stop velocity changing immediately
             _playerWallCollisions.IsGrounded = false;
 
             FreezePerpendicularAxis(gravity);
             _gravityHandler.SwitchLocalGravity(gravity);
-            _rig.AddForce(jumpVector, ForceMode2D.Impulse);
+            _rig.AddForce(jumpVector * _jumpForce, ForceMode2D.Impulse);
             _playerSounds.Jump();
         }
 
@@ -150,12 +155,12 @@ namespace Player
                 _playerWallCollisions.IsGrounded ||
                 IsDistanceToAnyFloorForbidsChange;
         }
-        
+
         private void HandleInAirDirectionChanging()
         {
             // if side buttons were held before jump - 
             // must not change direction until button is up and pressed again
-            if (_isSideAxisWasHeld) 
+            if (_isSideAxisWasHeld)
             {
                 SetIsSideAxisHeld();
             }
@@ -169,11 +174,11 @@ namespace Player
 
                     if (IsInputHorizontalNegative)
                     {
-                        Jump(Direction.Left, new Vector2(-_jumpForce, 0));
+                        Jump(Direction.Left);
                     }
                     else if (IsInputHorizontalPositive)
                     {
-                        Jump(Direction.Right, new Vector2(_jumpForce, 0));
+                        Jump(Direction.Right);
                     }
                 }
                 else if (Input.GetAxisRaw("Vertical") != 0 && _gravityHandler.IsGravityVectorHorizontal)
@@ -182,15 +187,14 @@ namespace Player
 
                     if (IsInputVerticalNegative)
                     {
-                        Jump(Direction.Down, new Vector2(0, -_jumpForce));
+                        Jump(Direction.Down); 
                     }
                     else if (IsInputVerticalPositive)
                     {
-                        Jump(Direction.Up, new Vector2(0, _jumpForce));
+                        Jump(Direction.Up);
                     }
                 }
             }
         }
     }
 }
-
