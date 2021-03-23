@@ -13,7 +13,6 @@ public class MusicPlayer : MonoBehaviour
     private readonly float _defaultMusicVolume = 0.25f;
     private float _currentVolume;
     private AudioSource _musicSource;
-    private AudioSource _soundSource;
 
     private void Awake()
     {
@@ -30,8 +29,7 @@ public class MusicPlayer : MonoBehaviour
 
     private void Start()
     {
-        _musicSource = gameObject.AddComponent<AudioSource>();
-        _soundSource = gameObject.AddComponent<AudioSource>();
+        _musicSource = gameObject.GetComponent<AudioSource>();
         _musicSource.volume = _defaultMusicVolume;
         _currentVolume = _musicSource.volume;
         PlayLoop(_musicSource, _intro);
@@ -49,11 +47,11 @@ public class MusicPlayer : MonoBehaviour
     {
         if (deathOfFire)
         {
-            _soundSource.PlayOneShot(_deathOfFire);
+            AudioSource.PlayClipAtPoint(_deathOfFire, Camera.main.transform.position);
         }
         else
         {
-            _soundSource.PlayOneShot(_deathOfEnemy);
+            AudioSource.PlayClipAtPoint(_deathOfEnemy, Camera.main.transform.position);
         }
     }
 
