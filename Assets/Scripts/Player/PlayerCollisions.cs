@@ -11,13 +11,15 @@ namespace Player
         [SerializeField] private PlayerSounds _playerSounds;
         private PlayerController _playerController;
         private LightIntensityController _light;
-        
+        private Rigidbody2D _rig;
+
         public static event Action OnPlayerDied;
 
         private void Start()
         {
             _playerController = GetComponent<PlayerController>();
             _light = GetComponent<LightIntensityController>();
+            _rig = GetComponent<Rigidbody2D>();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -57,6 +59,7 @@ namespace Player
         private void HandlePlayerGrounding(Collision2D collision)
         {
             if (!collision.gameObject.tag.Contains(Tags.WallSuffix)) return;
+            _rig.velocity = Vector2.zero;
             _playerController.DirectionWasChangedInJump = false;
             _playerController.UnfreezeRig();
             _playerSounds.Landing();

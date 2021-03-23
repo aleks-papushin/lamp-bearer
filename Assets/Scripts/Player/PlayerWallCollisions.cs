@@ -5,31 +5,39 @@ namespace Player
 {
     public class PlayerWallCollisions : MonoBehaviour
     {
-        private Direction _wallDirection;
+        private enum Wall 
+        { 
+            Down, 
+            Left, 
+            Up, 
+            Right,
+            None
+        }
         
-        public bool IsTouchBottomWall => _wallDirection == Direction.Down;
+        private Wall _wallDirection;
+        
+        public bool IsTouchBottomWall => _wallDirection == Wall.Down;
 
-        public bool IsTouchUpperWall => _wallDirection == Direction.Up;
+        public bool IsTouchUpperWall => _wallDirection == Wall.Up;
 
-        public bool IsTouchLeftWall => _wallDirection == Direction.Left;
+        public bool IsTouchLeftWall => _wallDirection == Wall.Left;
 
-        public bool IsTouchRightWall => _wallDirection == Direction.Right;
+        public bool IsTouchRightWall => _wallDirection == Wall.Right;
 
         public bool IsTouchHorizontalWall => IsTouchBottomWall || IsTouchUpperWall;
         public bool IsTouchVerticalWall => IsTouchLeftWall || IsTouchRightWall;
-        
-        public bool IsGrounded = true;
+
+        public bool IsGrounded => _wallDirection != Wall.None;
 
         private void OnCollisionEnter2D(Collision2D otherCollider)
         {
             if (!otherCollider.gameObject.tag.Contains(Tags.WallSuffix)) return;
-            IsGrounded = true;
             _wallDirection = otherCollider.gameObject.tag switch
             {
-                Tags.LeftWall => Direction.Left,
-                Tags.RightWall => Direction.Right,
-                Tags.BottomWall => Direction.Down,
-                Tags.UpperWall => Direction.Up,
+                Tags.LeftWall => Wall.Left,
+                Tags.RightWall => Wall.Right,
+                Tags.BottomWall => Wall.Down,
+                Tags.UpperWall => Wall.Up,
                 _ => _wallDirection
             };
         }
@@ -37,7 +45,7 @@ namespace Player
         private void OnCollisionExit2D(Collision2D otherCollider)
         {
             if (!otherCollider.gameObject.tag.Contains(Tags.WallSuffix)) return;
-            IsGrounded = false;
+            _wallDirection = Wall.None;
         }
     }
 }

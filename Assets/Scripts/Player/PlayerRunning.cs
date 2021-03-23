@@ -24,26 +24,25 @@ namespace Player
 
         private void Update()
         {
-            if (_playerWallCollisions.IsGrounded)
-            {
-                HandleMovement();
-            }
+            HandleMovement();
         }
 
         private void HandleMovement()
-        {          
+        {
             // TODO refactor conditions - extract method
+            var currentPosition = transform.position;
+            var deltaPos = _speed * Time.smoothDeltaTime;
             if (_playerWallCollisions.IsTouchHorizontalWall && _gravityHandler.IsGravityVectorVertical)
             {
                 if (Input.GetAxisRaw("Horizontal") < 0)
                 {
-                    _rig.velocity = Vector2.left * _speed;
+                    _rig.transform.position = new Vector2(currentPosition.x - deltaPos, currentPosition.y);
                     _facing.Handle(Direction.Left);
                     _animator.SetFloat(Speed, _speed);
                 }
                 else if (Input.GetAxisRaw("Horizontal") > 0)
                 {
-                    _rig.velocity = Vector2.right * _speed;
+                    _rig.transform.position = new Vector2(currentPosition.x + deltaPos, currentPosition.y);
                     _facing.Handle(Direction.Right);
                     _animator.SetFloat(Speed, _speed);
                 }
@@ -56,13 +55,13 @@ namespace Player
             {
                 if (Input.GetAxisRaw("Vertical") < 0)
                 {
-                    _rig.velocity = Vector2.down* _speed;
+                    _rig.transform.position = new Vector2(currentPosition.x, currentPosition.y - deltaPos);
                     _facing.Handle(Direction.Up);
                     _animator.SetFloat(Speed, _speed);
                 }
                 else if (Input.GetAxisRaw("Vertical") > 0)
                 {
-                    _rig.velocity = Vector2.up * _speed;
+                    _rig.transform.position = new Vector2(currentPosition.x, currentPosition.y + deltaPos);
                     _facing.Handle(Direction.Down);
                     _animator.SetFloat(Speed, _speed);
                 }

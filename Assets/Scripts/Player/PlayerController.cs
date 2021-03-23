@@ -52,7 +52,7 @@ namespace Player
             _gravityHandler.SwitchLocalGravity(Direction.Down);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             HandleJumping();
             HandleInAirDirectionChanging();
@@ -65,7 +65,6 @@ namespace Player
 
         private void HandleJumping()
         {
-            if (!_playerWallCollisions.IsGrounded) return;
             // if on the surface, add impulse force in the opposite side
             if (_isJumpAxisWasIdle && Input.GetAxisRaw("Jump") > 0)
             {
@@ -120,12 +119,9 @@ namespace Player
                 _ => throw new ArgumentOutOfRangeException(nameof(gravity), gravity, null)
             };
 
-            // HACK to stop velocity changing immediately
-            _playerWallCollisions.IsGrounded = false;
-
             FreezePerpendicularAxis(gravity);
             _gravityHandler.SwitchLocalGravity(gravity);
-            _rig.AddForce(jumpVector * _jumpForce, ForceMode2D.Impulse);
+            _rig.velocity = jumpVector * _jumpForce;
             _playerSounds.Jump();
         }
 

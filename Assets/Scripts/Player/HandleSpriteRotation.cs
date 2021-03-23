@@ -22,7 +22,7 @@ namespace Player
             _gravityHandler = GetComponent<PlayerGravityHandler>();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (_groundedStateHandler.IsGrounded) return;
 
