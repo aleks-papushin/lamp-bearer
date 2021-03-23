@@ -7,7 +7,7 @@ namespace Player
         [SerializeField] private float _speed;
 
         private Animator _animator;
-        private HandleObjectFacing _facing;
+        private PlayerFacing _facing;
         private PlayerGravityHandler _gravityHandler;
         private PlayerWallCollisions _playerWallCollisions;
         private Rigidbody2D _rig;
@@ -17,7 +17,7 @@ namespace Player
         {
             _rig = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
-            _facing = GetComponent<HandleObjectFacing>();
+            _facing = GetComponent<PlayerFacing>();
             _gravityHandler = GetComponent<PlayerGravityHandler>();
             _playerWallCollisions = GetComponent<PlayerWallCollisions>();
         }
