@@ -22,10 +22,10 @@ namespace Player
 
         private void Update()
         {
-            HandleMovement();
+            Move();
         }
 
-        private void HandleMovement()
+        private void Move()
         {
             // TODO refactor conditions - extract method
             var currentPosition = transform.position;
