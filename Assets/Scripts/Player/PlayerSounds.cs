@@ -6,6 +6,7 @@ namespace Player
     public class PlayerSounds : MonoBehaviour
     {
         [SerializeField] private AudioClip _jump;
+        [SerializeField] private AudioClip _airTurning;
         [SerializeField] private AudioClip[] _jumpToSide;
         [SerializeField] private AudioClip[] _landing;
 
@@ -16,9 +17,16 @@ namespace Player
             _playerAudio.PlayOneShot(PickRandom(_jumpToSide));
         }
 
-        public void Jump()
+        public void Jump(bool isGrounded)
         {
-            _playerAudio.PlayOneShot(_jump);
+            if (isGrounded)
+            {
+                _playerAudio.PlayOneShot(_jump);
+            }
+            else
+            {
+                _playerAudio.PlayOneShot(_airTurning, 0.2f);
+            }
         }
 
         public void Landing()

@@ -65,19 +65,19 @@ namespace Player
             {
                 if (_playerWallCollisions.IsTouchBottomWall)
                 {
-                    Jump(Direction.Up);
+                    Jump(Direction.Up, true);
                 }
                 else if (_playerWallCollisions.IsTouchUpperWall)
                 {
-                    Jump(Direction.Down);
+                    Jump(Direction.Down, true);
                 }
                 else if (_playerWallCollisions.IsTouchLeftWall)
                 {
-                    Jump(Direction.Right);
+                    Jump(Direction.Right, true);
                 }
                 else if (_playerWallCollisions.IsTouchRightWall)
                 {
-                    Jump(Direction.Left);
+                    Jump(Direction.Left, true);
                 }
 
                 _isJumpAxisWasIdle = false;
@@ -102,7 +102,7 @@ namespace Player
             }
         }
 
-        private void Jump(Direction gravity)
+        private void Jump(Direction gravity, bool fromGround)
         {
             SetIsSideAxisHeld();
             var jumpVector = gravity switch
@@ -116,7 +116,7 @@ namespace Player
             
             _gravityHandler.SwitchLocalGravity(gravity);
             _rig.velocity = jumpVector * _jumpForce;
-            _playerSounds.Jump();
+            _playerSounds.Jump(fromGround);
         }
 
         private bool ForbidInAirTurning()
@@ -145,11 +145,11 @@ namespace Player
 
                     if (IsInputHorizontalNegative)
                     {
-                        Jump(Direction.Left);
+                        Jump(Direction.Left, false);
                     }
                     else if (IsInputHorizontalPositive)
                     {
-                        Jump(Direction.Right);
+                        Jump(Direction.Right, false);
                     }
                 }
                 else if (Input.GetAxisRaw("Vertical") != 0 && _gravityHandler.IsGravityVectorHorizontal)
@@ -158,11 +158,11 @@ namespace Player
 
                     if (IsInputVerticalNegative)
                     {
-                        Jump(Direction.Down); 
+                        Jump(Direction.Down, false); 
                     }
                     else if (IsInputVerticalPositive)
                     {
-                        Jump(Direction.Up);
+                        Jump(Direction.Up, false);
                     }
                 }
             }

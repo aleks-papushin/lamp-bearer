@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa2a1b204bd9264ea86926ba09374be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safe: {fileID: 21300000, guid: c58c2ec619a5ddd4284b256f646b63fb, type: 3}
+  _dangerSound: {fileID: 8300000, guid: eff89a1e189426e46b741bc02fd644ac, type: 3}
 --- !u!95 &1186531237
 Animator:
   serializedVersion: 3
@@ -279,6 +279,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!114 &1003006800532668473

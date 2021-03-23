@@ -10,9 +10,10 @@ namespace Player
         [SerializeField] private PlayerSounds _playerSounds;
         private PlayerController _playerController;
         private LightIntensityController _light;
+        private bool _deathOfFire;
         private Rigidbody2D _rig;
-
-        public static event Action OnPlayerDied;
+        
+        public static event Action<bool> OnPlayerDeath;
 
         private void Start()
         {
@@ -63,6 +64,7 @@ namespace Player
             var wall = collision.gameObject.GetComponent<WallDanger>();
             if (wall != null && wall.IsDangerous)
             {
+                _deathOfFire = true;
                 PlayerDie();
             }
         }
@@ -74,7 +76,7 @@ namespace Player
 
         private void OnDestroy()
         {
-            OnPlayerDied?.Invoke();
+            OnPlayerDeath(_deathOfFire);
         }
     }
 }

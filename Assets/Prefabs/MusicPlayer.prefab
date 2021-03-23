@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7594728492122892524}
-  - component: {fileID: 7594728492122892525}
   - component: {fileID: 7594728492122892526}
+  - component: {fileID: 6169329587171180033}
   m_Layer: 0
   m_Name: MusicPlayer
   m_TagString: Untagged
@@ -32,7 +32,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &7594728492122892525
+--- !u!114 &7594728492122892526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7594728492122892527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4368a5d507b075048822d105daaa950a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _intro: {fileID: 8300000, guid: ccfbef056aa62c648a760cd11e643caa, type: 3}
+  _gameMusic:
+  - {fileID: 8300000, guid: 462597fccdd38c644ab304bf01117f5b, type: 3}
+  - {fileID: 8300000, guid: 0046c17e251a04e4ab298166ecc651d7, type: 3}
+  _deathOfFire: {fileID: 8300000, guid: fb041ba59b67e694c9a3087c8f377194, type: 3}
+  _deathOfEnemy: {fileID: 8300000, guid: 839503b54e9aefc43a9170818950f00e, type: 3}
+--- !u!82 &6169329587171180033
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,7 +62,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.25
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -128,19 +146,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7594728492122892526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7594728492122892527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4368a5d507b075048822d105daaa950a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _intro: {fileID: 8300000, guid: ccfbef056aa62c648a760cd11e643caa, type: 3}
-  _gameMusic:
-  - {fileID: 8300000, guid: 462597fccdd38c644ab304bf01117f5b, type: 3}
-  - {fileID: 8300000, guid: 0046c17e251a04e4ab298166ecc651d7, type: 3}

@@ -19,7 +19,7 @@ namespace UI
             _textMesh = transform.Find("ScoreText").GetComponent<TextMeshProUGUI>();
             _restartButton = GetComponentInChildren<Button>();
             _restartButton.onClick.AddListener(RestartGame);
-            PlayerCollisions.OnPlayerDied += PlayerCollisions_OnPlayerDied;
+            PlayerCollisions.OnPlayerDeath += PlayerCollisions_OnPlayerDied;
             gameObject.SetActive(false);
         }
 
@@ -31,7 +31,7 @@ namespace UI
             }
         }
 
-        private void PlayerCollisions_OnPlayerDied()
+        private void PlayerCollisions_OnPlayerDied(bool deathOfFire)
         {
             gameObject.SetActive(true);
             _textMesh.text = $"Your Score: {_gameStatus.getScore()}";
@@ -44,7 +44,7 @@ namespace UI
 
         private void OnDestroy()
         {
-            PlayerCollisions.OnPlayerDied -= PlayerCollisions_OnPlayerDied;
+            PlayerCollisions.OnPlayerDeath -= PlayerCollisions_OnPlayerDied;
         }
     }
 }
