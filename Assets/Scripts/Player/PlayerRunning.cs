@@ -8,7 +8,6 @@ namespace Player
 
         private Animator _animator;
         private PlayerFacing _facing;
-        private PlayerGravityHandler _gravityHandler;
         private PlayerWallCollisions _playerWallCollisions;
         private Rigidbody2D _rig;
         private static readonly int Speed = Animator.StringToHash("Speed");
@@ -18,7 +17,6 @@ namespace Player
             _rig = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
             _facing = GetComponent<PlayerFacing>();
-            _gravityHandler = GetComponent<PlayerGravityHandler>();
             _playerWallCollisions = GetComponent<PlayerWallCollisions>();
         }
 
@@ -32,7 +30,7 @@ namespace Player
             // TODO refactor conditions - extract method
             var currentPosition = transform.position;
             var deltaPos = _speed * Time.smoothDeltaTime;
-            if (_playerWallCollisions.IsTouchHorizontalWall && _gravityHandler.IsGravityVectorVertical)
+            if (_playerWallCollisions.IsTouchHorizontalWall)
             {
                 if (Input.GetAxisRaw("Horizontal") < 0)
                 {
@@ -51,7 +49,7 @@ namespace Player
                     _animator.SetFloat(Speed, 0);
                 }
             }
-            else if (_playerWallCollisions.IsTouchVerticalWall && !_gravityHandler.IsGravityVectorVertical)
+            else if (_playerWallCollisions.IsTouchVerticalWall)
             {
                 if (Input.GetAxisRaw("Vertical") < 0)
                 {
