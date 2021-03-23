@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7388424766153083356}
   - component: {fileID: 1186531237}
   - component: {fileID: 1186531236}
-  - component: {fileID: 4541461419720345595}
   m_Layer: 0
   m_Name: HorizontalWall
   m_TagString: BottomWall
@@ -127,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa2a1b204bd9264ea86926ba09374be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dangerSound: {fileID: 8300000, guid: eff89a1e189426e46b741bc02fd644ac, type: 3}
 --- !u!95 &1186531237
 Animator:
   serializedVersion: 3
@@ -158,19 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b948cb1376218ce4483581b6bfed6a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4541461419720345595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003006799126669569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 575d6c5674c76b04e8a8c931d645e0e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dangerSound: {fileID: 8300000, guid: eff89a1e189426e46b741bc02fd644ac, type: 3}
 --- !u!1 &1003006800210946499
 GameObject:
   m_ObjectHideFlags: 0
