@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyWalkerMovement : MonoBehaviour
+    public class EnemyMovement : MonoBehaviour
     {
         [SerializeField] private float _speed;
         private Rigidbody2D _rig;

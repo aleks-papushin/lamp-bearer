@@ -9,7 +9,7 @@ namespace Enemy
         [SerializeField] private float _initScaleMultiplier;
         [SerializeField] private float _incrementValue;
         private float _defaultScaleX;
-        private EnemyWalkerMovement _movement;
+        private EnemyMovement _movement;
         private bool _isCreated;
         private bool _isIncreasing;
         private bool _isDestroying;
@@ -19,7 +19,7 @@ namespace Enemy
             var localScale = transform.localScale;
             _defaultScaleX = Math.Abs(localScale.x);
             transform.localScale = localScale * _initScaleMultiplier;
-            _movement = GetComponent<EnemyWalkerMovement>();
+            _movement = GetComponent<EnemyMovement>();
         }
 
         private void Update()

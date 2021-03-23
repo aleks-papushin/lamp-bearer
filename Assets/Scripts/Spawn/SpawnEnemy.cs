@@ -19,10 +19,10 @@ namespace Spawn
         {
             var cachedTransform = transform;
             _enemy = Instantiate(_enemyPrefab, cachedTransform.position, cachedTransform.rotation);
-            var enemyWalkerMovement = _enemy.GetComponent<EnemyWalkerMovement>();
-            enemyWalkerMovement.IsDirectionPositive = _isEnemyDirectionPositive;
-            enemyWalkerMovement.Speed = speed;
-            enemyWalkerMovement.Wall = _wall;
+            var enemyMovement = _enemy.GetComponent<EnemyMovement>();
+            enemyMovement.IsDirectionPositive = _isEnemyDirectionPositive;
+            enemyMovement.Speed = speed;
+            enemyMovement.Wall = _wall;
         }
     }
 }
