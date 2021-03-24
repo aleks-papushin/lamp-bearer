@@ -90,7 +90,7 @@ namespace Player
         // in case if direction button was held in moment when player jumps
         private void SetIsSideAxisHeld()
         {
-            if (Vector2.Dot(_rig.velocity, Vector2.left) == 0)
+            if (Vector2.Dot(_rig.velocity, Vector2.up) == 0)
             {
                 _isSideAxisWasHeld = Input.GetAxisRaw("Vertical") != 0;
             }
@@ -102,7 +102,6 @@ namespace Player
 
         private void Jump(Direction direction, bool fromGround)
         {
-            SetIsSideAxisHeld();
             var jumpVector = direction switch
             {
                 Direction.Left => Vector2.left,
@@ -114,6 +113,7 @@ namespace Player
             
             _rig.velocity = jumpVector * _jumpForce;
             _playerSounds.Jump(fromGround);
+            SetIsSideAxisHeld();
         }
 
         private bool ForbidInAirTurning()
