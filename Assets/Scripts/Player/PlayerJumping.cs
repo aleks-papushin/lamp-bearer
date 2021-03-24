@@ -1,26 +1,21 @@
 ﻿using System;
 using System.Linq;
+using Resources;
 using UnityEngine;
 using Utils;
 using Wall;
 
 namespace Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerJumping : MonoBehaviour
     {
-        // jumping
         [SerializeField] private float _jumpForce;
-        private bool _isJumpAxisWasIdle = true;
-        internal bool DirectionWasChangedInJump;
         [SerializeField] private float _forbidDirectionChangingDistance;
-
-        // collisions
-        private PlayerWallCollisions _playerWallCollisions;
-
-        // scripts
         [SerializeField] private PlayerSounds _playerSounds;
-
-        // other
+        
+        private bool _isJumpAxisWasIdle = true;
+        private bool _directionWasChangedInJump;
+        private PlayerWallCollisions _playerWallCollisions;
         private Rigidbody2D _rig;
         private bool _isSideAxisWasHeld;
 
@@ -37,13 +32,6 @@ namespace Player
             }
         }
 
-        public static GameObject Player { get; private set; }
-
-        private void Awake()
-        {
-            Player = gameObject;
-        }
-
         private void Start()
         {
             _rig = GetComponent<Rigidbody2D>();
@@ -54,6 +42,19 @@ namespace Player
         {
             HandleJumping();
             HandleInAirDirectionChanging();
+        }
+        
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            OnPlayerGrounding(collision);
+        }
+        
+        private void OnPlayerGrounding(Collision2D collision)
+        {
+            if (!collision.gameObject.tag.Contains(Tags.WallSuffix)) return;
+            _rig.velocity = Vector2.zero;
+            _directionWasChangedInJump = false;
+            _playerSounds.Landing();
         }
 
         private void HandleJumping()
@@ -118,7 +119,7 @@ namespace Player
         private bool ForbidInAirTurning()
         {
             return
-                DirectionWasChangedInJump ||
+                _directionWasChangedInJump ||
                 _playerWallCollisions.IsGrounded ||
                 IsDistanceToAnyFloorForbidsChange;
         }
@@ -137,7 +138,7 @@ namespace Player
 
                 if (Input.GetAxisRaw("Horizontal") != 0 && Vector2.Dot(_rig.velocity, Vector2.left) == 0)
                 {
-                    DirectionWasChangedInJump = true;
+                    _directionWasChangedInJump = true;
 
                     if (IsInputHorizontalNegative)
                     {
@@ -150,7 +151,7 @@ namespace Player
                 }
                 else if (Input.GetAxisRaw("Vertical") != 0 && Vector2.Dot(_rig.velocity, Vector2.up) == 0)
                 {
-                    DirectionWasChangedInJump = true;
+                    _directionWasChangedInJump = true;
 
                     if (IsInputVerticalNegative)
                     {
