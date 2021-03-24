@@ -62,7 +62,7 @@ namespace Player
         {
             if (!collision.gameObject.tag.Contains(Tags.WallSuffix)) return;
             var wall = collision.gameObject.GetComponent<WallDanger>();
-            if (wall != null && wall.IsDangerous)
+            if (wall.IsDangerous)
             {
                 _deathOfFire = true;
                 PlayerDie();

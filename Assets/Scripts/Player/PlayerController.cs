@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using Utils;
+using Wall;
 
 namespace Player
 {
@@ -18,7 +19,6 @@ namespace Player
 
         // scripts
         [SerializeField] private PlayerSounds _playerSounds;
-        [SerializeField] private PlayerGravityHandler _gravityHandler;
 
         // other
         private Rigidbody2D _rig;
@@ -33,8 +33,7 @@ namespace Player
         {
             get
             {
-                return (from dir in (Direction[]) Enum.GetValues(typeof(Direction)) select DirectionUtils.GetFloorFor(dir))
-                    .Any(floor => transform.GetDistanceTo(floor) < _forbidDirectionChangingDistance);
+                return FindObjectsOfType<WallDanger>().Any(wall => transform.GetDistanceTo(wall.gameObject)  < _forbidDirectionChangingDistance);
             }
         }
 
@@ -49,7 +48,6 @@ namespace Player
         {
             _rig = GetComponent<Rigidbody2D>();
             _playerWallCollisions = GetComponent<PlayerWallCollisions>();
-            _gravityHandler.SwitchLocalGravity(Direction.Down);
         }
 
         private void Update()
@@ -60,7 +58,6 @@ namespace Player
 
         private void HandleJumping()
         {
-            // if on the surface, add impulse force in the opposite side
             if (_isJumpAxisWasIdle && Input.GetAxisRaw("Jump") > 0)
             {
                 if (_playerWallCollisions.IsTouchBottomWall)
@@ -92,7 +89,7 @@ namespace Player
         // in case if direction button was held in moment when player jumps
         private void SetIsSideAxisHeld()
         {
-            if (_gravityHandler.IsGravityVectorHorizontal)
+            if (Vector2.Dot(_rig.velocity, Vector2.left) == 0)
             {
                 _isSideAxisWasHeld = Input.GetAxisRaw("Vertical") != 0;
             }
@@ -102,19 +99,18 @@ namespace Player
             }
         }
 
-        private void Jump(Direction gravity, bool fromGround)
+        private void Jump(Direction direction, bool fromGround)
         {
             SetIsSideAxisHeld();
-            var jumpVector = gravity switch
+            var jumpVector = direction switch
             {
                 Direction.Left => Vector2.left,
                 Direction.Down => Vector2.down,
                 Direction.Right => Vector2.right,
                 Direction.Up => Vector2.up,
-                _ => throw new ArgumentOutOfRangeException(nameof(gravity), gravity, null)
+                _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
             };
             
-            _gravityHandler.SwitchLocalGravity(gravity);
             _rig.velocity = jumpVector * _jumpForce;
             _playerSounds.Jump(fromGround);
         }
@@ -139,7 +135,7 @@ namespace Player
             {
                 if (ForbidInAirTurning()) return;
 
-                if (Input.GetAxisRaw("Horizontal") != 0 && _gravityHandler.IsGravityVectorVertical)
+                if (Input.GetAxisRaw("Horizontal") != 0 && Vector2.Dot(_rig.velocity, Vector2.left) == 0)
                 {
                     DirectionWasChangedInJump = true;
 
@@ -152,7 +148,7 @@ namespace Player
                         Jump(Direction.Right, false);
                     }
                 }
-                else if (Input.GetAxisRaw("Vertical") != 0 && _gravityHandler.IsGravityVectorHorizontal)
+                else if (Input.GetAxisRaw("Vertical") != 0 && Vector2.Dot(_rig.velocity, Vector2.up) == 0)
                 {
                     DirectionWasChangedInJump = true;
 

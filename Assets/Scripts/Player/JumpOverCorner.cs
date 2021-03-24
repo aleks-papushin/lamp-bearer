@@ -21,14 +21,12 @@ namespace Player
         private Rigidbody2D _rig;
 
         private PlayerWallCollisions _wallCollisions;
-        private PlayerGravityHandler _gravitySwitcher;
         private PlayerSounds _sound;
 
         private void Awake()
         {
             _rig = GetComponent<Rigidbody2D>();
             _wallCollisions = GetComponent<PlayerWallCollisions>();
-            _gravitySwitcher = GetComponent<PlayerGravityHandler>();
             _sound = GetComponent<PlayerSounds>();
         }
 
@@ -62,48 +60,48 @@ namespace Player
                     if (_wallCollisions.IsTouchHorizontalWall)
                     {
                         PerformCornerJump(
-                            new Vector2(-_cornerJumpForce * _cornerJumpModifier, _cornerJumpForce), Direction.Left);
+                            new Vector2(-_cornerJumpForce * _cornerJumpModifier, _cornerJumpForce));
                     }
                     else if (_wallCollisions.IsTouchVerticalWall)
                     {
                         PerformCornerJump(
-                            new Vector2(_cornerJumpForce, -_cornerJumpForce * _cornerJumpModifier), Direction.Down);
+                            new Vector2(_cornerJumpForce, -_cornerJumpForce * _cornerJumpModifier));
                     }
                     break;
                 case Corner.BottomRight:
                     if (_wallCollisions.IsTouchHorizontalWall)
                     {
                         PerformCornerJump(
-                            new Vector2(_cornerJumpForce * _cornerJumpModifier, _cornerJumpForce), Direction.Right);
+                            new Vector2(_cornerJumpForce * _cornerJumpModifier, _cornerJumpForce));
                     }
                     else if (_wallCollisions.IsTouchVerticalWall)
                     {
                         PerformCornerJump(
-                            new Vector2(-_cornerJumpForce, -_cornerJumpForce * _cornerJumpModifier), Direction.Down);
+                            new Vector2(-_cornerJumpForce, -_cornerJumpForce * _cornerJumpModifier));
                     }
                     break;
                 case Corner.UpperLeft:
                     if (_wallCollisions.IsTouchHorizontalWall)
                     {
                         PerformCornerJump(
-                            new Vector2(-_cornerJumpForce * _cornerJumpModifier, -_cornerJumpForce), Direction.Left);
+                            new Vector2(-_cornerJumpForce * _cornerJumpModifier, -_cornerJumpForce));
                     }
                     else if (_wallCollisions.IsTouchVerticalWall)
                     {
                         PerformCornerJump(
-                            new Vector2(_cornerJumpForce, _cornerJumpForce * _cornerJumpModifier), Direction.Up);
+                            new Vector2(_cornerJumpForce, _cornerJumpForce * _cornerJumpModifier));
                     }
                     break;
                 case Corner.UpperRight:
                     if (_wallCollisions.IsTouchHorizontalWall)
                     {
                         PerformCornerJump(
-                            new Vector2(_cornerJumpForce * _cornerJumpModifier, -_cornerJumpForce), Direction.Right);
+                            new Vector2(_cornerJumpForce * _cornerJumpModifier, -_cornerJumpForce));
                     }
                     else if (_wallCollisions.IsTouchVerticalWall)
                     {
                         PerformCornerJump(
-                            new Vector2(-_cornerJumpForce, _cornerJumpForce * _cornerJumpModifier), Direction.Up);
+                            new Vector2(-_cornerJumpForce, _cornerJumpForce * _cornerJumpModifier));
                     }
                     break;
                 default:
@@ -111,10 +109,9 @@ namespace Player
             }
         }
 
-        private void PerformCornerJump(Vector2 speed, Direction newGravity)
+        private void PerformCornerJump(Vector2 speed)
         {
             _rig.velocity = speed;
-            _gravitySwitcher.SwitchLocalGravity(newGravity);
             _sound.CornerJump();
         }
     }
