@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using Player;
 using UnityEngine;
-using Wall;
 using Random = UnityEngine.Random;
 
 namespace Spawn

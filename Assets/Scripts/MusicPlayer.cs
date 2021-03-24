@@ -45,14 +45,7 @@ public class MusicPlayer : MonoBehaviour
 
     private void PlayerCollisions_OnPlayerDeath(bool deathOfFire)
     {
-        if (deathOfFire)
-        {
-            AudioSource.PlayClipAtPoint(_deathOfFire, Camera.main.transform.position);
-        }
-        else
-        {
-            AudioSource.PlayClipAtPoint(_deathOfEnemy, Camera.main.transform.position);
-        }
+        AudioSource.PlayClipAtPoint(deathOfFire ? _deathOfFire : _deathOfEnemy, Camera.main.transform.position);
     }
 
     private IEnumerator FadeOutCurrentAndStartNewClip(AudioClip clip)
