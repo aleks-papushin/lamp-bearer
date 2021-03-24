@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Resources;
 using UnityEngine;
 using Utils;
@@ -11,14 +12,14 @@ namespace Player
         [SerializeField] private float _defaultRotationSpeed = 1000f;
         private float _rotationSpeed;
 
-        private Rigidbody2D _rig;
+        private PlayerGravityHandler _gravityHandler;
         private PlayerWallCollisions _groundedStateHandler;
 
         private void Awake()
         {
             _rotationSpeed = _defaultRotationSpeed;
             _groundedStateHandler = GetComponent<PlayerWallCollisions>();
-            _rig = GetComponent<Rigidbody2D>();
+            _gravityHandler = GetComponent<PlayerGravityHandler>();
         }
 
         private void Update()
@@ -30,7 +31,7 @@ namespace Player
 
         private void RotateTowardTheWall()
         {
-            var ground = GetFloorFor(_rig.velocity);
+            var ground = GetFloorFor(_gravityHandler.GravityVector);
             var distanceToGround = transform.GetDistanceTo(ground);
             if (distanceToGround < _startRotationDistance)
             {
@@ -51,13 +52,16 @@ namespace Player
                     Time.deltaTime * _rotationSpeed);
         }
         
-        private static GameObject GetFloorFor(Vector2 velocity)
+        private static GameObject GetFloorFor(Direction gravityDirection)
         {
-            if (velocity.x > 0) return GameObject.FindGameObjectWithTag(Tags.RightWall);
-            if (velocity.x < 0) return GameObject.FindGameObjectWithTag(Tags.LeftWall);
-            if (velocity.y < 0) return GameObject.FindGameObjectWithTag(Tags.BottomWall);
-            if (velocity.y > 0) return GameObject.FindGameObjectWithTag(Tags.UpperWall);
-            return null;
+            return gravityDirection switch
+            {
+                Direction.Down => GameObject.FindGameObjectWithTag(Tags.BottomWall),
+                Direction.Left => GameObject.FindGameObjectWithTag(Tags.LeftWall),
+                Direction.Up => GameObject.FindGameObjectWithTag(Tags.UpperWall),
+                Direction.Right => GameObject.FindGameObjectWithTag(Tags.RightWall),
+                _ => throw new ArgumentOutOfRangeException(nameof(gravityDirection), gravityDirection, null)
+            };
         }
     }
 }
