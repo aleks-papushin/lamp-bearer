@@ -38,13 +38,13 @@ namespace Game
 
         private IEnumerator WallsDangerousnessCoroutine()
         {
-            int dangerWallsCurrently = 0;
+            var dangerWallsCurrently = 0;
 
             while (true)
             {
                 yield return new WaitForSeconds(0.1f);
 
-                List<WallDanger> wallsToBeDangerous = _walls.Where(w => w.CanBeDangerous).ToList();
+                var wallsToBeDangerous = _walls.Where(w => w.CanBeDangerous).ToList();
                 if (wallsToBeDangerous.Count == 0)
                 {
                     yield return new WaitForSeconds(1);

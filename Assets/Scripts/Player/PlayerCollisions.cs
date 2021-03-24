@@ -76,7 +76,7 @@ namespace Player
 
         private void OnDestroy()
         {
-            OnPlayerDeath(_deathOfFire);
+            OnPlayerDeath?.Invoke(_deathOfFire);
         }
     }
 }

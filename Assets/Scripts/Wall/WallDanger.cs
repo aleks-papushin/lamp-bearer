@@ -14,7 +14,7 @@ namespace Wall
         private const float WaitingDangerAnimationEndingInterval = 0.4f;
 
         public bool IsDangerous { get; private set; }
-        public bool CanBeDangerous { get; set; } = true;
+        public bool CanBeDangerous { get; private set; } = true;
 
         private void Start()
         {
