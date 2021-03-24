@@ -13,12 +13,15 @@ namespace Player
         [SerializeField] private float _forbidDirectionChangingDistance;
         [SerializeField] private PlayerSounds _playerSounds;
         [SerializeField] private PlayerGravityHandler _gravityHandler;
+        [SerializeField] private float _accelerationMultiplier = 2f;
+        [SerializeField] private bool _acceleratedFeatureEnabled;
         
         private bool _isJumpAxisWasIdle = true;
         private bool _directionWasChangedInJump;
         private PlayerWallCollisions _playerWallCollisions;
         private Rigidbody2D _rig;
         private bool _isSideAxisWasHeld;
+        private bool _accelerated;
 
         private static bool IsInputHorizontalNegative => Input.GetAxisRaw("Horizontal") < 0;
         private static bool IsInputHorizontalPositive => Input.GetAxisRaw("Horizontal") > 0;
@@ -43,6 +46,7 @@ namespace Player
         private void Update()
         {
             HandleJumping();
+            ApplyAcceleration();
             HandleInAirDirectionChanging();
         }
         
@@ -55,10 +59,18 @@ namespace Player
         {
             if (!collision.gameObject.tag.Contains(Tags.WallSuffix)) return;
             _rig.velocity = Vector2.zero;
+            _accelerated = false;
             _directionWasChangedInJump = false;
             _playerSounds.Landing();
         }
 
+        private void ApplyAcceleration()
+        {
+            if (!_acceleratedFeatureEnabled ||_playerWallCollisions.IsGrounded || !Input.GetButtonDown("Jump")) return;
+            _rig.velocity *= _accelerated ? 1/_accelerationMultiplier : _accelerationMultiplier;
+            _accelerated = !_accelerated;
+        }
+        
         private void HandleJumping()
         {
             if (_isJumpAxisWasIdle && Input.GetAxisRaw("Jump") > 0)
