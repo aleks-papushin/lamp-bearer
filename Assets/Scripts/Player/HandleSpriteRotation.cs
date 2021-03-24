@@ -2,7 +2,6 @@
 using Resources;
 using UnityEngine;
 using Utils;
-using Wall;
 
 namespace Player
 {
@@ -12,14 +11,14 @@ namespace Player
         [SerializeField] private float _defaultRotationSpeed = 1000f;
         private float _rotationSpeed;
 
-        private PlayerGravityHandler _gravityHandler;
+        private Rigidbody2D _rig;
         private PlayerWallCollisions _groundedStateHandler;
 
         private void Awake()
         {
             _rotationSpeed = _defaultRotationSpeed;
             _groundedStateHandler = GetComponent<PlayerWallCollisions>();
-            _gravityHandler = GetComponent<PlayerGravityHandler>();
+            _rig = GetComponent<Rigidbody2D>();
         }
 
         private void Update()
@@ -31,7 +30,7 @@ namespace Player
 
         private void RotateTowardTheWall()
         {
-            var ground = DirectionUtils.GetFloorFor(_gravityHandler.GravityVector);
+            var ground = GetFloorFor(_rig.velocity);
             var distanceToGround = transform.GetDistanceTo(ground);
             if (distanceToGround < _startRotationDistance)
             {
@@ -50,6 +49,15 @@ namespace Player
             transform.rotation =
                 Quaternion.RotateTowards(transform.rotation, floorAnchor.transform.rotation,
                     Time.deltaTime * _rotationSpeed);
+        }
+        
+        private static GameObject GetFloorFor(Vector2 velocity)
+        {
+            if (velocity.x > 0) return GameObject.FindGameObjectWithTag(Tags.RightWall);
+            if (velocity.x < 0) return GameObject.FindGameObjectWithTag(Tags.LeftWall);
+            if (velocity.y < 0) return GameObject.FindGameObjectWithTag(Tags.BottomWall);
+            if (velocity.y > 0) return GameObject.FindGameObjectWithTag(Tags.UpperWall);
+            return null;
         }
     }
 }

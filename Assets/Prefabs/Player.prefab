@@ -111,7 +111,6 @@ GameObject:
   - component: {fileID: 1495898472663841162}
   - component: {fileID: 6660765314491143587}
   - component: {fileID: 58495398863989835}
-  - component: {fileID: 1068632376935203733}
   - component: {fileID: 2789588611599096974}
   - component: {fileID: 7037271132069420273}
   - component: {fileID: 1427484700431134808}
@@ -388,7 +387,6 @@ MonoBehaviour:
   _jumpForce: 11
   _forbidDirectionChangingDistance: 1.5
   _playerSounds: {fileID: 1495898472663841162}
-  _gravityHandler: {fileID: 1068632376935203733}
 --- !u!114 &8311341827810949518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,18 +476,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cornerJumpForce: 8
   _cornerJumpModifier: 0.3
---- !u!114 &1068632376935203733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894497229938108207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e2b78b0aaf0b884fb23381464616c35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2789588611599096974
 MonoBehaviour:
   m_ObjectHideFlags: 0
