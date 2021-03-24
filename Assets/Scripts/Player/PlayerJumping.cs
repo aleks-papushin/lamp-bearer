@@ -12,6 +12,7 @@ namespace Player
         [SerializeField] private float _jumpForce;
         [SerializeField] private float _forbidDirectionChangingDistance;
         [SerializeField] private PlayerSounds _playerSounds;
+        [SerializeField] private PlayerGravityHandler _gravityHandler;
         
         private bool _isJumpAxisWasIdle = true;
         private bool _directionWasChangedInJump;
@@ -36,6 +37,7 @@ namespace Player
         {
             _rig = GetComponent<Rigidbody2D>();
             _playerWallCollisions = GetComponent<PlayerWallCollisions>();
+            _gravityHandler.SwitchLocalGravity(Direction.Down);
         }
 
         private void Update()
@@ -110,7 +112,7 @@ namespace Player
                 Direction.Up => Vector2.up,
                 _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
             };
-            
+            _gravityHandler.SwitchLocalGravity(direction);
             _rig.velocity = jumpVector * _jumpForce;
             _playerSounds.Jump(fromGround);
             SetIsSideAxisHeld();
