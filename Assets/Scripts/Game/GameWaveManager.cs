@@ -44,29 +44,30 @@ namespace Game
             string wave;
             var gameWaves = new List<GameWaveDto>();
 
+            var waveNumber = 0;
             while ((wave = file.ReadLine()) != null)
             {
-                gameWaves.Add(ParseWave(wave));
+                gameWaves.Add(ParseWave(waveNumber++, wave));
             }
 
             return gameWaves;
         }
 
-        private static GameWaveDto ParseWave(string waveString)
+        private static GameWaveDto ParseWave(int waveNumber, string waveString)
         {
             var wave = waveString.Split(',');
 
             return new GameWaveDto
             {
-                number = int.Parse(wave[0]),
-                wallWarningInterval = float.Parse(wave[1], CultureInfo.InvariantCulture),
-                wallDangerousInterval = float.Parse(wave[2], CultureInfo.InvariantCulture),
-                wallCoolDownInterval = float.Parse(wave[3], CultureInfo.InvariantCulture),
-                dangerWallAmount = int.Parse(wave[4]),
-                enemyCount = int.Parse(wave[5]),
-                enemySpeed = float.Parse(wave[6], CultureInfo.InvariantCulture),
-                isOilAffectLight = int.Parse(wave[7]) != 0,
-                waveDuration = float.Parse(wave[8], CultureInfo.InvariantCulture)
+                number = waveNumber,
+                wallWarningInterval = float.Parse(wave[0], CultureInfo.InvariantCulture),
+                wallDangerousInterval = float.Parse(wave[1], CultureInfo.InvariantCulture),
+                wallCoolDownInterval = float.Parse(wave[2], CultureInfo.InvariantCulture),
+                dangerWallAmount = int.Parse(wave[3]),
+                enemyCount = int.Parse(wave[4]),
+                enemySpeed = float.Parse(wave[5], CultureInfo.InvariantCulture),
+                isOilAffectLight = int.Parse(wave[6]) != 0,
+                waveDuration = float.Parse(wave[7], CultureInfo.InvariantCulture)
             };
         }
     }
