@@ -25,8 +25,8 @@ namespace Wall
         public IEnumerator BecameDangerousCoroutine(
             Action decrementDangerWallsCounter, 
             float wallWarningInterval, 
-            float _wallDangerousInterval, 
-            float _wallCoolDownInterval)
+            float wallDangerousInterval, 
+            float wallCoolDownInterval)
         {
             CanBeDangerous = false;
 
@@ -43,12 +43,12 @@ namespace Wall
             _lighting.SetDanger();
             IsDangerous = true;
 
-            yield return new WaitForSeconds(_wallDangerousInterval);
+            yield return new WaitForSeconds(wallDangerousInterval);
 
             BecameSafe();
             decrementDangerWallsCounter.Invoke();
 
-            yield return new WaitForSeconds(_wallCoolDownInterval);
+            yield return new WaitForSeconds(wallCoolDownInterval);
 
             CanBeDangerous = true;
         }
