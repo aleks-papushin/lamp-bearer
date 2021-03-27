@@ -11,6 +11,7 @@ namespace Game
     {
         private List<GameWaveDto> _waveList;
         private int _maxWaveNumber;
+        private float _timeTillLightsOff;
 
         [SerializeField] private Difficulty[] _difficulties;
         
@@ -53,9 +54,15 @@ namespace Game
             return gameWaves;
         }
 
-        private static GameWaveDto ParseWave(int waveNumber, string waveString)
+        private GameWaveDto ParseWave(int waveNumber, string waveString)
         {
             var wave = waveString.Split(',');
+            var isOilAffectLight = int.Parse(wave[6]) != 0;
+            var waveDuration = float.Parse(wave[7], CultureInfo.InvariantCulture);
+            if (!isOilAffectLight)
+            {
+                _timeTillLightsOff += waveDuration;
+            }
 
             return new GameWaveDto
             {
@@ -66,9 +73,14 @@ namespace Game
                 dangerWallAmount = int.Parse(wave[3]),
                 enemyCount = int.Parse(wave[4]),
                 enemySpeed = float.Parse(wave[5], CultureInfo.InvariantCulture),
-                isOilAffectLight = int.Parse(wave[6]) != 0,
-                waveDuration = float.Parse(wave[7], CultureInfo.InvariantCulture)
+                isOilAffectLight = isOilAffectLight,
+                waveDuration = waveDuration
             };
+        }
+
+        public float GetTimeTillLightsOff()
+        {
+            return _timeTillLightsOff;
         }
     }
 }
