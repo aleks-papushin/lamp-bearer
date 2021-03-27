@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jump: {fileID: 8300000, guid: 77817a315f9fe104cb9b55551a942ea3, type: 3}
-  _airTurning: {fileID: 8300000, guid: 638a46c3276d59d47aaa45cb1a6ff857, type: 3}
+  _airTurning: {fileID: 8300000, guid: 104465ea990d55248835cdf89cd2de83, type: 3}
   _jumpToSide:
   - {fileID: 8300000, guid: 7aad90a5c407d4141a5296af77298895, type: 3}
   - {fileID: 8300000, guid: 318ae1791ef0a7f4f89a275ebb20541a, type: 3}
