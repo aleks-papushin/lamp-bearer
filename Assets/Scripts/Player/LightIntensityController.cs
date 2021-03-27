@@ -33,7 +33,7 @@ namespace Player
             }
         }
 
-        public bool OilAffectsLightInCurrentWave => _waveManager.CurrentWave.isOilAffectLight;
+        public bool OilAffectsLightInCurrentWave => _waveManager != null && _waveManager.CurrentWave.isOilAffectLight;
         public bool ShouldChangeLightMode => _oilAffectedLightInPreviouisWave != OilAffectsLightInCurrentWave;
 
         private void Start()
