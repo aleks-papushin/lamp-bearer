@@ -389,6 +389,8 @@ MonoBehaviour:
   _forbidDirectionChangingDistance: 1.5
   _playerSounds: {fileID: 1495898472663841162}
   _gravityHandler: {fileID: 1068632376935203733}
+  _accelerationMultiplier: 2
+  _acceleratedFeatureEnabled: 1
 --- !u!114 &8311341827810949518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,7 +416,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910ca1c91a3bf84190c212c423f1ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerSounds: {fileID: 1495898472663841162}
 --- !u!114 &1495898472663841162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,7 +423,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894497229938108207}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99ae4a1ca0332d843ad09b2e52fe9f12, type: 3}
   m_Name: 

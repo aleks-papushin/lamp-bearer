@@ -9,8 +9,9 @@ namespace Player
         [SerializeField] private AudioClip _airTurning;
         [SerializeField] private AudioClip[] _jumpToSide;
         [SerializeField] private AudioClip[] _landing;
-
         [SerializeField] private AudioSource _playerAudio;
+
+        private bool _gameStarted;
 
         public void CornerJump()
         {
@@ -31,12 +32,15 @@ namespace Player
 
         public void Landing()
         {
+            if (!_gameStarted)
+            {
+                _gameStarted = true;
+                return;
+            }
+
             _playerAudio.PlayOneShot(PickRandom(_landing));
         }
 
-        private static AudioClip PickRandom(IReadOnlyList<AudioClip> clip)
-        {
-            return clip[Random.Range(0, clip.Count)];
-        }
+        private AudioClip PickRandom(IReadOnlyList<AudioClip> clip) => clip[Random.Range(0, clip.Count)];
     }
 }
