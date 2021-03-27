@@ -9,7 +9,7 @@ namespace Player
 {
     public class PlayerJumping : MonoBehaviour
     {
-        [SerializeField] private float _jumpForce;
+        [SerializeField] private float _initialJumpSpeed = 11f;
         [SerializeField] private float _forbidDirectionChangingDistance;
         [SerializeField] private PlayerSounds _playerSounds;
         [SerializeField] private PlayerGravityHandler _gravityHandler;
@@ -125,7 +125,7 @@ namespace Player
                 _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
             };
             _gravityHandler.SwitchLocalGravity(direction);
-            _rig.velocity = jumpVector * _jumpForce;
+            _rig.velocity = fromGround ? jumpVector * _initialJumpSpeed : _rig.velocity.magnitude * jumpVector;
             _playerSounds.Jump(fromGround);
             SetIsSideAxisHeld();
         }
