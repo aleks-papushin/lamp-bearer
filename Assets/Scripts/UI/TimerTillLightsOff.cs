@@ -14,7 +14,6 @@ namespace UI
         {
             _timeRemains = FindObjectOfType<GameWaveManager>().GetTimeTillLightsOff();
             _text = GetComponent<TextMeshProUGUI>();
-            _text.text = _timeRemains.ToString("F0");
             PlayerCollisions.OnPlayerDeath += DestroyObject;
         }
     
