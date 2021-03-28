@@ -12,7 +12,7 @@ namespace UI
 
         private void Start()
         {
-            _timeRemains = FindObjectOfType<GameWaveManager>().GetTimeTillLightsOff();
+            _timeRemains = FindObjectOfType<GameWaveManager>().TimeTillLightsOff;
             _text = GetComponent<TextMeshProUGUI>();
             PlayerCollisions.OnPlayerDeath += DestroyObject;
         }
