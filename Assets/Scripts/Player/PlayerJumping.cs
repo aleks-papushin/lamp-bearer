@@ -14,7 +14,6 @@ namespace Player
         [SerializeField] private PlayerSounds _playerSounds;
         [SerializeField] private PlayerGravityHandler _gravityHandler;
         [SerializeField] private float _accelerationMultiplier = 2f;
-        [SerializeField] private bool _acceleratedFeatureEnabled;
         
         private bool _isJumpAxisWasIdle = true;
         private bool _directionWasChangedInJump;
@@ -62,13 +61,7 @@ namespace Player
 
         private void ApplyAcceleration()
         {
-            if (!_acceleratedFeatureEnabled || 
-                _playerWallCollisions.IsGrounded || 
-                !Input.GetButtonDown("Jump") || 
-                _accelerated)
-            {
-                return;
-            }
+            if (_playerWallCollisions.IsGrounded || !Input.GetButtonDown("Jump") || _accelerated) return;
 
             _rig.velocity *= _accelerationMultiplier;
             _accelerated = true;
