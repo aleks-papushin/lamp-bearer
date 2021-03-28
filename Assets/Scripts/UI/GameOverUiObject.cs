@@ -34,7 +34,7 @@ namespace UI
         private void PlayerCollisions_OnPlayerDied(bool deathOfFire)
         {
             gameObject.SetActive(true);
-            _textMesh.text = $"Your Score: {_gameStatus.getScore()}";
+            _textMesh.text = $"Your Score: {_gameStatus.Score}";
         }
 
         private static void RestartGame()
