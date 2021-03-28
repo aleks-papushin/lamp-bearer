@@ -15,11 +15,13 @@ namespace Game
 
         [SerializeField] private Difficulty[] _difficulties;
         
+        public static GameDifficulty GameDifficulty { get; set; }
+
+        public GameWaveDto CurrentWave => _waveList[CurrentNumber];
+        public float TimeTillLightsOff => _timeTillLightsOff;
         private int CurrentNumber { get; set; }
         private bool IsCurrentWaveLast => CurrentNumber >= _maxWaveNumber;
 
-        public static GameDifficulty GameDifficulty { get; set; }
-        public GameWaveDto CurrentWave => _waveList[CurrentNumber];
 
         public void Awake()
         {
@@ -78,9 +80,5 @@ namespace Game
             };
         }
 
-        public float GetTimeTillLightsOff()
-        {
-            return _timeTillLightsOff;
-        }
     }
 }
