@@ -28,13 +28,9 @@ namespace Player
         private static bool IsInputVerticalNegative => Input.GetAxisRaw("Vertical") < 0;
         private static bool IsInputVerticalPositive => Input.GetAxisRaw("Vertical") > 0;
 
-        private bool IsDistanceToAnyFloorForbidsChange
-        {
-            get
-            {
-                return FindObjectsOfType<WallDanger>().Any(wall => transform.GetDistanceTo(wall.gameObject)  < _forbidDirectionChangingDistance);
-            }
-        }
+        private bool IsDistanceToAnyFloorForbidsChange => 
+            FindObjectsOfType<WallDanger>()
+            .Any(wall => transform.GetDistanceTo(wall.gameObject) < _forbidDirectionChangingDistance);
 
         private void Start()
         {
@@ -66,9 +62,16 @@ namespace Player
 
         private void ApplyAcceleration()
         {
-            if (!_acceleratedFeatureEnabled ||_playerWallCollisions.IsGrounded || !Input.GetButtonDown("Jump")) return;
-            _rig.velocity *= _accelerated ? 1/_accelerationMultiplier : _accelerationMultiplier;
-            _accelerated = !_accelerated;
+            if (!_acceleratedFeatureEnabled || 
+                _playerWallCollisions.IsGrounded || 
+                !Input.GetButtonDown("Jump") || 
+                _accelerated)
+            {
+                return;
+            }
+
+            _rig.velocity *= _accelerationMultiplier;
+            _accelerated = true;
         }
         
         private void HandleJumping()
