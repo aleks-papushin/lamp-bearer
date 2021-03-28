@@ -34,5 +34,10 @@ namespace UI
         {
             Destroy(gameObject);
         }
+
+        private void OnDestroy()
+        {
+            PlayerCollisions.OnPlayerDeath -= DestroyObject;
+        }
     }
 }
