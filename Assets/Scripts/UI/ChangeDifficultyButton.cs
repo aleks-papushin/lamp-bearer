@@ -12,7 +12,7 @@ namespace UI
     {
         public TMP_Text difficultyLabel;
         private List<Button> _changeDifficultyButtons = new List<Button>();
-        private bool _horAxisWasZero = true;
+        private bool _horAxisWasZero;
 
         private static string DifficultyLabelText => $"{GameWaveManager.GameDifficulty} Mode";
 
@@ -28,6 +28,7 @@ namespace UI
             GameWaveManager.GameDifficulty = 
                 GameWaveManager.GameDifficulty == GameDifficulty.Easy ? GameDifficulty.Hard : GameDifficulty.Easy;
             difficultyLabel.text = DifficultyLabelText;
+            _horAxisWasZero = Input.GetAxisRaw("Horizontal") != 0;
         }
         
         private void Update()
