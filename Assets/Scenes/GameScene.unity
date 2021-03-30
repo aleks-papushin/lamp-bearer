@@ -2937,6 +2937,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7594728492122892526, guid: 6f9292fcadbca49d3ace4dbdf649c30f, type: 3}
+      propertyPath: _intro
+      value: 
+      objectReference: {fileID: 8300000, guid: 88e2b2a40352d484abec5df424ec8fc4, type: 3}
+    - target: {fileID: 7594728492122892526, guid: 6f9292fcadbca49d3ace4dbdf649c30f, type: 3}
+      propertyPath: _gameMusic.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 45a566689b2ade2419c73ef6795cf354, type: 3}
+    - target: {fileID: 7594728492122892526, guid: 6f9292fcadbca49d3ace4dbdf649c30f, type: 3}
+      propertyPath: _gameMusic.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 64bcd36ec7adba74997f88e23468d7b1, type: 3}
     - target: {fileID: 7594728492122892527, guid: 6f9292fcadbca49d3ace4dbdf649c30f, type: 3}
       propertyPath: m_Name
       value: MusicPlayer
