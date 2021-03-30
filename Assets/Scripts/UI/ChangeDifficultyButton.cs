@@ -21,6 +21,7 @@ namespace UI
             _changeDifficultyButtons = GetComponentsInChildren<Button>().ToList();
             _changeDifficultyButtons.ForEach(b => b.onClick.AddListener(ChangeDifficulty));
             difficultyLabel.text = DifficultyLabelText;
+            _horAxisWasZero = Input.GetAxisRaw("Horizontal") != 0;
         }
 
         private void ChangeDifficulty()
@@ -28,7 +29,6 @@ namespace UI
             GameWaveManager.GameDifficulty = 
                 GameWaveManager.GameDifficulty == GameDifficulty.Easy ? GameDifficulty.Hard : GameDifficulty.Easy;
             difficultyLabel.text = DifficultyLabelText;
-            _horAxisWasZero = Input.GetAxisRaw("Horizontal") != 0;
         }
         
         private void Update()
