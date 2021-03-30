@@ -15,7 +15,7 @@ namespace Player
         [SerializeField] private PlayerGravityHandler _gravityHandler;
         [SerializeField] private float _accelerationMultiplier = 2f;
         
-        private bool _isJumpAxisWasIdle = true;
+        private bool _isJumpAxisWasIdle;
         private bool _directionWasChangedInJump;
         private PlayerWallCollisions _playerWallCollisions;
         private Rigidbody2D _rig;
