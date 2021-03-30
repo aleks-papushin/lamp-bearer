@@ -12,6 +12,7 @@ namespace UI
         private GameStatus _gameStatus;
         private TextMeshProUGUI _textMesh;
         private Button _restartButton;
+        private bool _submitWasPressed;
 
         private void Start()
         {
@@ -20,12 +21,18 @@ namespace UI
             _restartButton = GetComponentInChildren<Button>();
             _restartButton.onClick.AddListener(RestartGame);
             PlayerCollisions.OnPlayerDeath += PlayerCollisions_OnPlayerDied;
+            _submitWasPressed = Input.GetButtonDown("Submit");
             gameObject.SetActive(false);
         }
 
         private void Update()
         {
-            if (Input.GetButtonDown("Submit"))
+            if (_submitWasPressed && Input.GetButtonUp("Submit"))
+            {
+                _submitWasPressed = false;
+            }
+            
+            if (!_submitWasPressed && Input.GetButtonDown("Submit"))
             {
                 RestartGame();
             }
