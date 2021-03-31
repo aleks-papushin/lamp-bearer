@@ -9,8 +9,8 @@ public class MusicPlayer : MonoBehaviour
     [SerializeField] private AudioClip[] _gameMusic;
     [SerializeField] private AudioClip _deathOfFire;
     [SerializeField] private AudioClip _deathOfEnemy;
+    [SerializeField] [Range(0,1)] private float _initialMusicVolume = 0.25f;
 
-    private readonly float _defaultMusicVolume = 0.25f;
     private float _currentVolume;
     private AudioSource _musicSource;
 
@@ -30,7 +30,7 @@ public class MusicPlayer : MonoBehaviour
     private void Start()
     {
         _musicSource = gameObject.GetComponent<AudioSource>();
-        _musicSource.volume = _defaultMusicVolume;
+        _musicSource.volume = _initialMusicVolume;
         _currentVolume = _musicSource.volume;
         PlayLoop(_musicSource, _intro);
         StartButton.OnGameStarted += StartButton_OnGameStarted;

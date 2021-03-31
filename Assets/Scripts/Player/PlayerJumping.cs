@@ -9,10 +9,12 @@ namespace Player
 {
     public class PlayerJumping : MonoBehaviour
     {
-        [SerializeField] private float _initialJumpSpeed = 11f;
-        [SerializeField] private float _forbidDirectionChangingDistance;
         [SerializeField] private PlayerSounds _playerSounds;
         [SerializeField] private PlayerGravityHandler _gravityHandler;
+        
+        [Header("Jumping")]
+        [SerializeField] private float _initialJumpSpeed = 11f;
+        [SerializeField] private float _forbidDirectionChangingDistance;
         [SerializeField] private float _accelerationMultiplier = 2f;
         
         private bool _isJumpAxisWasIdle;

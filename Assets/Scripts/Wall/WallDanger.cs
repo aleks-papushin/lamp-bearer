@@ -6,9 +6,8 @@ namespace Wall
 {
     public class WallDanger : MonoBehaviour
     {
-        private readonly float _defaultVolume = 0.2f;
-
         [SerializeField] private AudioClip _dangerSound;
+        [SerializeField] [Range(0, 1)] private float _volume = 0.2f;
         private WallLighting _lighting;
         private WallAnimation _animation;
         private const float WaitingDangerAnimationEndingInterval = 0.4f;
@@ -36,7 +35,7 @@ namespace Wall
             yield return new WaitForSeconds(wallWarningInterval);
 
             _animation.BecameDanger();
-            AudioSource.PlayClipAtPoint(_dangerSound, Camera.main.transform.position, _defaultVolume);
+            AudioSource.PlayClipAtPoint(_dangerSound, Camera.main.transform.position, _volume);
 
             yield return new WaitForSeconds(WaitingDangerAnimationEndingInterval);
 

@@ -8,9 +8,9 @@ namespace Oil
     public class Oil : MonoBehaviour
     {
         [SerializeField] private AudioClip[] _oilTaken;
+        [SerializeField] [Range(0,1)] private float _volume = 0.25f;
         private OilSpawnManager _oilSpawner;
         private GameStatus _gameStatus;
-        private float _defaultVolume = 0.25f;
 
         private void Start()
         {
@@ -21,7 +21,7 @@ namespace Oil
         private void OnTriggerEnter2D(Collider2D collision)
         {
             AudioSource.PlayClipAtPoint(
-                _oilTaken[Random.Range(0, _oilTaken.Length)], Camera.main.transform.position, _defaultVolume);
+                _oilTaken[Random.Range(0, _oilTaken.Length)], Camera.main.transform.position, _volume);
             _oilSpawner.SpawnNext();
             _gameStatus.AddToScore();
             Destroy(gameObject);
