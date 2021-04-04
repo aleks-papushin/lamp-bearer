@@ -1975,6 +1975,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1427484700431134808, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: _oilBottleModifier
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1894497229938108201, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
       propertyPath: m_RootOrder
       value: 2
