@@ -42,12 +42,12 @@ namespace Game
 
             while (true)
             {
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSecondsRealtime(0.1f);
 
                 var wallsToBeDangerous = _walls.Where(w => w.CanBeDangerous).ToList();
                 if (wallsToBeDangerous.Count == 0)
                 {
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSecondsRealtime(1);
                     continue;
                 }
 
@@ -64,8 +64,9 @@ namespace Game
                     _wallWarningInterval,
                     _wallDangerousInterval,
                     _wallCoolDownInterval));
+
+                yield return new WaitForSecondsRealtime(1);
             }
         }
     }
 }
-
