@@ -12,7 +12,7 @@ namespace Wall
         private void Start()
         {
             _light = GetComponent<Light>();
-            _warningIntensity = (int)(_dangerIntensity * 0.5);
+            _warningIntensity = (int)(_dangerIntensity * 0.8);
             gameObject.SetActive(false);
         }
 
