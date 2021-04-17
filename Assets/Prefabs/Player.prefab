@@ -385,12 +385,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d25f58899b8bc848a7440a5e898e2b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialJumpSpeed: 11
-  _forbidDirectionChangingDistance: 1.5
   _playerSounds: {fileID: 1495898472663841162}
   _gravityHandler: {fileID: 1068632376935203733}
+  _initialJumpSpeed: 11
+  _forbidDirectionChangingDistance: 1.5
   _accelerationMultiplier: 2
-  _acceleratedFeatureEnabled: 1
 --- !u!114 &8311341827810949518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,8 +531,8 @@ MonoBehaviour:
   _light: {fileID: 790109322}
   _easyModIntensity: 3
   _hardModInitIntensity: 0
-  _lightDecrement: 0.008
-  _oilBottleModifier: 1
+  _lightDecrement: 0.004
+  _oilBottleModifier: 2
   _maxLightIntensity: 3
   _dirLightMod: 0.275
 --- !u!95 &1447504297
