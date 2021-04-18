@@ -528,6 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c487a5fd5100a408b732ccabf44ffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dirLightMinimum: 1
   _light: {fileID: 790109322}
   _easyModIntensity: 3
   _hardModInitIntensity: 0

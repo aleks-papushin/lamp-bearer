@@ -8,8 +8,8 @@ namespace Player
     public class LightIntensityController : MonoBehaviour
     {
         private const float DecreasingIntervalSec = 0.025f;
-        private const float DirLightHardModeMin = 0;
 
+        [SerializeField] private float _dirLightMinimum;
         [SerializeField] private Light _light;
         [SerializeField] private float _easyModIntensity;
         [SerializeField] private float _hardModInitIntensity;
@@ -29,7 +29,15 @@ namespace Player
             set
             {
                 _light.intensity = value;
-                _dirLight.intensity = _light.intensity * _dirLightMod + DirLightHardModeMin;
+
+                if (!OilAffectsLightInCurrentWave)
+                {
+                    _dirLight.intensity = _dirLightMinimum;
+                }
+                else
+                {
+                    _dirLight.intensity = 0;
+                }
             }
         }
 
