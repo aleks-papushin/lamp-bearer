@@ -2023,6 +2023,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7037271132069420273, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
+      propertyPath: _startRotationDistance
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea57f811315040f41b4e1be33cc84dc0, type: 3}
 --- !u!1001 &1576583765

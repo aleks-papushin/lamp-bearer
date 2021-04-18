@@ -8,8 +8,8 @@ namespace Player
 {
     public class HandleSpriteRotation : MonoBehaviour
     {
-        [SerializeField] private float _startRotationDistance = 1f;
-        [SerializeField] private float _defaultRotationSpeed = 1000f;
+        [SerializeField] private float _startRotationDistance;
+        [SerializeField] private float _defaultRotationSpeed;
         private float _rotationSpeed;
 
         private PlayerGravityHandler _gravityHandler;
