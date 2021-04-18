@@ -85,7 +85,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -531,10 +531,10 @@ MonoBehaviour:
   _light: {fileID: 790109322}
   _easyModIntensity: 3
   _hardModInitIntensity: 0
-  _lightDecrement: 0.004
-  _oilBottleModifier: 2
+  _lightDecrement: 0.008
+  _oilBottleModifier: 1.5
   _maxLightIntensity: 3
-  _dirLightMod: 0.275
+  _dirLightMod: 0
 --- !u!95 &1447504297
 Animator:
   serializedVersion: 3
