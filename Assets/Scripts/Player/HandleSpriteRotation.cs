@@ -8,7 +8,7 @@ namespace Player
 {
     public class HandleSpriteRotation : MonoBehaviour
     {
-        [SerializeField] private float _startRotationDistance = 5f;
+        [SerializeField] private float _startRotationDistance = 1f;
         [SerializeField] private float _defaultRotationSpeed = 1000f;
         private float _rotationSpeed;
 
@@ -26,30 +26,37 @@ namespace Player
         {
             if (_groundedStateHandler.IsGrounded) return;
 
-            RotateTowardTheWall();
+            Rotate();
         }
 
-        private void RotateTowardTheWall()
+        private void Rotate()
         {
             var ground = GetFloorFor(_gravityHandler.GravityVector);
             var distanceToGround = transform.GetDistanceTo(ground);
+            Transform rotationAnchor;
+            _rotationSpeed = _defaultRotationSpeed;
+
             if (distanceToGround < _startRotationDistance)
             {
-                // 4 is magic number which is should be bigger than any GetDistanceTo(Ground)
-                var modifier = 4 / distanceToGround;
-                _rotationSpeed *= modifier;
+                if (distanceToGround < _startRotationDistance * 0.5)
+                {
+                    _rotationSpeed *= 9999;
+                }
+
+                rotationAnchor = ground.GetComponentsInChildren<Transform>()
+                    .Single(t => t.tag.Contains(Tags.AnchorSuffix));                
             }
             else
             {
-                _rotationSpeed = _defaultRotationSpeed;
+                rotationAnchor = GetFloorFor(OppositeTo(_gravityHandler.GravityVector))
+                    .GetComponentsInChildren<Transform>()
+                    .Single(t => t.tag.Contains(Tags.AnchorSuffix));
             }
 
-            var floorAnchor = ground.GetComponentsInChildren<Transform>()
-                .Single(t => t.tag.Contains(Tags.AnchorSuffix));
-
             transform.rotation =
-                Quaternion.RotateTowards(transform.rotation, floorAnchor.transform.rotation,
-                    Time.deltaTime * _rotationSpeed);
+                    Quaternion.RotateTowards(transform.rotation, rotationAnchor.transform.rotation,
+                        Time.deltaTime * _rotationSpeed);
+
         }
         
         private static GameObject GetFloorFor(Direction gravityDirection)
@@ -61,6 +68,18 @@ namespace Player
                 Direction.Up => GameObject.FindGameObjectWithTag(Tags.UpperWall),
                 Direction.Right => GameObject.FindGameObjectWithTag(Tags.RightWall),
                 _ => throw new ArgumentOutOfRangeException(nameof(gravityDirection), gravityDirection, null)
+            };
+        }
+
+        private static Direction OppositeTo(Direction gravityVector)
+        {
+            return gravityVector switch
+            {
+                Direction.Down => Direction.Up,
+                Direction.Left => Direction.Right,
+                Direction.Right => Direction.Left,
+                Direction.Up => Direction.Down,
+                _ => throw new NotImplementedException()
             };
         }
     }
