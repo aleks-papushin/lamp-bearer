@@ -732,6 +732,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4977498303859505071, guid: c42bdc9611b0db947a165adc455f1d6b, type: 3}
+      propertyPath: _dirLightMinimum
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5518680449650204888, guid: c42bdc9611b0db947a165adc455f1d6b, type: 3}
       propertyPath: m_Name
       value: Player Dummy
@@ -983,6 +987,10 @@ PrefabInstance:
     - target: {fileID: 6140240233708986476, guid: edcd7e90a265df044b9f2f63c4ba1a08, type: 3}
       propertyPath: m_Name
       value: Difficulty Object
+      objectReference: {fileID: 0}
+    - target: {fileID: 6140240233708986476, guid: edcd7e90a265df044b9f2f63c4ba1a08, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6140240233708986479, guid: edcd7e90a265df044b9f2f63c4ba1a08, type: 3}
       propertyPath: m_Pivot.x
